@@ -1,7 +1,13 @@
+using Oniria.Core.Application.DependencyInjection;
+using Oniria.Infrastructure.Persistence.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddApplicationDependency();
+builder.Services.AddPersistenceDependency(builder.Configuration);
+
 
 var app = builder.Build();
 
