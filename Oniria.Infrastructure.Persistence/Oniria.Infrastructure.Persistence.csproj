@@ -19,7 +19,7 @@
   <ItemGroup>
     <Folder Include="DependencyInjections\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Repositories\SqlServer\" />
+    <Folder Include="Repositories\Base\" />
   </ItemGroup>
 
 </Project>
