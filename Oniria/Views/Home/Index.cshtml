@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Oniria.Core.Domain.Entities
+@model List<GenderEntity>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,4 +9,11 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <img style="width: 100px; height:100px;" src="~/imagenes/cat.png" />
     <h1>larry...</h1>
+    <h1>
+        DATA FROM MODEL: 
+        @foreach (GenderEntity gender in Model)
+        {
+            <p>@gender.Description</p>
+        }
+    </h1>
 </div>

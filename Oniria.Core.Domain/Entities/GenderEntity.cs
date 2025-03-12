@@ -1,6 +1,6 @@
 ﻿namespace Oniria.Core.Domain.Entities
 {
-    public class Gender: BaseEntity
+    public class GenderEntity : BaseEntity
     {
         public string Description { get; set; }
     }

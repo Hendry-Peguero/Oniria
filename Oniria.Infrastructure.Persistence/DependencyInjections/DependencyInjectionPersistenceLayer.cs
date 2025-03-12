@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Oniria.Core.Application.Interfaces.Repositories;
+using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Gender;
 
 
 namespace Oniria.Infrastructure.Persistence.DependencyInjection
@@ -21,7 +23,7 @@ namespace Oniria.Infrastructure.Persistence.DependencyInjection
 
 
             // Repositories
-            //services.AddTransient<IPropertyRepository, PropertyRepository>();
+            services.AddTransient<IGenderRepository, GenderRepository>();
         }
     }
 }

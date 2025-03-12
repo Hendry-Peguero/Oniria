@@ -2,6 +2,6 @@
 {
     public interface GetByIdAsync<Entity, TypeId>
     {
-        abstract Task<Entity> GetByIdAsync(TypeId id);
+        abstract Task<Entity?> GetByIdAsync(TypeId id);
     }
 }

@@ -2,22 +2,19 @@
 {
     public abstract class BaseUseCaseResult {
         public bool IsSuccess { get; set; } = true;
-        public List<string> Errors { get; set; } = new();
+        public List<string> Messages { get; set; } = new();
 
 
         // Add error to the result
-        public BaseUseCaseResult AddError(string errorMessage)
+        public BaseUseCaseResult AddMessage(string errorMessage)
         {
-            Errors.Add(errorMessage);
-            Error();
+            Messages.Add(errorMessage);
             return this;
         }
-        public BaseUseCaseResult AddError(string[] errorsMessage)
+
+        public BaseUseCaseResult AddError(string errorMessage)
         {
-            foreach (var error in errorsMessage)
-            {
-                Errors.Add(error);
-            }
+            Messages.Add(errorMessage);
             Error();
             return this;
         }

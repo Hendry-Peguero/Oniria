@@ -2,6 +2,6 @@
 {
     public interface GetAllAsync<Entity>
     {
-        abstract Task<Entity[]> GetAllAsync(Entity entity);
+        abstract Task<List<Entity>> GetAllAsync();
     }
 }
