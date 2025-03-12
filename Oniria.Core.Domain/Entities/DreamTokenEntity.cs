@@ -8,9 +8,9 @@ namespace Oniria.Core.Domain.Entities
 {
   public  class DreamTokenEntity : BaseEntity 
     {
-        String PatientId { get; set; }
-        int? Amount { get; set; }
-        DateTime? RrefreshDate { get; set; }
+        public String PatientId { get; set; }
+        public int? Amount { get; set; }
+        public DateTime? RrefreshDate { get; set; }
 
     }
 }

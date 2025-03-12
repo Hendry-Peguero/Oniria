@@ -8,10 +8,10 @@ namespace Oniria.Core.Domain.Entities
 {
   public class OrganizationEntity : BaseEntity 
     {
-        String Name { get; set; }
-        String Address { get; set; }
-        String PhoneNumber  { get; set; }
+        public String Name { get; set; }
+        public String Address { get; set; }
+        public String PhoneNumber  { get; set; }
 
-        String EmployeeOwnerld { get; set; }
+        public String EmployeeOwnerld { get; set; }
     }
 }
