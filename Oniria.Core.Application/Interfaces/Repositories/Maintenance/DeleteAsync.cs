@@ -2,6 +2,6 @@
 {
     public interface DeleteAsync<TypeId>
     {
-        abstract Task UpdateAsync(TypeId id);
+        abstract Task DeleteAsync(TypeId id);
     }
 }
