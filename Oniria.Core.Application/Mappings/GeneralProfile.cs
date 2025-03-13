@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace DreamHouse.Core.Application.Mappings
+namespace Oniria.Core.Application.Mappings
 {
     public class GeneralProfile : Profile
     {
