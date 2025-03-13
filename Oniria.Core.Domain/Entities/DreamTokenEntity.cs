@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Oniria.Core.Domain.Entities
+﻿namespace Oniria.Core.Domain.Entities
 {
-  public  class DreamTokenEntity : BaseEntity 
+    public class DreamTokenEntity : BaseEntity
     {
         public string PatientId { get; set; }
         public int? Amount { get; set; }
-        public DateTime? RrefreshDate { get; set; }
-
+        public DateTime? RefreshDate { get; set; }
     }
 }
