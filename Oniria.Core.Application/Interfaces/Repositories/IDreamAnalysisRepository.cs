@@ -3,10 +3,12 @@ using Oniria.Core.Domain.Entities;
 
 namespace Oniria.Core.Application.Interfaces.Repositories
 {
-    public interface IGenderRepository :
-    GetAllAsync<GenderEntity>,
-    GetByIdAsync<GenderEntity, string>
+    public interface IDreamAnalysisRepository :
+    GetAllAsync<DreamAnalysisEntity>,
+    GetByIdAsync<DreamAnalysisEntity, string>,
+    CreateAsync<DreamAnalysisEntity>
     {
+
 
     }
 }

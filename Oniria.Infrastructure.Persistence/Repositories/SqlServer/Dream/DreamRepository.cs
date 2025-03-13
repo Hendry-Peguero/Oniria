@@ -1,10 +1,7 @@
 ﻿using DreamHouse.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Application.Interfaces.Repositories;
-using Oniria.Core.Application.Interfaces.Repositories.Maintenance;
 using Oniria.Core.Domain.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Oniria.Infrastructure.Persistence.Repositories
 {
@@ -33,6 +30,6 @@ namespace Oniria.Infrastructure.Persistence.Repositories
             this.context.Set<DreamEntity>().Add(dream);
             await this.context.SaveChangesAsync();
             return dream;
-        }  
+        }
     }
 }

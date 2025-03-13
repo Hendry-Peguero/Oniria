@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Oniria.Core.Domain.Entities
+﻿namespace Oniria.Core.Domain.Entities
 {
     public class MembershipEntity : BaseEntity
     {
