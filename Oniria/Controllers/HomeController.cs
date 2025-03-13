@@ -8,7 +8,7 @@ namespace Oniria.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var result = await Mediator.Send(new GetAllAsyncQuery());
+            var result = await Mediator.Send(new GetAllGenderAsyncQuery());
 
             return View(result.Data);
         }
