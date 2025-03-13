@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
 
-namespace DreamHouse.Infrastructure.Persistence.Contexts
+namespace Oniria.Infrastructure.Persistence.Contexts
 {
     public class ApplicationContext : DbContext
     {

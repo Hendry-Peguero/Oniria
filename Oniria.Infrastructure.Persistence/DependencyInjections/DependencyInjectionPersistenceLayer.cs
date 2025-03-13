@@ -1,4 +1,4 @@
-﻿using DreamHouse.Infrastructure.Persistence.Contexts;
+﻿using Oniria.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
