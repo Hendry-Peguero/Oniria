@@ -8,9 +8,9 @@ namespace Oniria.Core.Domain.Entities
 {
   public class DreamEntity : BaseEntity
     {
-        public String Title { get; set; }
-        public String Prompt { get; set; }
-        public String PatientId { get; set; }
-        public String DreamAnalysisId { get; set; }
+        public string Title { get; set; }
+        public string Prompt { get; set; }
+        public string PatientId { get; set; }
+        public string DreamAnalysisId { get; set; }
     }
 }

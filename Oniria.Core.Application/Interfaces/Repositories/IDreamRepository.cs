@@ -6,8 +6,9 @@ namespace Oniria.Core.Application.Interfaces.Repositories
 {
     public interface IDreamRepository :
     GetAllAsync<DreamEntity>,
-    GetByIdAsync<DreamEntity, string>
+    GetByIdAsync<DreamEntity, string>,
+    CreateAsync<DreamEntity>
     {
-        Task<DreamEntity> CreateAsync(DreamEntity dream);
     }
+    
 }

@@ -45,9 +45,6 @@ namespace Oniria.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        Task<DreamEntity> CreateAsync<DreamEntity>.CreateAsync(DreamEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }
