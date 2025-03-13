@@ -8,10 +8,10 @@ namespace Oniria.Core.Domain.Entities
 {
     public class DreamAnalysisEntity : BaseEntity
     {
-        public String Tite { get; set; }
-        public String EmotionalState { get; set; }
-        public String Recomendation { get; set; }
-        public String PatternBehaviour { get; set; }
+        public string Tite { get; set; }
+        public string EmotionalState { get; set; }
+        public string Recomendation { get; set; }
+        public string PatternBehaviour { get; set; }
 
     }
 }
