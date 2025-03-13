@@ -6,12 +6,11 @@ namespace Oniria.Core.Application.Interfaces.Repositories
 
 
     public interface IOrganizationRepository :
-    GetAllAsync<GenderEntity>,
-    GetByIdAsync<GenderEntity, string>,
-    CreateAsync<GenderEntity>,
-    UpdateAsync<GenderEntity>,
-    DeleteAsync<GenderEntity>
-
+    GetAllAsync<OrganizationEntity>,
+    GetByIdAsync<OrganizationEntity, string>,
+    CreateAsync<OrganizationEntity>,
+    UpdateAsync<OrganizationEntity>,
+    DeleteAsync<OrganizationEntity>
     {
 
     }

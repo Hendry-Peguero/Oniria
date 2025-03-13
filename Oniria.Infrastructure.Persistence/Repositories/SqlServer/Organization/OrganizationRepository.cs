@@ -19,29 +19,29 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization
             this.context = context;
         }
 
-        public Task<GenderEntity> CreateAsync(GenderEntity entity)
+        public Task<OrganizationEntity> CreateAsync(OrganizationEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<GenderEntity>> GetAllAsync()
+        public Task DeleteAsync(OrganizationEntity id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GenderEntity?> GetByIdAsync(string id)
+        public Task<List<OrganizationEntity>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<GenderEntity> UpdateAsync(GenderEntity entity)
+        public Task<OrganizationEntity?> GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        Task DeleteAsync<GenderEntity>.UpdateAsync(GenderEntity id)
+        public Task<OrganizationEntity> UpdateAsync(OrganizationEntity entity)
         {
-            return UpdateAsync(id);
+            throw new NotImplementedException();
         }
     }
 }
