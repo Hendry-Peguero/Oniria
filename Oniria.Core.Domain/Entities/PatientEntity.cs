@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Oniria.Core.Domain.Entities
+﻿namespace Oniria.Core.Domain.Entities
 {
-    public class PatientEntity: BaseEntity
+    public class PatientEntity : BaseEntity
     {
         public string Name { get; set; }
         public string LastName { get; set; }

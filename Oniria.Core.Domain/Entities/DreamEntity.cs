@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Oniria.Core.Domain.Entities
+﻿namespace Oniria.Core.Domain.Entities
 {
-  public class DreamEntity : BaseEntity
+    public class DreamEntity : BaseEntity
     {
-        public String Title { get; set; }
-        public String Prompt { get; set; }
-        public String PatientId { get; set; }
-        public String DreamAnalysisId { get; set; }
+        public string Title { get; set; }
+        public string Prompt { get; set; }
+        public string PatientId { get; set; }
+        public string DreamAnalysisId { get; set; }
     }
 }
