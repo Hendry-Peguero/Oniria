@@ -14,7 +14,7 @@ namespace Oniria.Core.Application.Features.Gender.Queries
 
         public GetAllAsyncQueryHandler(IGenderRepository genderRepository)
         {
-            this.genderRepository = genderRepository;
+            this.genderRepository = genderRepository; 
         }
 
         public async Task<UseCaseResult<List<GenderEntity>>> Handle(GetAllAsyncQuery request, CancellationToken cancellationToken)
