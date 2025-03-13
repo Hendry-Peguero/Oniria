@@ -18,12 +18,12 @@ namespace Oniria.Infrastructure.Persistence.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<DreamEntity>> GetAllAsync()
+        public async Task<List<DreamEntity>> GetAllAsync()
         {
             return await this.context.Set<DreamEntity>().ToListAsync();
         }
 
-        public async Task<DreamEntity> GetByIdAsync(string id)
+        public async Task<DreamEntity?> GetByIdAsync(string id)
         {
             return await this.context.Set<DreamEntity>().FindAsync(id);
         }
@@ -33,18 +33,6 @@ namespace Oniria.Infrastructure.Persistence.Repositories
             this.context.Set<DreamEntity>().Add(dream);
             await this.context.SaveChangesAsync();
             return dream;
-        }
-
-        Task<List<DreamEntity>> GetAllAsync<DreamEntity>.GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<DreamEntity?> GetByIdAsync<DreamEntity, string>.GetByIdAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-     
+        }  
     }
 }
