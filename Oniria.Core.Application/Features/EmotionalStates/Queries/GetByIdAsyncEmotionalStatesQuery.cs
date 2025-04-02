@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using Oniria.Core.Application.Features.Base;
-using Oniria.Core.Application.Interfaces.Repositories;
+using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Core.Domain.Entities;
 
 namespace Oniria.Core.Application.Features.EmotionalStates.Queries
 {
-    public class GetByIdAsyncEmotionalStatesQuery : IRequest<UseCaseResult<EmotionalStatesEntity>>
+    public class GetByIdAsyncEmotionalStatesQuery : IRequest<OperationResult<EmotionalStatesEntity>>
     {
         public string Id { get; set; }
     }
-    public class GetByIdAsyncEmotionalStatesQueryHandler : IRequestHandler<GetByIdAsyncEmotionalStatesQuery, UseCaseResult<EmotionalStatesEntity>>
+    public class GetByIdAsyncEmotionalStatesQueryHandler : IRequestHandler<GetByIdAsyncEmotionalStatesQuery, OperationResult<EmotionalStatesEntity>>
     {
         private readonly IEmotionalStatesRepository emotionalStatesRepository;
         
@@ -18,9 +18,9 @@ namespace Oniria.Core.Application.Features.EmotionalStates.Queries
             this.emotionalStatesRepository = emotionalStatesRepository;
         }
 
-        public async Task<UseCaseResult<EmotionalStatesEntity>> Handle(GetByIdAsyncEmotionalStatesQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<EmotionalStatesEntity>> Handle(GetByIdAsyncEmotionalStatesQuery request, CancellationToken cancellationToken)
         {
-            var result = new UseCaseResult<EmotionalStatesEntity>();
+            var result = new OperationResult<EmotionalStatesEntity>();
             result.Data = await emotionalStatesRepository.GetByIdAsync(request.Id);
             return result;
         }

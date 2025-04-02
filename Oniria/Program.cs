@@ -1,5 +1,6 @@
 using Oniria.Core.Application.DependencyInjection;
 using Oniria.Infrastructure.Persistence.DependencyInjection;
+using Oniria.Infrastructure.Identity.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,14 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationDependency();
 builder.Services.AddPersistenceDependency(builder.Configuration);
+builder.Services.AddIdentityDependencyWeb(builder.Configuration);
 
 
 var app = builder.Build();
 
+// Seeds
+await app.AddIdentitySeeds();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    //app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -24,6 +29,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

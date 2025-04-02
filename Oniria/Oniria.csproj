@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Oniria.Core.Application\Oniria.Core.Application.csproj" />
+    <ProjectReference Include="..\Oniria.Core.Domain\Oniria.Core.Domain.csproj" />
     <ProjectReference Include="..\Oniria.Core.Dtos\Oniria.Core.Dtos.csproj" />
     <ProjectReference Include="..\Oniria.Infrastructure.Identity\Oniria.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\Oniria.Infrastructure.Persistence\Oniria.Infrastructure.Persistence.csproj" />
