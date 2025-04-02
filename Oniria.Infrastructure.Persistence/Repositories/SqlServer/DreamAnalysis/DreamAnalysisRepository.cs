@@ -1,4 +1,4 @@
-﻿using Oniria.Core.Application.Interfaces.Repositories;
+﻿using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Core.Domain.Entities;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.DreamAnalysis

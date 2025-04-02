@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Oniria.Core.Application.Interfaces.Repositories;
+using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Gender;
+using Oniria.Infrastructure.Persistence.Repositories.SqlServer.EmotionalStates;
 
 
 namespace Oniria.Infrastructure.Persistence.DependencyInjection
@@ -21,9 +22,9 @@ namespace Oniria.Infrastructure.Persistence.DependencyInjection
                 )
             );
 
-
             // Repositories
             services.AddTransient<IGenderRepository, GenderRepository>();
+            services.AddTransient<IEmotionalStatesRepository, EmotionalStatesRepository>();
         }
     }
 }

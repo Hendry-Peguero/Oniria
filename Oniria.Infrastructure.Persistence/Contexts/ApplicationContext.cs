@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
+using Oniria.Core.Domain.Enums;
 
 namespace Oniria.Infrastructure.Persistence.Contexts
 {
@@ -46,12 +47,12 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             #region Seedings
 
             modelBuilder.Entity<GenderEntity>().HasData(
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Hombre" },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Mujer" },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Helicopter" },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Tanque de Guerra" },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "MMGVO" },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Enero" }
+                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Hombre", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Mujer", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Helicopter", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Tanque de Guerra", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "MMGVO", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Enero", Status = StatusEntity.ACTIVE }
             );
 
             #endregion

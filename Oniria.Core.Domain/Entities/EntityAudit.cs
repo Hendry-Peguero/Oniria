@@ -1,11 +1,12 @@
-﻿namespace Oniria.Core.Domain.Entities
+﻿using Oniria.Core.Domain.Enums;
+
+namespace Oniria.Core.Domain.Entities
 {
     public class EntityAudit
     {
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public DateTime DeletedOn { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
+        public StatusEntity Status { get; set; }
     }
 }

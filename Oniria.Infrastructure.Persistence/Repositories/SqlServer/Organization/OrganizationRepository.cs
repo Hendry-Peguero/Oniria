@@ -1,6 +1,6 @@
 ﻿using Oniria.Infrastructure.Persistence.Contexts;
-using Oniria.Core.Application.Interfaces.Repositories;
-using Oniria.Core.Application.Interfaces.Repositories.Maintenance;
+using Oniria.Core.Domain.Interfaces.Repositories;
+using Oniria.Core.Domain.Interfaces.Repositories.Maintenance;
 using Oniria.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;

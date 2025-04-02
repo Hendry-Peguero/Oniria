@@ -1,19 +1,52 @@
 ﻿@using Oniria.Core.Domain.Entities
-@model List<GenderEntity>
+@using Oniria.Core.Dtos.User.Response;
 @{
-    ViewData["Title"] = "Home Page";
+    var genres = ViewBag.Genres as List<GenderEntity>;
+    var users = ViewBag.Users as List<UserResponse>;
+    var oneUser = ViewBag.User as UserResponse;
 }
 
 <div class="text-center">
     <h1 class="display-4">Mondongo</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <img style="width: 100px; height:100px;" src="~/imagenes/cat.png" />
-    <h1>larry...</h1>
-    <h1>
-        DATA FROM MODEL: 
-        @foreach (GenderEntity gender in Model)
+    <h1 class="mb-5">larry...</h1>
+    <div class="mb-5">
+        <ul>
+            <h1>GENRES: </h1>
+            @foreach (var genre in genres)
+            {
+                <li>@genre.Description</li>
+            }
+        </ul>
+
+        <ul>
+            <h1>USERS: </h1>
+            @foreach (var user in users)
+            {
+                <li>
+                    @user.UserName + @user.Email + @user.Status
+                    <ul>
+                        <p>ROLES: </p>
+                        @foreach (var rol in user.Roles) {
+                            <li>@rol</li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+    <div>
+        @if (oneUser != null)
         {
-            <p>@gender.Description</p>
+            <h3>UN SOLO USUARIO: </h3>
+            <p>
+                @oneUser.UserName + @oneUser.Email + @oneUser.Status
+            </p>
         }
-    </h1>
+        else
+        {
+            <h1>NO SE ENCONTRO DICHO USUARIO CON ESE DI QUE SE PUSO</h1>
+        }
+    </div>
 </div>
