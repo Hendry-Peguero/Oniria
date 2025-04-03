@@ -1,6 +1,6 @@
 ﻿namespace Oniria.Core.Domain.Entities
 {
-    public class MembershipCategory : BaseEntity
+    public class MembershipCategoryEntity : BaseEntity
     {
         public string Description { get; set; }
     }
