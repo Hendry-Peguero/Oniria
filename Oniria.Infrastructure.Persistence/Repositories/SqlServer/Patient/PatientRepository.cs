@@ -2,11 +2,6 @@
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Infrastructure.Persistence.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient
 {
@@ -14,21 +9,27 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient
     {
         private readonly ApplicationContext context;
 
-        public  PatientRepository(ApplicationContext context)
+        public PatientRepository(ApplicationContext context)
         {
             this.context = context;
         }
+
         public async Task<PatientEntity> CreateAsync(PatientEntity entity)
         {
-            context.Set<PatientEntity>().Add(entity);
+            await context.Set<PatientEntity>().AddAsync(entity);
             await context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task DeleteAsync(PatientEntity id)
+        public async Task<PatientEntity> UpdateAsync(PatientEntity entity)
         {
-            context.Set<PatientEntity>().Add(id);
-            await context.SaveChangesAsync();
+            PatientEntity? entityToModify = await context.Set<PatientEntity>().FindAsync(entity.Id);
+            if (entityToModify != null)
+            {
+                context.Entry(entityToModify).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
+            return entity;
         }
 
         public async Task<List<PatientEntity>> GetAllAsync()
@@ -41,11 +42,10 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient
             return await context.Set<PatientEntity>().FindAsync(id);
         }
 
-        public async Task<PatientEntity> UpdateAsync(PatientEntity entity)
+        public async Task DeleteAsync(PatientEntity entity)
         {
-            context.Set<PatientEntity>().Update(entity);
+            context.Set<PatientEntity>().Remove(entity);
             await context.SaveChangesAsync();
-            return entity;
         }
     }
 }

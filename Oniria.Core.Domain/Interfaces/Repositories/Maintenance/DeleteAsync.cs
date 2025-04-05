@@ -1,7 +1,7 @@
 ﻿namespace Oniria.Core.Domain.Interfaces.Repositories.Maintenance
 {
-    public interface DeleteAsync<TypeId>
+    public interface DeleteAsync<Entity>
     {
-        abstract Task DeleteAsync(TypeId id);
+        abstract Task DeleteAsync(Entity entity);
     }
 }

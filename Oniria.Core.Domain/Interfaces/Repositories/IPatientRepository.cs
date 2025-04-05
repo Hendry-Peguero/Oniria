@@ -9,6 +9,5 @@ namespace Oniria.Core.Domain.Interfaces.Repositories
         CreateAsync<PatientEntity>,
         UpdateAsync<PatientEntity>,
         DeleteAsync<PatientEntity>
-    {
-    }
+    { }
 }
