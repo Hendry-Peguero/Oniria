@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Oniria.Core.Application.DependencyInjection
+namespace Oniria.Core.Application.Extensions
 {
     public static class DependencyInjectionApplicationLayer
     {
@@ -10,6 +11,7 @@ namespace Oniria.Core.Application.DependencyInjection
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

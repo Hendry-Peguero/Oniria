@@ -23,8 +23,4 @@
     <ProjectReference Include="..\Oniria.Core.Dtos\Oniria.Core.Dtos.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DependencyInjections\" />
-  </ItemGroup>
-
 </Project>

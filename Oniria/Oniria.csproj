@@ -21,11 +21,10 @@
     <ProjectReference Include="..\Oniria.Core.Dtos\Oniria.Core.Dtos.csproj" />
     <ProjectReference Include="..\Oniria.Infrastructure.Identity\Oniria.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\Oniria.Infrastructure.Persistence\Oniria.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Oniria.Infrastructure.Shared\Oniria.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Middlewares\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

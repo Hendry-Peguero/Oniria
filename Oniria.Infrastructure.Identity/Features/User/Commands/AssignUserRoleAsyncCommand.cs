@@ -25,9 +25,15 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
         {
             var result = OperationResult.Create();
 
-            var identityResult = await userManager.AddToRoleAsync(command.User, command.Role.ToString());
+            if (await userManager.IsInRoleAsync(command.User, command.Role.ToString()))
+            {
+                result.AddError("The user already has this role");
+                return result;
+            }
 
-            if (!identityResult.Succeeded)
+            var addRoleResult = await userManager.AddToRoleAsync(command.User, command.Role.ToString());
+
+            if (!addRoleResult.Succeeded)
             {
                 result.AddError("An error occurred assigning the role to the user");
             }

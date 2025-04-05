@@ -9,7 +9,7 @@ namespace Oniria.Infrastructure.Identity.Features.JWT.Commands
 
     public class CreateRefreshTokenCommandHandler : IRequestHandler<CreateRefreshTokenCommand, OperationResult<RefreshToken>>
     {
-        public async Task<OperationResult<RefreshToken>> Handle(CreateRefreshTokenCommand request, CancellationToken cancellationToken)
+        public Task<OperationResult<RefreshToken>> Handle(CreateRefreshTokenCommand request, CancellationToken cancellationToken)
         {
             var result = OperationResult.Create<RefreshToken>();
 
@@ -24,7 +24,7 @@ namespace Oniria.Infrastructure.Identity.Features.JWT.Commands
                 Created = DateTime.UtcNow,
             };
 
-            return result;
+            return Task.FromResult(result);
         }
     }
 }

@@ -7,7 +7,7 @@ using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Gender;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.EmotionalStates;
 
 
-namespace Oniria.Infrastructure.Persistence.DependencyInjection
+namespace Oniria.Infrastructure.Persistence.Extensions
 {
     public static class DependencyInjectionPersistenceLayer
     {
