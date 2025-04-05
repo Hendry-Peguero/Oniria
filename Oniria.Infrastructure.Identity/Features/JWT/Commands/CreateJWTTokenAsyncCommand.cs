@@ -37,7 +37,7 @@ namespace Oniria.Core.Application.Features.JWT.Commands
 
         public async Task<OperationResult<JwtSecurityToken>> Handle(CreateJWTTokenAsyncCommand request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<JwtSecurityToken>();
+            var result = OperationResult<JwtSecurityToken>.Create();
 
             var claims = new[]
             {

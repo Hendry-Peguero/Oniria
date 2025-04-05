@@ -24,7 +24,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
 
         public async Task<OperationResult<List<ActorsRoles>>> Handle(GetAllUserRolesAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<List<ActorsRoles>>();
+            var result = OperationResult<List<ActorsRoles>>.Create();
             var roles = await userManager.GetRolesAsync(request.User).ConfigureAwait(false);
 
             foreach (var rol in roles)

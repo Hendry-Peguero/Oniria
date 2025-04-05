@@ -31,7 +31,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
 
         public async Task<OperationResult<UserResponse>> Handle(GetUserByIdAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<UserResponse>();
+            var result = OperationResult<UserResponse>.Create();
             var user = await userManager.FindByIdAsync(request.UserId);
 
             if (user == null)

@@ -28,7 +28,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
 
         public async Task<OperationResult<List<UserResponse>>> Handle(GetAllUsersAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<List<UserResponse>>();
+            var result = OperationResult<List<UserResponse>>.Create();
             var users = userManager.Users.ToList();
 
             foreach (var user in users)

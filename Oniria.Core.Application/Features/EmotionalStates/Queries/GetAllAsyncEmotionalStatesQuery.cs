@@ -18,7 +18,7 @@ namespace Oniria.Core.Application.Features.EmotionalStates.Queries
 
         public async Task<OperationResult<List<EmotionalStatesEntity>>> Handle(GetAllAsyncEmotionalStatesQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<List<EmotionalStatesEntity>>();
+            var result = OperationResult<List<EmotionalStatesEntity>>.Create();
             result.Data = await emotionalStatesRepository.GetAllAsync();
             return result;
         }

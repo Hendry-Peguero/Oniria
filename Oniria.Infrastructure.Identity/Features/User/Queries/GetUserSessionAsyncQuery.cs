@@ -25,7 +25,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
 
         public Task<OperationResult<UserResponse>> Handle(GetUserSessionAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<UserResponse>();
+            var result = OperationResult<UserResponse>.Create();
 
             result.Data = httpContextAccessor.HttpContext?.Session.Get<UserResponse>(UserKeySession);
 

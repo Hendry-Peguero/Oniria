@@ -37,7 +37,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
 
         public async Task<OperationResult<UserResponse>> Handle(LoginUserAsyncCommand command, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<UserResponse>();
+            var result = OperationResult<UserResponse>.Create();
             var request = command.Request;
 
             // Email or username exists

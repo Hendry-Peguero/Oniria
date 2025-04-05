@@ -21,7 +21,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
 
         public async Task<OperationResult<bool>> Handle(IsUserNameTakenQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<bool>();
+            var result = OperationResult<bool>.Create();
 
             var user = await userManager.FindByNameAsync(request.UserName);
             result.Data = user != null;

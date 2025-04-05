@@ -20,7 +20,7 @@ namespace Oniria.Infrastructure.Identity.Features.JWT.Queries
 
         public async Task<OperationResult<RefreshToken>> Handle(GetRefreshJWTTokenAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<RefreshToken>();
+            var result = OperationResult<RefreshToken>.Create();
 
             var refreshToken = await mediator.Send(new CreateRefreshTokenCommand());
 

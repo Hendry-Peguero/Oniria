@@ -11,7 +11,7 @@ namespace Oniria.Infrastructure.Identity.Features.JWT.Commands
     {
         public Task<OperationResult<RefreshToken>> Handle(CreateRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<RefreshToken>();
+            var result = OperationResult<RefreshToken>.Create();
 
             using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
             var randomBytes = new Byte[40];
