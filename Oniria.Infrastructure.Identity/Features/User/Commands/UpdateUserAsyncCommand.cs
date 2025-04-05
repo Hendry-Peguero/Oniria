@@ -43,6 +43,18 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
                 return result;
             }
 
+            if (request.UserName != userToUpdate.UserName && (await mediator.Send(new IsUserNameTakenQuery { UserName = command.Request.UserName })).Data)
+            {
+                result.AddError("This username is already taken");
+                return result;
+            }
+
+            if (request.Email != userToUpdate.Email &&  (await mediator.Send(new IsUserEmailTakenQuery { UserEmail = command.Request.Email })).Data)
+            {
+                result.AddError("This email is already in use");
+                return result;
+            }
+
             userToUpdate.UserName = request.UserName;
             userToUpdate.Status = request.Status;
             userToUpdate.Email = request.Email;

@@ -41,44 +41,39 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
             var request = command.Request;
 
             // Email or username exists
-            var user = await userManager.FindByEmailAsync(request.Identifier)
-                                ?? await userManager.FindByNameAsync(request.Identifier);
-
-            if (user == null)
-            {
-                result.AddError($"Credentials are incorrect");
-                return result;
-            }
+            var userByNameOrEmail = 
+                await userManager.FindByEmailAsync(request.Identifier) ?? 
+                await userManager.FindByNameAsync(request.Identifier);
 
             // Validate password
             var signInResult = await signInManager.PasswordSignInAsync(
-                user.UserName,
+                userByNameOrEmail?.UserName ?? "",
                 request.Password,
                 isPersistent: false,
                 lockoutOnFailure: false);
 
-            if (!signInResult.Succeeded)
+            if (userByNameOrEmail == null  || !signInResult.Succeeded)
             {
                 result.AddError($"Credentials are incorrect");
                 return result;
             }
 
             // Validate Email
-            if (!user.EmailConfirmed)
+            if (!userByNameOrEmail.EmailConfirmed)
             {
                 result.AddError($"This account is not confirmed");
                 return result;
             }
 
             // Validate Status
-            if (user.Status == StatusEntity.INACTIVE)
+            if (userByNameOrEmail.Status == StatusEntity.INACTIVE)
             {
                 result.AddError($"This account is not active, please contact the administrator");
                 return result;
             }
 
-            var userResponse = mapper.Map<UserResponse>(user);
-            userResponse.Roles = (await mediator.Send(new GetAllUserRolesAsyncQuery { User = user })).Data;
+            var userResponse = mapper.Map<UserResponse>(userByNameOrEmail);
+            userResponse.Roles = (await mediator.Send(new GetAllUserRolesAsyncQuery { User = userByNameOrEmail })).Data;
             result.Data = userResponse;
 
             return result;

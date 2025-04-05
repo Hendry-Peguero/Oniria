@@ -1,14 +1,17 @@
-using Oniria.Core.Application.DependencyInjection;
-using Oniria.Infrastructure.Persistence.DependencyInjection;
-using Oniria.Infrastructure.Identity.DependencyInjection;
+using Oniria.Core.Application.Extensions;
+using Oniria.Infrastructure.Persistence.Extensions;
+using Oniria.Infrastructure.Identity.Extensions;
+using Oniria.Infrastructure.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 builder.Services.AddApplicationDependency();
 builder.Services.AddPersistenceDependency(builder.Configuration);
 builder.Services.AddIdentityDependencyWeb(builder.Configuration);
+builder.Services.AddSharedDependency(builder.Configuration);
 
 
 var app = builder.Build();
@@ -23,6 +26,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

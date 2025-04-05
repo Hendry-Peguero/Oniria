@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oniria.Infrastructure.Persi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oniria.Core.Dtos", "Oniria.Core.Dtos\Oniria.Core.Dtos.csproj", "{8902322B-6D64-4B39-B20B-1AE19FB60F8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oniria.Infrastructure.Shared", "Oniria.Infrastructure.Shared\Oniria.Infrastructure.Shared.csproj", "{AB5F2F67-8379-4FB9-9D30-87A5FBE4C2E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{8902322B-6D64-4B39-B20B-1AE19FB60F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8902322B-6D64-4B39-B20B-1AE19FB60F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8902322B-6D64-4B39-B20B-1AE19FB60F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB5F2F67-8379-4FB9-9D30-87A5FBE4C2E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB5F2F67-8379-4FB9-9D30-87A5FBE4C2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB5F2F67-8379-4FB9-9D30-87A5FBE4C2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB5F2F67-8379-4FB9-9D30-87A5FBE4C2E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{79909D11-F29F-4CED-9D98-230BBAA83FC3} = {4D4DD9C6-3853-42BD-AEDB-36D0F2542758}
 		{4A76ED43-98A1-4266-B9F4-F843995C50E5} = {4D4DD9C6-3853-42BD-AEDB-36D0F2542758}
 		{8902322B-6D64-4B39-B20B-1AE19FB60F8E} = {8844E3C3-398F-415D-9679-D29B3E99E8CA}
+		{AB5F2F67-8379-4FB9-9D30-87A5FBE4C2E4} = {4D4DD9C6-3853-42BD-AEDB-36D0F2542758}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83215924-7594-4DF7-B0B4-8CA777D57E15}

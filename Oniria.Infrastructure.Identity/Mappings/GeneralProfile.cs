@@ -31,7 +31,7 @@ namespace Oniria.Infrastructure.Identity.Mappings
                     .ReverseMap()
                     .ForMember(dest => dest.AccessFailedCount, opt => opt.Ignore())
                     .ForMember(dest => dest.ConcurrencyStamp, opt => opt.Ignore())
-                    .ForMember(dest => dest.EmailConfirmed, opt => opt.MapFrom(s => true))
+                    .ForMember(dest => dest.EmailConfirmed, opt => opt.Ignore())
                     .ForMember(dest => dest.LockoutEnabled, opt => opt.Ignore())
                     .ForMember(dest => dest.LockoutEnd, opt => opt.Ignore())
                     .ForMember(dest => dest.NormalizedEmail, opt => opt.Ignore())

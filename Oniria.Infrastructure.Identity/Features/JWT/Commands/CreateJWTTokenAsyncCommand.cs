@@ -42,7 +42,7 @@ namespace Oniria.Core.Application.Features.JWT.Commands
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, request.User.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, GuidHelper.Generate()),
+                new Claim(JwtRegisteredClaimNames.Jti, GeneratorHelper.GuidString()),
                 new Claim(JwtRegisteredClaimNames.Email, request.User.Email),
                 new Claim("userId", request.User.Id)
             }

@@ -16,7 +16,7 @@ using Oniria.Infrastructure.Identity.Seeds;
 using System.Reflection;
 using System.Text;
 
-namespace Oniria.Infrastructure.Identity.DependencyInjection
+namespace Oniria.Infrastructure.Identity.Extensions
 {
     public static class DependencyInjectionIdentityLayer
     {

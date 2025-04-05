@@ -5,6 +5,7 @@ using Oniria.Core.Application.Features.Base;
 using Oniria.Core.Dtos.User.Request;
 using Oniria.Core.Dtos.User.Response;
 using Oniria.Infrastructure.Identity.Entities;
+using Oniria.Infrastructure.Identity.Features.User.Queries;
 
 namespace Oniria.Infrastructure.Identity.Features.User.Commands
 {
@@ -16,14 +17,17 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
     public class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserAsyncCommand, OperationResult<UserResponse>>
     {
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMediator mediator;
         private readonly IMapper mapper;
 
         public CreateUserAsyncCommandHandler(
             UserManager<ApplicationUser> userManager,
+            IMediator mediator,
             IMapper mapper
         )
         {
             this.userManager = userManager;
+            this.mediator = mediator;
             this.mapper = mapper;
         }
 
@@ -31,6 +35,18 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
         {
             var result = OperationResult.Create<UserResponse>();
             var request = command.Request;
+
+            if ((await mediator.Send(new IsUserNameTakenQuery { UserName = command.Request.UserName })).Data)
+            {
+                result.AddError("This username is already taken");
+                return result;
+            }
+
+            if ((await mediator.Send(new IsUserEmailTakenQuery { UserEmail = command.Request.Email })).Data)
+            {
+                result.AddError("This email is already in use");
+                return result;
+            }
 
             var userToCreate = mapper.Map<ApplicationUser>(request);
             var creationResult = await userManager.CreateAsync(userToCreate, request.Password);

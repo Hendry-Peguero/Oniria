@@ -29,7 +29,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
 
             if (user == null)
             {
-                result.AddError("User not found");
+                result.AddError("There is no user with this id");
                 return result;
             }
 
@@ -41,7 +41,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
 
             if (!confirmResult.Succeeded)
             {
-                result.AddError("Error confirming email");
+                result.AddError("This user's email could not be confirmed");
             }
 
             return result;

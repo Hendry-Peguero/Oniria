@@ -38,9 +38,21 @@ namespace Oniria.Core.Application.Features.Base
         {
             var result = new OperationResult<T>();
 
-            if (typeof(IEnumerable).IsAssignableFrom(typeof(T)))
+            bool isCollection = 
+                typeof(IEnumerable).IsAssignableFrom(typeof(T)) &&
+                typeof(T) != typeof(string) &&
+                !typeof(T).IsPrimitive;
+
+            if (isCollection)
             {
-                result.Data = Activator.CreateInstance<T>();
+                try
+                {
+                    result.Data = Activator.CreateInstance<T>();
+                }
+                catch
+                {
+                    result.Data = default;
+                }
             }
 
             return result;
