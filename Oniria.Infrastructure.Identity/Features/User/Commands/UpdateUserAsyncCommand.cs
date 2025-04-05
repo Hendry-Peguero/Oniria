@@ -33,7 +33,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
 
         public async Task<OperationResult<UserResponse>> Handle(UpdateUserAsyncCommand command, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<UserResponse>();
+            var result = OperationResult<UserResponse>.Create();
             var request = command.Request;
             var userToUpdate = await userManager.FindByIdAsync(request.Id);
 

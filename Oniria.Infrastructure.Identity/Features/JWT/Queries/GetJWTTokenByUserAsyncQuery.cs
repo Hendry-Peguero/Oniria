@@ -25,7 +25,7 @@ namespace Oniria.Infrastructure.Identity.Features.JWT.Queries
 
         public async Task<OperationResult<JWTTokenResponse>> Handle(GetJWTTokenByUserAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<JWTTokenResponse>();
+            var result = OperationResult<JWTTokenResponse>.Create();
 
             var jwtResult = await mediator.Send(new CreateJWTTokenAsyncCommand
             {

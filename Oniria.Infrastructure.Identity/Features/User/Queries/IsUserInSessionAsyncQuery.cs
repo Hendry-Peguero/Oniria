@@ -16,7 +16,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
 
         public async Task<OperationResult<bool>> Handle(IsUserInSessionAsyncQuery command, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<bool>();
+            var result = OperationResult<bool>.Create();
 
             result.Data = (await mediator.Send(new GetUserSessionAsyncQuery())).Data != null;
 

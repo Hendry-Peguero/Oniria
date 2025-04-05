@@ -23,7 +23,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Queries
             IsUserEmailTakenQuery request,
             CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<bool>();
+            var result = OperationResult<bool>.Create();
 
             var user = await userManager.FindByEmailAsync(request.UserEmail);
             result.Data = user != null;

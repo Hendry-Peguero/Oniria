@@ -2,11 +2,16 @@
 
 namespace Oniria.Core.Application.Features.Base
 {
-    public abstract class BaseOperationResult
+    public abstract class BaseOperationResult<TSelf> where TSelf : BaseOperationResult<TSelf>
     {
         public bool IsSuccess { get; set; } = true;
         public List<string> Messages { get; set; } = new();
 
+        // Self-creation method
+        public static TSelf Create()
+        {
+            return Activator.CreateInstance<TSelf>();
+        }
 
         // Add error to the result
         public void AddMessage(string errorMessage)
@@ -27,18 +32,22 @@ namespace Oniria.Core.Application.Features.Base
         }
     }
 
-    public class OperationResult : BaseOperationResult
+    public class OperationResult : BaseOperationResult<OperationResult>
     {
-        public static OperationResult Create()
-        {
-            return new OperationResult();
-        }
+        private OperationResult() { }
+    }
 
-        public static OperationResult<T> Create<T>()
+    public class OperationResult<T> : BaseOperationResult<OperationResult<T>>
+    {
+        public T? Data { get; set; }
+
+        private OperationResult() { }
+
+        public static new OperationResult<T> Create()
         {
             var result = new OperationResult<T>();
 
-            bool isCollection = 
+            bool isCollection =
                 typeof(IEnumerable).IsAssignableFrom(typeof(T)) &&
                 typeof(T) != typeof(string) &&
                 !typeof(T).IsPrimitive;
@@ -57,10 +66,5 @@ namespace Oniria.Core.Application.Features.Base
 
             return result;
         }
-    }
-
-    public class OperationResult<T> : BaseOperationResult
-    {
-        public T? Data { get; set; }
     }
 }

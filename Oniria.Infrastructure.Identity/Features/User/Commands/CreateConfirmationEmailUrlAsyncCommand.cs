@@ -29,7 +29,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
 
         public async Task<OperationResult<string>> Handle(CreateConfirmationEmailUrlAsyncCommand command, CancellationToken cancellationToken)
         {
-            var result = OperationResult.Create<string>();
+            var result = OperationResult<string>.Create();
             var userResult = await userManager.FindByIdAsync(command.UserId);
 
             if (userResult == null)
