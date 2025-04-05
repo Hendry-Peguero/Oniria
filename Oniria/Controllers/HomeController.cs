@@ -47,7 +47,7 @@ namespace Oniria.Controllers
                 Request = new AuthenticationRequest
                 {
                     Identifier = "admin@email.com",
-                    Password = "123Pa$$Word!"
+                    Password = "123Pa$word!"
                 }
             });
 

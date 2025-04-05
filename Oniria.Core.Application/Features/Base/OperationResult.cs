@@ -2,16 +2,15 @@
 
 namespace Oniria.Core.Application.Features.Base
 {
+    public interface IOperationResult<T> where T : class
+    {
+        static abstract T Create();
+    }
+
     public abstract class BaseOperationResult<TSelf> where TSelf : BaseOperationResult<TSelf>
     {
         public bool IsSuccess { get; set; } = true;
         public List<string> Messages { get; set; } = new();
-
-        // Self-creation method
-        public static TSelf Create()
-        {
-            return Activator.CreateInstance<TSelf>();
-        }
 
         // Add error to the result
         public void AddMessage(string errorMessage)
@@ -32,18 +31,23 @@ namespace Oniria.Core.Application.Features.Base
         }
     }
 
-    public class OperationResult : BaseOperationResult<OperationResult>
+    public class OperationResult : BaseOperationResult<OperationResult>, IOperationResult<OperationResult>
     {
         private OperationResult() { }
+
+        public static OperationResult Create()
+        {
+            return new OperationResult();
+        }
     }
 
-    public class OperationResult<T> : BaseOperationResult<OperationResult<T>>
+    public class OperationResult<T> : BaseOperationResult<OperationResult<T>>, IOperationResult<OperationResult<T>>
     {
         public T? Data { get; set; }
 
         private OperationResult() { }
 
-        public static new OperationResult<T> Create()
+        public static OperationResult<T> Create()
         {
             var result = new OperationResult<T>();
 
