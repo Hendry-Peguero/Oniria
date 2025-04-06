@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Oniria.Helpers;
 using Oniria.Infrastructure.Identity.Features.User.Queries;
 
-namespace Oniria.Middlewares
+namespace Oniria.Filters
 {
-    public class SessionMiddleware : IAsyncActionFilter
+    public class SessionFilter : IAsyncActionFilter
     {
         private readonly IMediator mediator;
 
-        public SessionMiddleware(IMediator mediator)
+        public SessionFilter(IMediator mediator)
         {
             this.mediator = mediator;
         }

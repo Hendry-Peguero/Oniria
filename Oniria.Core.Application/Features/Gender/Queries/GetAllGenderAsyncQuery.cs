@@ -19,7 +19,6 @@ namespace Oniria.Core.Application.Features.Gender.Queries
 
         public async Task<OperationResult<List<GenderEntity>>> Handle(GetAllGenderAsyncQuery request, CancellationToken cancellationToken)
         {
-            // Crear Result
             var result = OperationResult<List<GenderEntity>>.Create();
 
             result.Data = await genderRepository.GetAllAsync();
