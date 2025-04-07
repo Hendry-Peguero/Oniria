@@ -6,12 +6,12 @@ using Oniria.Core.Domain.Interfaces.Repositories;
 namespace Oniria.Core.Application.Features.Gender.Queries
 {
 
-    public class GetGenderByIdAsyncQuery : IRequest<OperationResult<GenderEntity?>>
+    public class GetGenderByIdAsyncQuery : IRequest<OperationResult<GenderEntity>>
     {
         public string Id { get; set; }
     }
 
-    public class GetGenderByIdAsyncQueryHandler : IRequestHandler<GetGenderByIdAsyncQuery, OperationResult<GenderEntity?>>
+    public class GetGenderByIdAsyncQueryHandler : IRequestHandler<GetGenderByIdAsyncQuery, OperationResult<GenderEntity>>
     {
         private readonly IGenderRepository genderRepository;
 
@@ -20,11 +20,19 @@ namespace Oniria.Core.Application.Features.Gender.Queries
             this.genderRepository = genderRepository;
         }
 
-        public async Task<OperationResult<GenderEntity?>> Handle(GetGenderByIdAsyncQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<GenderEntity>> Handle(GetGenderByIdAsyncQuery request, CancellationToken cancellationToken)
         {
-            var result = OperationResult<GenderEntity?>.Create();
+            var result = OperationResult<GenderEntity>.Create();
+            var gender = await genderRepository.GetByIdAsync(request.Id);
 
-            result.Data = await genderRepository.GetByIdAsync(request.Id);
+            if (gender == null)
+            {
+                result.AddError("Could not obtain the gender by ID");
+            }
+            else
+            {
+                result.Data = gender;
+            }
 
             return result;
         }

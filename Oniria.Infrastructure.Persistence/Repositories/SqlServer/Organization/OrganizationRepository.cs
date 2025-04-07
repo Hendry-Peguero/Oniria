@@ -1,16 +1,11 @@
-﻿using Oniria.Infrastructure.Persistence.Contexts;
-using Oniria.Core.Domain.Interfaces.Repositories;
-using Oniria.Core.Domain.Interfaces.Repositories.Maintenance;
+﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Oniria.Core.Domain.Interfaces.Repositories;
+using Oniria.Infrastructure.Persistence.Contexts;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization
 {
-    class OrganizationRepository : IOrganizationRepository 
+    public class OrganizationRepository : IOrganizationRepository
     {
         private readonly ApplicationContext context;
 
@@ -19,29 +14,38 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization
             this.context = context;
         }
 
-        public Task<OrganizationEntity> CreateAsync(OrganizationEntity entity)
+        public async Task<OrganizationEntity> CreateAsync(OrganizationEntity entity)
         {
-            throw new NotImplementedException();
+            await context.Set<OrganizationEntity>().AddAsync(entity);
+            await context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task DeleteAsync(OrganizationEntity id)
+        public async Task<OrganizationEntity> UpdateAsync(OrganizationEntity entity)
         {
-            throw new NotImplementedException();
+            OrganizationEntity? entityToModify = await context.Set<OrganizationEntity>().FindAsync(entity.Id);
+            if (entityToModify != null)
+            {
+                context.Entry(entityToModify).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
+            return entity;
         }
 
-        public Task<List<OrganizationEntity>> GetAllAsync()
+        public async Task<List<OrganizationEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.Set<OrganizationEntity>().ToListAsync();
         }
 
-        public Task<OrganizationEntity?> GetByIdAsync(string id)
+        public async Task<OrganizationEntity?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Set<OrganizationEntity>().FindAsync(id);
         }
 
-        public Task<OrganizationEntity> UpdateAsync(OrganizationEntity entity)
+        public async Task DeleteAsync(OrganizationEntity entity)
         {
-            throw new NotImplementedException();
+            context.Set<OrganizationEntity>().Remove(entity);
+            await context.SaveChangesAsync();
         }
     }
 }

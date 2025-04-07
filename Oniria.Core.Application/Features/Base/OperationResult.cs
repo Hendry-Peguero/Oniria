@@ -2,12 +2,13 @@
 
 namespace Oniria.Core.Application.Features.Base
 {
-    public interface IOperationResult<T> where T : class
+    public interface IBaseOperationResult
     {
-        static abstract T Create();
+        bool IsSuccess { get; }
+        List<string> Messages { get; }
     }
 
-    public abstract class BaseOperationResult<TSelf> where TSelf : BaseOperationResult<TSelf>
+    public abstract class BaseOperationResult : IBaseOperationResult
     {
         public bool IsSuccess { get; set; } = true;
         public List<string> Messages { get; set; } = new();
@@ -24,6 +25,19 @@ namespace Oniria.Core.Application.Features.Base
             Error();
         }
 
+        public void AddError(List<string> errorMessages)
+        {
+            foreach (var message in errorMessages) {
+                AddError(message);
+            }
+        }
+
+        public void AddError(IBaseOperationResult operationResult)
+        {
+            AddError(operationResult.Messages);
+        }
+
+
         // Unsuccess UseCase
         private void Error()
         {
@@ -31,7 +45,13 @@ namespace Oniria.Core.Application.Features.Base
         }
     }
 
-    public class OperationResult : BaseOperationResult<OperationResult>, IOperationResult<OperationResult>
+    public interface IOperationResult<T> where T : class
+    {
+        static abstract T Create();
+    }
+
+
+    public class OperationResult : BaseOperationResult, IOperationResult<OperationResult>
     {
         private OperationResult() { }
 
@@ -41,7 +61,7 @@ namespace Oniria.Core.Application.Features.Base
         }
     }
 
-    public class OperationResult<T> : BaseOperationResult<OperationResult<T>>, IOperationResult<OperationResult<T>>
+    public class OperationResult<T> : BaseOperationResult, IOperationResult<OperationResult<T>>
     {
         public T? Data { get; set; }
 

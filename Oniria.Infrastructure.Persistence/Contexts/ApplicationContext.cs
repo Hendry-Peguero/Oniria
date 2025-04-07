@@ -16,7 +16,6 @@ namespace Oniria.Infrastructure.Persistence.Contexts
         public DbSet<DreamTokenEntity> DreamTokens { get; set; }
         public DbSet<EmotionalStatesEntity> EmotionalStates { get; set; }
         public DbSet<EmployeeEntity> Employees { get; set; }
-        public DbSet<EntityAudit> EntityAudits { get; set; }
         public DbSet<GenderEntity> Genders { get; set; }
         public DbSet<MembershipAcquisitionEntity> MembershipAcquisitions { get; set; }
         public DbSet<MembershipBenefitEntity> MembershipBenefits { get; set; }

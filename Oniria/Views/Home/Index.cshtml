@@ -56,6 +56,7 @@
 <button id="updateUser">Update User</button>
 <button id="restorePasswordUser">Enviar Restore Password User</button>
 <button id="analyzeDream">Analyze Dream</button>
+<button id="createPatient">Create Patient</button>
 <h1 id="result">####</h1>
 @section Scripts {
     <script>
@@ -166,6 +167,25 @@
                     },
                     error: function(xhr) {
                         $("#result").html("Analyze dream failed: " + xhr.statusText);
+                    }
+                });
+            });
+
+            $("#createPatient").click(function() {
+                $.ajax({
+                    url: '@Url.Action("CreatePatient")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function(response) {
+                        if (response.ok) {
+                            $("#result").html("Se creo nitido el paciente");
+                        }
+                        else {
+                            $("#result").html(response.messages);
+                        }
+                    },
+                    error: function(xhr) {
+                        $("#result").html("Create failed: " + xhr.statusText);
                     }
                 });
             });
