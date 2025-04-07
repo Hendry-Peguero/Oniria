@@ -1,12 +1,12 @@
-﻿using Oniria.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Oniria.Core.Domain.Interfaces.Repositories;
-using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Gender;
+using Oniria.Infrastructure.Persistence.Contexts;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.EmotionalStates;
-using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient;
+using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Gender;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization;
+using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient;
 
 
 namespace Oniria.Infrastructure.Persistence.Extensions
@@ -29,6 +29,7 @@ namespace Oniria.Infrastructure.Persistence.Extensions
             services.AddTransient<IEmotionalStatesRepository, EmotionalStatesRepository>();
             services.AddTransient<IPatientRepository, PatientRepository>();
             services.AddTransient<IOrganizationRepository, OrganizationRepository>();
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
         }
     }
 }

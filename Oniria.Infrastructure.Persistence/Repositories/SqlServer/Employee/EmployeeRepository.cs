@@ -1,10 +1,11 @@
-﻿using Oniria.Infrastructure.Persistence.Contexts;
-using Oniria.Core.Domain.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
+using Oniria.Core.Domain.Interfaces.Repositories;
+using Oniria.Infrastructure.Persistence.Contexts;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization
 {
-    class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly ApplicationContext context;
 
@@ -13,29 +14,38 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization
             this.context = context;
         }
 
-        public Task<EmployeeEntity> CreateAsync(EmployeeEntity entity)
+        public async Task<EmployeeEntity> CreateAsync(EmployeeEntity entity)
         {
-            throw new NotImplementedException();
+            await context.Set<EmployeeEntity>().AddAsync(entity);
+            await context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task DeleteAsync(EmployeeEntity id)
+        public async Task<EmployeeEntity> UpdateAsync(EmployeeEntity entity)
         {
-            throw new NotImplementedException();
+            var entityToModify = await context.Set<EmployeeEntity>().FindAsync(entity.Id);
+            if (entityToModify != null)
+            {
+                context.Entry(entityToModify).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
+            return entity;
         }
 
-        public Task<List<EmployeeEntity>> GetAllAsync()
+        public async Task<List<EmployeeEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.Set<EmployeeEntity>().ToListAsync();
         }
 
-        public Task<EmployeeEntity?> GetByIdAsync(string id)
+        public async Task<EmployeeEntity?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Set<EmployeeEntity>().FindAsync(id);
         }
 
-        public Task<EmployeeEntity> UpdateAsync(EmployeeEntity entity)
+        public async Task DeleteAsync(EmployeeEntity entity)
         {
-            throw new NotImplementedException();
+            context.Set<EmployeeEntity>().Remove(entity);
+            await context.SaveChangesAsync();
         }
     }
 }
