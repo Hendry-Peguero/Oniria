@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Oniria.Core.Domain.Settings;
 using Oniria.Core.Dtos.Base;
 using Oniria.Infrastructure.Identity.Context;
 using Oniria.Infrastructure.Identity.Entities;

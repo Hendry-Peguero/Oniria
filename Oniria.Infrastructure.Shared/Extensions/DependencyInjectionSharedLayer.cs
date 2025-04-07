@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Oniria.Core.Domain.Settings;
+using Oniria.Infrastructure.Shared.Entities;
 using System.Reflection;
 
 namespace Oniria.Infrastructure.Shared.Extensions

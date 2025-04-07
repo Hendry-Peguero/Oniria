@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Oniria.Core.Dtos\Oniria.Core.Dtos.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Templates\EmailTemplates.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

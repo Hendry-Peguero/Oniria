@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Oniria.Core.Application.Features.Base;
 using Oniria.Core.Application.Helpers;
-using Oniria.Core.Domain.Settings;
 using Oniria.Infrastructure.Identity.Entities;
 using Oniria.Infrastructure.Identity.Features.User.Queries;
 using System.IdentityModel.Tokens.Jwt;

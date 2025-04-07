@@ -4,8 +4,8 @@ using MediatR;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Oniria.Core.Application.Features.Base;
-using Oniria.Core.Domain.Settings;
 using Oniria.Core.Dtos.Email.Request;
+using Oniria.Infrastructure.Shared.Entities;
 
 namespace Oniria.Infrastructure.Shared.Features.Email.Commands
 {

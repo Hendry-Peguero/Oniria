@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/Layouts/_OnlyBodyLayout.cshtml";
+}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    .almost-there-container {
+        background-color: white;
+        border-radius: 20px;
+        padding: 30px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .icon-container {
+        margin: 10px auto 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .icon-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .almost-there-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .almost-there-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 25px;
+    }
+
+    .didnt-receive-text {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="main-container">
+    <!-- Imagen de fondo -->
+    <img src="~/images/backgrounds/pot.jpg" alt="office background" class="background-image">
+
+    <div class="almost-there-container">
+        <div class="icon-container">
+            <!-- Imagen del ícono de email -->
+            <img src="~/images/icons/mail.png" alt="check icon" class="icon-image mb-3">
+        </div>
+
+        <h1 class="almost-there-title">The email was confirmed correctly</h1>
+        <p class="almost-there-subtitle">Now you can login to access to the page</p>
+
+        <p class="didnt-receive-text"></p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary px-4">Log In</a>
+    </div>
+</div>

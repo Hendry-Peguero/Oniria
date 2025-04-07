@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
-using Oniria.Core.Dtos.User.Request;
 using Oniria.Core.Application.Features.Gender.Queries;
-using Oniria.Core.Dtos.Email.Request;
+using Oniria.Core.Domain.Enums;
+using Oniria.Core.Dtos.User.Request;
 using Oniria.Infrastructure.Identity.Features.User.Commands;
 using Oniria.Infrastructure.Identity.Features.User.Queries;
-using Oniria.Infrastructure.Shared.Features.Email.Commands;
-using Oniria.Core.Domain.Enums;
-using AutoMapper;
-using Oniria.Infrastructure.Identity.Entities;
 
 namespace Oniria.Controllers
 {
@@ -42,16 +39,17 @@ namespace Oniria.Controllers
         [HttpPost]
         public async Task<IActionResult> Login()
         {
-            var loginResult = await Mediator.Send(new LoginUserAsyncCommand 
+            var loginResult = await Mediator.Send(new LoginUserAsyncCommand
             {
                 Request = new AuthenticationRequest
                 {
-                    Identifier = "admin@email.com",
-                    Password = "123Pa$word!"
+                    Identifier = "moises",
+                    Password = "272EZcW.H5S38sh"
                 }
             });
 
-            if (!loginResult.IsSuccess) {
+            if (!loginResult.IsSuccess)
+            {
                 return Json(loginResult);
             }
 
@@ -60,7 +58,7 @@ namespace Oniria.Controllers
                 User = loginResult.Data!
             });
 
-            return Json(new { OK = true });
+            return Json(new { ok = true });
         }
 
         [HttpPost]
@@ -71,33 +69,21 @@ namespace Oniria.Controllers
                 Request = new CreateUserRequest
                 {
                     Email = "moisesgironarias@gmail.com",
-                    UserName = "xd",
+                    UserName = "moises",
                     Password = "123Pa$word!"
                 }
             });
 
             if (!createResult.IsSuccess) return Json(createResult);
 
-            var uriResult = await Mediator.Send(new CreateConfirmationEmailUrlAsyncCommand
+            var sendEmailResult = await Mediator.Send(new SendUserConfirmationEmailAsyncCommand
             {
-                UserId = createResult.Data!.Id
-            });
-
-            if (!uriResult.IsSuccess) return Json(uriResult);
-
-            var sendEmailResult = await Mediator.Send(new SendEmailAsyncCommand
-            {
-                Request = new EmailRequest
-                {
-                    To = createResult.Data!.Email,
-                    Body = $"USER: {createResult.Data.Id} // TOKEN: {uriResult.Data}",
-                    Subject = "Solo probando"
-                }
+                Email = createResult.Data!.Email
             });
 
             if (!sendEmailResult.IsSuccess) return Json(sendEmailResult);
 
-            return Json(new { OK = true });
+            return Json(new { ok = true });
         }
 
         [HttpPost]
@@ -107,9 +93,9 @@ namespace Oniria.Controllers
             {
                 Request = new UpdateUserRequest
                 {
-                    Id = "1ok2l-vxztp-yub64-qm7fr-1298z",
-                    Email = "admin@email.com",
-                    UserName = "admin",
+                    Id = "1229c1d0-9ae5-43a7-8f69-aebf09b557e8",
+                    Email = "moisesgironarias@gmail.com",
+                    UserName = "moises",
                     Password = "123Pa$word!",
                     Status = StatusEntity.ACTIVE
                 }
@@ -117,21 +103,20 @@ namespace Oniria.Controllers
 
             if (!editResult.IsSuccess) return Json(editResult);
 
-            return Json(new { OK = true });
+            return Json(new { ok = true });
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmEmail()
+        public async Task<IActionResult> RestorePassword()
         {
-            var confirmResult = await Mediator.Send(new ConfirmUserEmailAsyncCommand
+            var restoreResult = await Mediator.Send(new SendUserPasswordResetEmailAsyncCommand
             {
-                UserId = "c04c082e-db68-4a78-94ef-a3e0100030eb",
-                Token = "Q2ZESjhEbG5INDFKb0JaT29NdFNESzZCcnJXaDRrWlRvam9Sd3ZkejVtZjZUUHNvNUIzQUxIbnNpRUo1RlpTKzV5ZldRcFlzZGpqMFduL250dHVaWnhPaUc4T1JMelBzNmdWbjkyNUNVWUFLVXlWb3VnNmVGOGpkOWdFZEorNW9aUXdVVGRYSXhSVGNmdXJ4amZtbXdyeS9DRUR1TjY0WGpQUUVNMXFpelVMSlBVSlB6NGt6dEowRUFZUWJpY0QrdG5tMW9CQUY3QkNURzhmd2EzbDcyQkl5RW1hcktITDJJdDJBcm1Wa3RsaHJiQm1Nak1hSjh3aDFZaFBpeWs0TTkzbmgzUT09"
+                Email = "moisesgironarias@gmail.com"
             });
 
-            if (!confirmResult.IsSuccess) return Json(confirmResult);
+            if (!restoreResult.IsSuccess) return Json(restoreResult);
 
-            return Json(new { OK = true });
+            return Json(new { ok = true });
         }
     }
 }

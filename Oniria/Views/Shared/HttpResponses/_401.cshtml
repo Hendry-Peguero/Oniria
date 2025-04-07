@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/Shared/Layouts/_OnlyBodyLayout.cshtml";
+}
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f4f8;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        text-align: center;
+        position: relative;
+    }
+
+    .error-code {
+        font-size: 120px;
+        font-weight: bold;
+        color: #1a3c5e;
+        height: 150px;
+    }
+
+    .error-message {
+        font-size: 24px;
+        color: #1a3c5e;
+    }
+
+    /* Estilo para la hoja de papel */
+    .paper {
+        width: 100px;
+        height: 100px;
+        background-color: #fff;
+        position: absolute;
+        left: -80px;
+        top: 50px;
+        transform: rotate(-30deg);
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+        /* Simulación de la esquina doblada */
+        .paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #ddd 50%, transparent 50%);
+            border-bottom-right-radius: 5px;
+        }
+
+    /* Estilo para la cara triste */
+    .face {
+        position: relative;
+        top: 30px;
+        left: 30px;
+    }
+
+    .eye {
+        width: 10px;
+        height: 10px;
+        background-color: #1a3c5e;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+        .eye.left {
+            left: 10px;
+            top: 5px; /* Ajuste para que los ojos se vean más "tristes" */
+        }
+
+        .eye.right {
+            left: 40px;
+            top: 5px; /* Ajuste para que los ojos se vean más "tristes" */
+        }
+
+    .mouth {
+        width: 20px;
+        height: 10px;
+        background-color: transparent;
+        border: 2px solid #1a3c5e;
+        border-bottom: none; /* Cambiamos para que el semicírculo mire hacia arriba */
+        border-radius: 10px 10px 0 0; /* Semicírculo hacia arriba para expresión triste */
+        position: absolute;
+        top: 25px;
+        left: 25px;
+    }
+</style>
+<div class="container">
+    <div class="paper">
+        <div class="face">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="mouth"></div>
+        </div>
+    </div>
+    <div class="error-code">401</div>
+    <div class="error-message">Unauthorized Response</div>
+    <a asp-controller="Home" asp-action="Index" class="btn link-secondary mt-1">Go Home</a>
+</div>
