@@ -6,6 +6,7 @@ using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Gender;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.EmotionalStates;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient;
+using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Organization;
 
 
 namespace Oniria.Infrastructure.Persistence.Extensions
@@ -27,6 +28,7 @@ namespace Oniria.Infrastructure.Persistence.Extensions
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IEmotionalStatesRepository, EmotionalStatesRepository>();
             services.AddTransient<IPatientRepository, PatientRepository>();
+            services.AddTransient<IOrganizationRepository, OrganizationRepository>();
         }
     }
 }

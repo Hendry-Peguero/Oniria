@@ -2,16 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Oniria.Core.Application.Features.Base;
+using Oniria.Core.Application.Features.User.Queries;
 using Oniria.Core.Dtos.User.Response;
 using Oniria.Infrastructure.Identity.Entities;
 
 namespace Oniria.Infrastructure.Identity.Features.User.Queries
 {
-    public class GetUserByIdAsyncQuery : IRequest<OperationResult<UserResponse>>
-    {
-        public string UserId { get; set; }
-    }
-
     public class GetUserByIdAsyncQueryHandler : IRequestHandler<GetUserByIdAsyncQuery, OperationResult<UserResponse>>
     {
         private readonly UserManager<ApplicationUser> userManager;
