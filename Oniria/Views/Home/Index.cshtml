@@ -55,6 +55,7 @@
 <button id="createUser">Create User</button>
 <button id="updateUser">Update User</button>
 <button id="restorePasswordUser">Enviar Restore Password User</button>
+<button id="analyzeDream">Analyze Dream</button>
 <h1 id="result">####</h1>
 @section Scripts {
     <script>
@@ -146,6 +147,25 @@
                     },
                     error: function(xhr) {
                         $("#result").html("enviar correo restablecer password failed: " + xhr.statusText);
+                    }
+                });
+            });
+
+            $("#analyzeDream").click(function() {
+                $.ajax({
+                    url: '@Url.Action("AnalyzeDream")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function(response) {
+                        if (response.ok) {
+                            $("#result").html(response.result);
+                        }
+                        else {
+                            $("#result").html(response.messages);
+                        }
+                    },
+                    error: function(xhr) {
+                        $("#result").html("Analyze dream failed: " + xhr.statusText);
                     }
                 });
             });

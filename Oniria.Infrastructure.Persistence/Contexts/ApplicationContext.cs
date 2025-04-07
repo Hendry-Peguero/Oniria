@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Oniria.Core.Application.Helpers;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Enums;
 
@@ -11,6 +12,8 @@ namespace Oniria.Infrastructure.Persistence.Contexts
 
         // Entities
         public DbSet<GenderEntity> Genders { get; set; }
+        public DbSet<EmotionalStatesEntity> EmotionalStates { get; set; }
+
 
 
 
@@ -23,6 +26,7 @@ namespace Oniria.Infrastructure.Persistence.Contexts
 
             // Principal
             modelBuilder.Entity<GenderEntity>().HasKey(p => p.Id);
+            modelBuilder.Entity<EmotionalStatesEntity>().HasKey(p => p.Id);
 
             #endregion
 
@@ -30,6 +34,7 @@ namespace Oniria.Infrastructure.Persistence.Contexts
 
             // Principal
             modelBuilder.Entity<GenderEntity>().ToTable("Genres");
+            modelBuilder.Entity<EmotionalStatesEntity>().ToTable("EmotionalStates");
 
             #endregion
 
@@ -47,12 +52,27 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             #region Seedings
 
             modelBuilder.Entity<GenderEntity>().HasData(
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Hombre", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Mujer", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Helicopter", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Tanque de Guerra", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "MMGVO", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = Guid.NewGuid().ToString(), Description = "Enero", Status = StatusEntity.ACTIVE }
+                new GenderEntity { Id = GeneratorHelper.GuidString(), Description = "Hombre", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = GeneratorHelper.GuidString(), Description = "Mujer", Status = StatusEntity.ACTIVE },
+                new GenderEntity { Id = GeneratorHelper.GuidString(), Description = "Ninguno", Status = StatusEntity.ACTIVE }
+            );
+
+            modelBuilder.Entity<EmotionalStatesEntity>().HasData(
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Ansiedad", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Felicidad", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Tristeza", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Miedo", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Confusión", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Culpa", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Vergüenza", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Euforia", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Ira", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Amor", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Soledad", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Esperanza", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Relajación", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Sorpresa", Status = StatusEntity.ACTIVE },
+                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Gratitud", Status = StatusEntity.ACTIVE }
             );
 
             #endregion

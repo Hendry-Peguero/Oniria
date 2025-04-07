@@ -12,6 +12,7 @@ namespace Oniria.Infrastructure.Shared.Extensions
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            services.Configure<DeepSeekSettings>(configuration.GetSection("DeepSeekSettings"));
         }
     }
 }

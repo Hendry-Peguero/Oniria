@@ -5,20 +5,21 @@ using Oniria.Core.Domain.Entities;
 
 namespace Oniria.Core.Application.Features.EmotionalStates.Queries
 {
-    public class GetByIdAsyncEmotionalStatesQuery : IRequest<OperationResult<EmotionalStatesEntity>>
+    public class GetEmotionalStatesByIdAsyncQuery : IRequest<OperationResult<EmotionalStatesEntity>>
     {
         public string Id { get; set; }
     }
-    public class GetByIdAsyncEmotionalStatesQueryHandler : IRequestHandler<GetByIdAsyncEmotionalStatesQuery, OperationResult<EmotionalStatesEntity>>
+
+    public class GetEmotionalStatesByIdAsyncQueryHandler : IRequestHandler<GetEmotionalStatesByIdAsyncQuery, OperationResult<EmotionalStatesEntity>>
     {
         private readonly IEmotionalStatesRepository emotionalStatesRepository;
         
-        public GetByIdAsyncEmotionalStatesQueryHandler(IEmotionalStatesRepository emotionalStatesRepository)
+        public GetEmotionalStatesByIdAsyncQueryHandler(IEmotionalStatesRepository emotionalStatesRepository)
         {
             this.emotionalStatesRepository = emotionalStatesRepository;
         }
 
-        public async Task<OperationResult<EmotionalStatesEntity>> Handle(GetByIdAsyncEmotionalStatesQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<EmotionalStatesEntity>> Handle(GetEmotionalStatesByIdAsyncQuery request, CancellationToken cancellationToken)
         {
             var result = OperationResult<EmotionalStatesEntity>.Create();
             result.Data = await emotionalStatesRepository.GetByIdAsync(request.Id);
