@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
 using Oniria.Core.Application.Features.Gender.Queries;
 using Oniria.Core.Domain.Enums;
 using Oniria.Core.Dtos.User.Request;
+using Oniria.Helpers;
 using Oniria.Infrastructure.Identity.Features.User.Commands;
 using Oniria.Infrastructure.Identity.Features.User.Queries;
 
@@ -17,6 +19,14 @@ namespace Oniria.Controllers
         {
             this.mapper = mapper;
         }
+
+        public async Task<IActionResult> HomeRedirection()
+        {
+            return Redirections.GetHomeByUserRole(
+                (await Mediator.Send(new GetUserSessionAsyncQuery())).Data?.Roles?.FirstOrDefault()
+            );
+        }
+
 
         public async Task<IActionResult> Index()
         {
