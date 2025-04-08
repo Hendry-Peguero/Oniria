@@ -2,8 +2,6 @@
 using Oniria.Core.Application.Features.Base;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Oniria.Core.Application.Features.DreamToken.Queries
 {
@@ -29,11 +27,13 @@ namespace Oniria.Core.Application.Features.DreamToken.Queries
 
             if (token == null)
             {
-                result.AddError("DreamToken no encontrado");
-                return result;
+                result.AddError("DreamToken not found");
+            }
+            else
+            {
+                result.Data = token;
             }
 
-            result.Data = token;
             return result;
         }
     }

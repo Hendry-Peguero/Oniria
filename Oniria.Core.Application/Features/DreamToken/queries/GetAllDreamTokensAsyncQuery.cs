@@ -2,9 +2,6 @@
 using Oniria.Core.Application.Features.Base;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Oniria.Core.Application.Features.DreamToken.Queries
 {
@@ -23,15 +20,7 @@ namespace Oniria.Core.Application.Features.DreamToken.Queries
         {
             var result = OperationResult<List<DreamTokenEntity>>.Create();
 
-            try
-            {
-                var tokens = await _dreamTokenRepository.GetAllAsync();
-                result.Data = tokens;
-            }
-            catch (System.Exception ex)
-            {
-                result.AddError("Error al obtener DreamTokens: " + ex.Message);
-            }
+            result.Data = await _dreamTokenRepository.GetAllAsync();
 
             return result;
         }
