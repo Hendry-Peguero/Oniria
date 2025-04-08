@@ -1,28 +1,44 @@
 ﻿using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Core.Domain.Entities;
+using Oniria.Infrastructure.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Dream
 {
     class DreamTokenRepository : IDreamTokenRepository
     {
-        public Task<DreamTokenEntity> CreateAsync(DreamTokenEntity entity)
+        private readonly ApplicationContext context;
+
+        public DreamTokenRepository(ApplicationContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task<DreamTokenEntity> CreateAsync(DreamTokenEntity entity)
+        {
+            await context.Set<DreamTokenEntity>().AddAsync(entity);
+            await context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task<List<DreamTokenEntity>> GetAllAsync()
+        public async Task<List<DreamTokenEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.Set<DreamTokenEntity>().ToListAsync();
         }
 
-        public Task<DreamTokenEntity?> GetByIdAsync(string id)
+        public async Task<DreamTokenEntity?> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Set<DreamTokenEntity>().FindAsync(id);
         }
 
-        public Task<DreamTokenEntity> UpdateAsync(DreamTokenEntity entity)
+        public async Task<DreamTokenEntity> UpdateAsync(DreamTokenEntity entity)
         {
-            throw new NotImplementedException();
+            DreamTokenEntity? entityToModify = await context.Set<DreamTokenEntity>().FindAsync(entity.Id);
+            if (entityToModify != null)
+            {
+                context.Entry(entityToModify).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
+            return entity;
         }
     }
 }

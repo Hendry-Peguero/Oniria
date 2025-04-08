@@ -3,10 +3,9 @@ using Oniria.Core.Domain.Interfaces.Repositories.Maintenance;
 
 namespace Oniria.Core.Domain.Interfaces.Repositories
 {
-    public interface IDreamAnalysisRepository :
-    GetAllAsync<DreamAnalysisEntity>,
-    GetByIdAsync<DreamAnalysisEntity, string>,
-    CreateAsync<DreamAnalysisEntity>
+    public interface IMembershipRepository :
+     GetAllAsync<MembershipEntity>,
+     GetByIdAsync<MembershipEntity, string>
     {
     }
 }
