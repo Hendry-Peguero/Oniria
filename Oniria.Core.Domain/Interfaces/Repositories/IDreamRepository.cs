@@ -9,5 +9,4 @@ namespace Oniria.Core.Domain.Interfaces.Repositories
     CreateAsync<DreamEntity>
     {
     }
-
 }
