@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
+using Oniria.Core.Application.Features.Employee.Commands;
 using Oniria.Core.Application.Features.Gender.Queries;
 using Oniria.Core.Application.Features.Organization.Commands;
 using Oniria.Core.Application.Features.Patient.Commands;
 using Oniria.Core.Application.Features.User.Queries;
 using Oniria.Core.Domain.Enums;
+using Oniria.Core.Dtos.Employee.Request;
 using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
 using Oniria.Core.Dtos.User.Request;
@@ -265,5 +267,55 @@ namespace Oniria.Controllers
 
 
 
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployee()
+        {
+            var createResult = await Mediator.Send(new CreateEmployeeAsyncCommand
+            {
+                Request = new CreateEmployeeRequest
+                {
+                    Dni = "000000000000",
+                    Name = "pepito",
+                    LastName = "grande",
+                    BornDate = DateTime.Now,
+                    PhoneNumber = "+1 000-000-0000",
+                    Address = "calle#4pepe",
+                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366"
+                }
+            });
+
+            if (!createResult.IsSuccess) return Json(createResult);
+
+            return Json(new { ok = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateEmployee()
+        {
+            var updateResult = await Mediator.Send(new UpdateEmployeeAsyncCommand
+            {
+                Request = new UpdateEmployeeRequest
+                {
+                    Id = "",
+                    Dni = "000000000000",
+                    Name = "pepito",
+                    LastName = "grande",
+                    BornDate = DateTime.Now,
+                    PhoneNumber = "+1 000-000-0000",
+                    Address = "calle#4pepe",
+                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
+                    Status = StatusEntity.INACTIVE
+                }
+            });
+
+            if (!updateResult.IsSuccess) return Json(updateResult);
+
+            return Json(new { ok = true });
+        }
     }
 }
