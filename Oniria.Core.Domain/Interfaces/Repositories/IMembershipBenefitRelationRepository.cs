@@ -5,7 +5,10 @@ namespace Oniria.Core.Domain.Interfaces.Repositories
 {
     public interface IMembershipBenefitRelationRepository :
     GetAllAsync<MembershipBenefitRelationEntity>,
-    GetByIdAsync<MembershipBenefitRelationEntity, string>
+    GetByIdAsync<MembershipBenefitRelationEntity, string>,
+    UpdateAsync<MembershipBenefitRelationEntity>,
+    DeleteAsync<MembershipBenefitRelationEntity>,
+    CreateAsync<MembershipBenefitRelationEntity>
     {
     }
 }

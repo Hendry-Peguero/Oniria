@@ -3,9 +3,11 @@ using Oniria.Core.Domain.Interfaces.Repositories.Maintenance;
 
 namespace Oniria.Core.Domain.Interfaces.Repositories
 {
-    public interface IMembershipAcquisitionRepositoy :
+    public interface IMembershipAcquisitionRepository :
     GetAllAsync<MembershipAcquisitionEntity>,
     GetByIdAsync<MembershipAcquisitionEntity, string>,
+    UpdateAsync<MembershipAcquisitionEntity>,
+    DeleteAsync<MembershipAcquisitionEntity>,
     CreateAsync<MembershipAcquisitionEntity>
     {
 

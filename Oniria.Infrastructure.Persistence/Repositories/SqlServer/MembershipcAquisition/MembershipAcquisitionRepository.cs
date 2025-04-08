@@ -5,11 +5,11 @@ using Oniria.Infrastructure.Persistence.Contexts;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.MembershipAcquisition
 {
-    public class MembershipAcquisitionRepositoy : IMembershipAcquisitionRepositoy
+    public class MembershipAcquisitionRepository : IMembershipAcquisitionRepository
     {
         private readonly ApplicationContext context;
 
-        public MembershipAcquisitionRepositoy(ApplicationContext context)
+        public MembershipAcquisitionRepository(ApplicationContext context)
         {
             this.context = context;
         }
@@ -29,6 +29,22 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.MembershipAcq
             await context.Set<MembershipAcquisitionEntity>().AddAsync(entity);
             await context.SaveChangesAsync();
             return entity;
+        }
+        public async Task<MembershipAcquisitionEntity> UpdateAsync(MembershipAcquisitionEntity entity)
+        {
+            MembershipAcquisitionEntity? entityToModify = await context.Set<MembershipAcquisitionEntity>().FindAsync(entity.Id);
+            if (entityToModify != null)
+            {
+                context.Entry(entityToModify).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
+            return entity;
+        }
+
+        public async Task DeleteAsync(MembershipAcquisitionEntity entity)
+        {
+            context.Set<MembershipAcquisitionEntity>().Remove(entity);
+            await context.SaveChangesAsync();
         }
     }
 }

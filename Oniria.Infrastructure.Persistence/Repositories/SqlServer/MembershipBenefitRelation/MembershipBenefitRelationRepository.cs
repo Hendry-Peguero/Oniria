@@ -23,5 +23,28 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.MembershipBen
         {
             return await context.Set<MembershipBenefitRelationEntity>().FindAsync(id);
         }
+
+        public async Task<MembershipBenefitRelationEntity> CreateAsync(MembershipBenefitRelationEntity entity)
+        {
+            await context.Set<MembershipBenefitRelationEntity>().AddAsync(entity);
+            await context.SaveChangesAsync();
+            return entity;
+        }
+        public async Task<MembershipBenefitRelationEntity> UpdateAsync(MembershipBenefitRelationEntity entity)
+        {
+            MembershipBenefitRelationEntity? entityToModify = await context.Set<MembershipBenefitRelationEntity>().FindAsync(entity.Id);
+            if (entityToModify != null)
+            {
+                context.Entry(entityToModify).CurrentValues.SetValues(entity);
+                await context.SaveChangesAsync();
+            }
+            return entity;
+        }
+
+        public async Task DeleteAsync(MembershipBenefitRelationEntity entity)
+        {
+            context.Set<MembershipBenefitRelationEntity>().Remove(entity);
+            await context.SaveChangesAsync();
+        }
     }
 }

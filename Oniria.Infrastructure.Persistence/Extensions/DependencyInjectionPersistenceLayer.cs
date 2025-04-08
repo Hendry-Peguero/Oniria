@@ -39,7 +39,7 @@ namespace Oniria.Infrastructure.Persistence.Extensions
             services.AddTransient<IEmotionalStatesRepository, EmotionalStatesRepository>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
-            services.AddTransient<IMembershipAcquisitionRepositoy, MembershipAcquisitionRepositoy>();
+            services.AddTransient<IMembershipAcquisitionRepository, MembershipAcquisitionRepository>();
             services.AddTransient<IMembershipBenefitRelationRepository, MembershipBenefitRelationRepository>();
             services.AddTransient<IMembershipBenefitRepository, MembershipBenefitRepository>();
             services.AddTransient<IMembershipCategoryRepository, MembershipCategoryRepository>();
