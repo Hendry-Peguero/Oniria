@@ -22,15 +22,15 @@ namespace Oniria.Core.Application.Features.Membership.Queries
         public async Task<OperationResult<MembershipEntity>> Handle(GetMembershipByIdAsyncQuery request, CancellationToken cancellationToken)
         {
             var result = OperationResult<MembershipEntity>.Create();
-            var organization = await membershipRepository.GetByIdAsync(request.Id);
+            var membership = await membershipRepository.GetByIdAsync(request.Id);
 
-            if (organization == null)
+            if (membership == null)
             {
                 result.AddError("Could not get membership by ID");
             }
             else
             {
-                result.Data = organization;
+                result.Data = membership;
             }
 
             return result;
