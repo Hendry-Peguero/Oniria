@@ -22,7 +22,17 @@ namespace Oniria.Core.Application.Features.Patient.Queries
         public async Task<OperationResult<PatientEntity>> Handle(GetPatientByIdAsyncQuery request, CancellationToken cancellationToken)
         {
             var result = OperationResult<PatientEntity>.Create();
-            result.Data = await patientRepository.GetByIdAsync(request.Id);
+            var patient = await patientRepository.GetByIdAsync(request.Id);
+
+            if (patient == null)
+            {
+                result.AddError("Patient not found");
+            }
+            else
+            {
+                result.Data = patient;
+            }
+
             return result;
         }
     }
