@@ -9,6 +9,7 @@ namespace Oniria.Core.Application.Features.DreamAnalysis.Queries
     {
         public string Id { get; set; }
     }
+
     public class GetDreamAnalisysByIdAsyncQueryHandler : IRequestHandler<GetDreamAnalysisByIdAsyncQuery, OperationResult<DreamAnalysisEntity>>
     {
         private readonly IDreamAnalysisRepository dreamAnalysisRepository;
