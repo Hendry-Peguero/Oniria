@@ -6,7 +6,7 @@ using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Core.Dtos.DreamAnalsys.Request;
 
-namespace Oniria.Core.Application.TempDreamAnalysis
+namespace Oniria.Core.Application.Features.DreamAnalysis.Commands
 {
     public class CreateDreamAnalisysAsyncCommand : IRequest<OperationResult<DreamAnalysisEntity>>
     {
@@ -16,17 +16,20 @@ namespace Oniria.Core.Application.TempDreamAnalysis
     public class CreateDreamAnalysisAsyncCommandHandler : IRequestHandler<CreateDreamAnalisysAsyncCommand, OperationResult<DreamAnalysisEntity>>
     {
         private readonly IDreamAnalysisRepository dreamAnalysisRepository;
+
         private readonly IMapper mapper;
 
-        public CreateDreamAnalysisAsyncCommandHandler (IDreamAnalysisRepository dreamAnalysisRepository, IMapper mapper)
+        public CreateDreamAnalysisAsyncCommandHandler(IDreamAnalysisRepository dreamAnalysisRepository, IMapper mapper)
         {
             this.dreamAnalysisRepository = dreamAnalysisRepository;
+
             this.mapper = mapper;
         }
 
         public async Task<OperationResult<DreamAnalysisEntity>> Handle(CreateDreamAnalisysAsyncCommand command, CancellationToken cancellationToken)
         {
             var result = OperationResult<DreamAnalysisEntity>.Create();
+
             var request = command.Request;
 
             var dreamAnalysisToCreate = mapper.Map<DreamAnalysisEntity>(request);
@@ -38,6 +41,7 @@ namespace Oniria.Core.Application.TempDreamAnalysis
             catch (Exception ex)
             {
                 result.AddError("DreamAnlasys could not be completed");
+
                 return result;
             }
 
