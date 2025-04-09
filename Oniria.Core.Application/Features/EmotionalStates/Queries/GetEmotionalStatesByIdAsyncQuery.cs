@@ -22,7 +22,17 @@ namespace Oniria.Core.Application.Features.EmotionalStates.Queries
         public async Task<OperationResult<EmotionalStatesEntity>> Handle(GetEmotionalStatesByIdAsyncQuery request, CancellationToken cancellationToken)
         {
             var result = OperationResult<EmotionalStatesEntity>.Create();
-            result.Data = await emotionalStatesRepository.GetByIdAsync(request.Id);
+            var emotionalState = await emotionalStatesRepository.GetByIdAsync(request.Id);
+
+            if (emotionalState == null)
+            {
+                result.AddError("Emotional State not found");
+            }
+            else
+            {
+                result.Data = emotionalState;
+            }
+
             return result;
         }
     }
