@@ -28,6 +28,7 @@ namespace Oniria.Core.Application.Features.Patient.Commands
         )
         {
             this.patientRepository = patientRepository;
+            this.mediator = mediator;
             this.mapper = mapper;
         }
 

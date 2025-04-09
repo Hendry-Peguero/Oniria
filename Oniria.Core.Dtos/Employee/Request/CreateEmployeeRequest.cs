@@ -1,8 +1,8 @@
-﻿namespace Oniria.Core.Domain.Entities
+﻿namespace Oniria.Core.Dtos.Employee.Request
 {
-    public class EmployeeEntity : BaseEntity
+    public class CreateEmployeeRequest
     {
-        public string Dni {  get; set; }
+        public string Dni { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime BornDate { get; set; }

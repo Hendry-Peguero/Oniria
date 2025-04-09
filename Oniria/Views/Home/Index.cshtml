@@ -57,138 +57,86 @@
 <button id="restorePasswordUser">Enviar Restore Password User</button>
 <button id="analyzeDream">Analyze Dream</button>
 <button id="createPatient">Create Patient</button>
+<button id="updatePatient">Update Patient</button>
+<button id="createOrganization">Create Organization</button>
+<button id="updateOrganization">Update Organization</button>
+<button id="createEmployee">Create Employee</button>
+<button id="updateEmployee">Update Employee</button>
+
 <h1 id="result">####</h1>
+
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            // Obtener sesión al hacer clic
-            $("#userSession").click(function() {
+        $(document).ready(function () {
+            const setResult = (messages) => {
+                if (Array.isArray(messages) && messages.length > 0) {
+                    $("#result").html(messages.join("<br>"));
+                } else {
+                    $("#result").html("No messages available");
+                }
+            };
+
+            const handlePost = (actionName, successMsg) => {
+                $.ajax({
+                    url: '@Url.Action("")'.replace("", actionName),
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        if (response.ok) {
+                            setResult([successMsg]);
+                        } else {
+                            setResult(response.messages);
+                        }
+                    },
+                    error: function (xhr) {
+                        setResult([`${actionName} failed: ` + xhr.statusText]);
+                    }
+                });
+            };
+
+            $("#userSession").click(function () {
                 $.ajax({
                     url: '@Url.Action("GetUserSession")',
                     type: 'GET',
-                    success: function(response) {
-                        $("#result").html(JSON.stringify(response.data));
+                    success: function (response) {
+                        setResult(response.data ? [JSON.stringify(response.data)] : ["Error: No data available"]);
                     },
-                    error: function(xhr) {
-                        $("#result").html("Error: " + xhr.statusText);
+                    error: function (xhr) {
+                        setResult([`Error: ` + xhr.statusText]);
                     }
                 });
             });
 
-            // Login al hacer clic
-            $("#loginUser").click(function() {
-                $.ajax({
-                    url: '@Url.Action("Login")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function(response) {
-                        if (response.ok) {
-                            $("#result").html("Se Logeo nitido");
-                        }
-                        else {
-                            $("#result").html(response.messages);
-                        }
-                    },
-                    error: function(xhr) {
-                        $("#result").html("Login failed: " + xhr.statusText);
-                    }
-                });
-            });
-
-            $("#createUser").click(function() {
-                $.ajax({
-                    url: '@Url.Action("CreateUser")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function(response) {
-                        if (response.ok) {
-                            $("#result").html("Se creo nitido");
-                        }
-                        else {
-                            $("#result").html(response.messages);
-                        }
-                    },
-                    error: function(xhr) {
-                        $("#result").html("Create failed: " + xhr.statusText);
-                    }
-                });
-            });
-
-            $("#updateUser").click(function() {
-                $.ajax({
-                    url: '@Url.Action("UpdateUser")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function(response) {
-                        if (response.ok) {
-                            $("#result").html("Se actualizo Nitido");
-                        }
-                        else {
-                            $("#result").html(response.messages);
-                        }
-                    },
-                    error: function(xhr) {
-                        $("#result").html("Update failed: " + xhr.statusText);
-                    }
-                });
-            });
-
-            $("#restorePasswordUser").click(function() {
-                $.ajax({
-                    url: '@Url.Action("RestorePassword")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function(response) {
-                        if (response.ok) {
-                            $("#result").html("Se envio el correo de restablecer password Nitido");
-                        }
-                        else {
-                            $("#result").html(response.messages);
-                        }
-                    },
-                    error: function(xhr) {
-                        $("#result").html("enviar correo restablecer password failed: " + xhr.statusText);
-                    }
-                });
-            });
-
-            $("#analyzeDream").click(function() {
+            $("#loginUser").click(() => handlePost("Login", "Se Logeo nitido"));
+            $("#createUser").click(() => handlePost("CreateUser", "Se creo nitido"));
+            $("#updateUser").click(() => handlePost("UpdateUser", "Se actualizo nitido"));
+            $("#restorePasswordUser").click(() => handlePost("RestorePassword", "Se envio el correo de restablecer password nitido"));
+            $("#analyzeDream").click(function () {
                 $.ajax({
                     url: '@Url.Action("AnalyzeDream")',
                     type: 'POST',
                     contentType: 'application/json',
-                    success: function(response) {
+                    success: function (response) {
                         if (response.ok) {
-                            $("#result").html(response.result);
-                        }
-                        else {
-                            $("#result").html(response.messages);
+                            setResult([response.result]);
+                        } else {
+                            setResult(response.messages);
                         }
                     },
-                    error: function(xhr) {
-                        $("#result").html("Analyze dream failed: " + xhr.statusText);
+                    error: function (xhr) {
+                        setResult([`Analyze dream failed: ` + xhr.statusText]);
                     }
                 });
             });
 
-            $("#createPatient").click(function() {
-                $.ajax({
-                    url: '@Url.Action("CreatePatient")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function(response) {
-                        if (response.ok) {
-                            $("#result").html("Se creo nitido el paciente");
-                        }
-                        else {
-                            $("#result").html(response.messages);
-                        }
-                    },
-                    error: function(xhr) {
-                        $("#result").html("Create failed: " + xhr.statusText);
-                    }
-                });
-            });
+            $("#createPatient").click(() => handlePost("CreatePatient", "Se creo nitido el paciente"));
+            $("#updatePatient").click(() => handlePost("UpdatePatient", "Se actualizo nitido el paciente"));
+
+            $("#createOrganization").click(() => handlePost("CreateOrganization", "Se creo nitida la organización"));
+            $("#updateOrganization").click(() => handlePost("UpdateOrganization", "Se actualizo nitida la organización"));
+
+            $("#createEmployee").click(() => handlePost("CreateEmployee", "Se creo nitido el empleado"));
+            $("#updateEmployee").click(() => handlePost("UpdateEmployee", "Se actualizo nitido el empleado"));
         });
     </script>
 }

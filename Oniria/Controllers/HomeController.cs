@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
+using Oniria.Core.Application.Features.Employee.Commands;
 using Oniria.Core.Application.Features.Gender.Queries;
+using Oniria.Core.Application.Features.Organization.Commands;
 using Oniria.Core.Application.Features.Patient.Commands;
 using Oniria.Core.Application.Features.User.Queries;
 using Oniria.Core.Domain.Enums;
+using Oniria.Core.Dtos.Employee.Request;
+using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
 using Oniria.Core.Dtos.User.Request;
 using Oniria.Helpers;
@@ -100,29 +104,6 @@ namespace Oniria.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePatient()
-        {
-            var createResult = await Mediator.Send(new CreatePatientAsyncCommand
-            {
-                Request = new CreatePatientRequest
-                {
-                    Name = "pepe",
-                    LastName = "pepe",
-                    BornDate = DateTime.Now,
-                    PhoneNumber = "+1 000-000-0000",
-                    GenderId = "69946032-ecec-43b3-99ef-b3eb93e89fe4",
-                    Address = "calle#3",
-                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
-                    OrganizationId = "#######"
-                }
-            });
-
-            if (!createResult.IsSuccess) return Json(createResult);
-
-            return Json(new { ok = true });
-        }
-
-        [HttpPost]
         public async Task<IActionResult> UpdateUser()
         {
             var editResult = await Mediator.Send(new UpdateUserAsyncCommand
@@ -166,6 +147,175 @@ namespace Oniria.Controllers
             if (!analysisResult.IsSuccess) return Json(analysisResult);
 
             return Json(new { ok = true, result = analysisResult.Data });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePatient()
+        {
+            var createResult = await Mediator.Send(new CreatePatientAsyncCommand
+            {
+                Request = new CreatePatientRequest
+                {
+                    Name = "pepe",
+                    LastName = "pepe",
+                    BornDate = DateTime.Now,
+                    PhoneNumber = "+1 000-000-0000",
+                    GenderId = "69946032-ecec-43b3-99ef-b3eb93e89fe4",
+                    Address = "calle#3",
+                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
+                    OrganizationId = "#######"
+                }
+            });
+
+            if (!createResult.IsSuccess) return Json(createResult);
+
+            return Json(new { ok = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePatient()
+        {
+            var updateResult = await Mediator.Send(new UpdatePatientAsyncCommand
+            {
+                Request = new UpdatePatientRequest
+                {
+                    Id = "",
+                    Name = "pepe",
+                    LastName = "pepe",
+                    BornDate = DateTime.Now,
+                    PhoneNumber = "+1 000-000-0000",
+                    GenderId = "69946032-ecec-43b3-99ef-b3eb93e89fe4",
+                    Address = "calle#3",
+                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
+                    OrganizationId = "#######",
+                    Status = StatusEntity.INACTIVE
+                }
+            });
+
+            if (!updateResult.IsSuccess) return Json(updateResult);
+
+            return Json(new { ok = true });
+        }
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrganization()
+        {
+            var createResult = await Mediator.Send(new CreateOrganizationAsyncCommand
+            {
+                Request = new CreateOrganizationRequest
+                {
+                    Name = "PEPES COMPANY",
+                    Address = "calle#4pepe",
+                    PhoneNumber = "+1 000-000-0000",
+                    EmployeeOwnerld = "##########"
+                }
+            });
+
+            if (!createResult.IsSuccess) return Json(createResult);
+
+            return Json(new { ok = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateOrganization()
+        {
+            var updateResult = await Mediator.Send(new UpdateOrganizationAsyncCommand
+            {
+                Request = new UpdateOrganizationRequest
+                {
+                    Id = "",
+                    Name = "PEPES COMPANY++",
+                    Address = "calle#4pepe++",
+                    PhoneNumber = "+1 000-000-0000++",
+                    EmployeeOwnerld = "##########",
+                    Status = StatusEntity.INACTIVE
+                }
+            });
+
+            if (!updateResult.IsSuccess) return Json(updateResult);
+
+            return Json(new { ok = true });
+        }
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployee()
+        {
+            var createResult = await Mediator.Send(new CreateEmployeeAsyncCommand
+            {
+                Request = new CreateEmployeeRequest
+                {
+                    Dni = "000000000000",
+                    Name = "pepito",
+                    LastName = "grande",
+                    BornDate = DateTime.Now,
+                    PhoneNumber = "+1 000-000-0000",
+                    Address = "calle#4pepe",
+                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366"
+                }
+            });
+
+            if (!createResult.IsSuccess) return Json(createResult);
+
+            return Json(new { ok = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateEmployee()
+        {
+            var updateResult = await Mediator.Send(new UpdateEmployeeAsyncCommand
+            {
+                Request = new UpdateEmployeeRequest
+                {
+                    Id = "",
+                    Dni = "000000000000",
+                    Name = "pepito",
+                    LastName = "grande",
+                    BornDate = DateTime.Now,
+                    PhoneNumber = "+1 000-000-0000",
+                    Address = "calle#4pepe",
+                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
+                    Status = StatusEntity.INACTIVE
+                }
+            });
+
+            if (!updateResult.IsSuccess) return Json(updateResult);
+
+            return Json(new { ok = true });
         }
     }
 }
