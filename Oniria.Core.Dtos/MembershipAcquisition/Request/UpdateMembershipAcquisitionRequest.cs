@@ -11,7 +11,7 @@ namespace Oniria.Core.Dtos.MembershipAcquisition.Request
     {
         public int Id { get; set; }
         public string OwnerId { get; set; }
-        public string MembershiId { get; set; }
+        public string MembershipId { get; set; }
         public DateTime AcquisitionDate { get; set; }
         public StatusEntity Status { get; set; }
     }

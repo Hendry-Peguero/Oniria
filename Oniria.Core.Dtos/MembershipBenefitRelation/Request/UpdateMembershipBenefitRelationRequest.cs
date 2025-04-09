@@ -12,7 +12,7 @@ namespace Oniria.Core.Dtos.MembershipBenefitRelation.Request
         public int Id { get; set; }
         public bool Available { get; set; }
         public string MembershipId { get; set; }
-        public string MembershiBenefitpId { get; set; }
+        public string MembershipBenefitId { get; set; }
         public StatusEntity Status { get; set; }
     }
 }
