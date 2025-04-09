@@ -12,10 +12,7 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
     {
         public CreateDreamTokenRequest Request { get; set; }
 
-        public CreateDreamTokenAsyncCommand(CreateDreamTokenRequest request)
-        {
-            Request = request;
-        }
+       
     }
 
     public class CreateDreamTokenAsyncCommandHandler : IRequestHandler<CreateDreamTokenAsyncCommand, OperationResult<DreamTokenEntity>>
@@ -57,7 +54,7 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
             }
             catch (Exception ex)
             {
-                result.AddError("Error al crear el DreamToken");
+                result.AddError("Error creating DreamToken");
             }
 
             return result;

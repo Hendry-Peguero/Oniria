@@ -12,12 +12,6 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
     {
         public string Id { get; set; }
         public CreateDreamTokenRequest Request { get; set; }
-
-        public UpdateDreamTokenAsyncCommand(string id, CreateDreamTokenRequest request)
-        {
-            Id = id;
-            Request = request;
-        }
     }
 
     public class UpdateDreamTokenAsyncCommandHandler : IRequestHandler<UpdateDreamTokenAsyncCommand, OperationResult<DreamTokenEntity>>
@@ -40,18 +34,18 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
         public async Task<OperationResult<DreamTokenEntity>> Handle(UpdateDreamTokenAsyncCommand command, CancellationToken cancellationToken)
         {
             var result = OperationResult<DreamTokenEntity>.Create();
+            var request = command.Request;
 
-           
-            var existingToken = await _dreamTokenRepository.GetByIdAsync(command.Id);
-            if (existingToken == null)
+            
+            var dreamTokenToUpdate = await _dreamTokenRepository.GetByIdAsync(command.Id);
+            if (dreamTokenToUpdate == null)
             {
                 result.AddError("DreamToken not found");
                 return result;
             }
 
             
-            var patientResult = await _mediator.Send(new GetPatientByIdAsyncQuery { Id = command.Request.PatientId });
-
+            var patientResult = await _mediator.Send(new GetPatientByIdAsyncQuery { Id = request.PatientId });
             if (!patientResult.IsSuccess)
             {
                 result.AddError(patientResult);
@@ -59,20 +53,24 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
             }
 
             
-            _mapper.Map(command.Request, existingToken);
-            existingToken.Id = command.Id; 
+            dreamTokenToUpdate = _mapper.Map<DreamTokenEntity>(request);
+            
 
             try
             {
-                await _dreamTokenRepository.UpdateAsync(existingToken);
-                result.Data = existingToken;
+                await _dreamTokenRepository.UpdateAsync(dreamTokenToUpdate);
             }
             catch (Exception ex)
             {
-                result.AddError("Error updating DreamToken");
+                result.AddError("Patient could not be updated");
+                return result;
             }
 
+            result.Data = dreamTokenToUpdate;
+
             return result;
+
+          
         }
     }
 }
