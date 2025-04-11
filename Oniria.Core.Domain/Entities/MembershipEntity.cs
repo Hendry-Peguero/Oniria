@@ -6,5 +6,9 @@
         public string Description { get; set; }
         public int DurationDays { get; set; }
         public string MembershipCategoryId { get; set; }
+
+        //nav
+        public MembershipCategoryEntity MembershipCategory { get; set; }
+        public ICollection<MembershipBenefitRelationEntity> BenefitRelations { get; set; }
     }
 }

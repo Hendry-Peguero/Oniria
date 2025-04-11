@@ -39,6 +39,45 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<GenderEntity>().HasKey(p => p.Id);
             modelBuilder.Entity<EmotionalStatesEntity>().HasKey(p => p.Id);
 
+            // DreamAnalysisEntity
+            modelBuilder.Entity<DreamAnalysisEntity>().HasKey(p => p.Id);
+
+            // DreamEntity
+            modelBuilder.Entity<DreamEntity>().HasKey(p => p.Id);
+
+            // DreamTokenEntity
+            modelBuilder.Entity<DreamTokenEntity>().HasKey(p => p.Id);
+
+            // EmotionalStatesEntity
+            modelBuilder.Entity<EmotionalStatesEntity>().HasKey(p => p.Id);
+
+            // EmployeeEntity
+            modelBuilder.Entity<EmployeeEntity>().HasKey(p => p.Id);
+
+            // GenderEntity
+            modelBuilder.Entity<GenderEntity>().HasKey(p => p.Id);
+
+            // MembershipAcquisitionEntity
+            modelBuilder.Entity<MembershipAcquisitionEntity>().HasKey(p => p.Id);
+
+            // MembershipBenefitEntity
+            modelBuilder.Entity<MembershipBenefitEntity>().HasKey(p => p.Id);
+
+            // MembershipBenefitRelationEntity
+            modelBuilder.Entity<MembershipBenefitRelationEntity>().HasKey(p => p.Id);
+
+            // MembershipCategoryEntity
+            modelBuilder.Entity<MembershipCategoryEntity>().HasKey(p => p.Id);
+
+            // MembershipEntity
+            modelBuilder.Entity<MembershipEntity>().HasKey(p => p.Id);
+
+            // OrganizationEntity
+            modelBuilder.Entity<OrganizationEntity>().HasKey(p => p.Id);
+
+            // PatientEntity
+            modelBuilder.Entity<PatientEntity>().HasKey(p => p.Id);
+
             #endregion
 
             #region Tables
@@ -46,6 +85,19 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             // Principal
             modelBuilder.Entity<GenderEntity>().ToTable("Genres");
             modelBuilder.Entity<EmotionalStatesEntity>().ToTable("EmotionalStates");
+            modelBuilder.Entity<DreamAnalysisEntity>().ToTable("DreamAnalyses");
+            modelBuilder.Entity<DreamEntity>().ToTable("Dreams");
+            modelBuilder.Entity<DreamTokenEntity>().ToTable("DreamTokens");
+            modelBuilder.Entity<EmotionalStatesEntity>().ToTable("EmotionalStates");
+            modelBuilder.Entity<EmployeeEntity>().ToTable("Employees");
+            modelBuilder.Entity<GenderEntity>().ToTable("Genres");
+            modelBuilder.Entity<MembershipAcquisitionEntity>().ToTable("MembershipAcquisitions");
+            modelBuilder.Entity<MembershipBenefitEntity>().ToTable("MembershipBenefits");
+            modelBuilder.Entity<MembershipBenefitRelationEntity>().ToTable("MembershipBenefitRelations");
+            modelBuilder.Entity<MembershipCategoryEntity>().ToTable("MembershipCategories");
+            modelBuilder.Entity<MembershipEntity>().ToTable("Memberships");
+            modelBuilder.Entity<OrganizationEntity>().ToTable("Organizations");
+            modelBuilder.Entity<PatientEntity>().ToTable("Patients");
 
             #endregion
 
@@ -57,6 +109,109 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             //    .WithMany(tp => tp.Properties)
             //    .HasForeignKey(p => p.TypePropertyId)
             //    .OnDelete(DeleteBehavior.Cascade);
+
+            #region Relationships
+
+            // PatientEntity -> OrganizationEntity (muchos a uno)
+            modelBuilder.Entity<PatientEntity>()
+                .HasOne(p => p.Organization)
+                .WithMany(o => o.Patients)
+                .HasForeignKey(p => p.OrganizationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // PatientEntity -> GenderEntity (muchos a uno)
+            modelBuilder.Entity<PatientEntity>()
+                .HasOne(p => p.Gender)
+                .WithMany()
+                .HasForeignKey(p => p.GenderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // PatientEntity -> DreamEntity (uno a muchos)
+            modelBuilder.Entity<DreamEntity>()
+                .HasOne(d => d.Patient)
+                .WithMany(p => p.Dreams)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);  
+
+            // PatientEntity -> DreamTokenEntity (uno a uno)
+            modelBuilder.Entity<DreamTokenEntity>()
+                .HasOne(dt => dt.Patient)
+                .WithOne(p => p.DreamToken)
+                .HasForeignKey<DreamTokenEntity>(dt => dt.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // PatientEntity -> MembershipAcquisitionEntity (uno a muchos)
+            modelBuilder.Entity<MembershipAcquisitionEntity>()
+                .HasOne(ma => ma.Owner)
+                .WithMany(p => p.MembershipAcquisitions)
+                .HasForeignKey(ma => ma.OwnerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // OrganizationEntity -> EmployeeEntity (uno a muchos)
+            modelBuilder.Entity<EmployeeEntity>()
+                .HasOne(e => e.Organization)
+                .WithMany(o => o.Employees)
+                .HasForeignKey(e => e.OrganizationId)
+                .OnDelete(DeleteBehavior.Cascade);            
+                 
+            // OrganizationEntity -> MembershipAcquisitionEntity (uno a muchos)
+            modelBuilder.Entity<MembershipAcquisitionEntity>()
+                .HasOne(ma => ma.Owner)
+                .WithMany(o => o.MembershipAcquisitions)
+                .HasForeignKey(ma => ma.OwnerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // OrganizationEntity -> EmployeeOwner (uno a uno)
+            modelBuilder.Entity<OrganizationEntity>()
+                .HasOne(o => o.EmployeeOwner)
+                .WithOne()
+                .HasForeignKey<OrganizationEntity>(o => o.EmployeeOwnerld)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // MembershipAcquisitionEntity -> MembershipEntity (muchos a uno)
+            modelBuilder.Entity<MembershipAcquisitionEntity>()
+                .HasOne(ma => ma.Membership)
+                .WithMany()
+                .HasForeignKey(ma => ma.MembershipId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // MembershipEntity -> MembershipCategoryEntity (muchos a uno)
+            modelBuilder.Entity<MembershipEntity>()
+                .HasOne(m => m.MembershipCategory)
+                .WithMany()
+                .HasForeignKey(m => m.MembershipCategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // MembershipEntity -> MembershipBenefitRelationEntity (uno a muchos)
+            modelBuilder.Entity<MembershipBenefitRelationEntity>()
+                .HasOne(mbr => mbr.Membership)
+                .WithMany(m => m.BenefitRelations)
+                .HasForeignKey(mbr => mbr.MembershipId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // MembershipBenefitRelationEntity -> MembershipBenefitEntity (muchos a uno)
+            modelBuilder.Entity<MembershipBenefitRelationEntity>()
+                .HasOne(mbr => mbr.MembershipBenefit)
+                .WithMany()
+                .HasForeignKey(mbr => mbr.MembershipBenefitId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // DreamEntity -> DreamAnalysisEntity (uno a uno)
+            modelBuilder.Entity<DreamEntity>()
+                .HasOne(d => d.DreamAnalysis)
+                .WithOne()
+                .HasForeignKey<DreamEntity>(d => d.DreamAnalysisId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // DreamAnalysisEntity -> EmotionalStatesEntity (muchos a uno)
+            modelBuilder.Entity<DreamAnalysisEntity>()
+                .HasOne(da => da.EmotionalStates)
+                .WithMany()
+                .HasForeignKey(da => da.EmotionalState)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            #endregion
+
 
             #endregion
 

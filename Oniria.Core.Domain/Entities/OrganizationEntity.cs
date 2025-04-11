@@ -6,5 +6,11 @@
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string EmployeeOwnerld { get; set; }
+
+        //nav 
+        public EmployeeEntity EmployeeOwner { get; set; }
+        public ICollection<EmployeeEntity> Employees { get; set; }
+        public ICollection<PatientEntity> Patients { get; set; }
+        public ICollection<MembershipAcquisitionEntity> MembershipAcquisitions { get; set; }
     }
 }

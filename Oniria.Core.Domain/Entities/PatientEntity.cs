@@ -10,5 +10,12 @@
         public string GenderId { get; set; }
         public string UserId { get; set; }
         public string OrganizationId { get; set; }
+
+        //nav
+        public OrganizationEntity Organization { get; set; }
+        public GenderEntity Gender { get; set; }
+        public ICollection<MembershipAcquisitionEntity> MembershipAcquisitions { get; set; }
+        public ICollection<DreamEntity> Dreams { get; set; }
+        public DreamTokenEntity DreamToken { get; set; }
     }
 }

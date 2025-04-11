@@ -6,5 +6,8 @@
         public string EmotionalState { get; set; }
         public string Recommendation { get; set; }
         public string PatternBehaviour { get; set; }
+
+        //nav
+        public EmotionalStatesEntity EmotionalStates { get; set; }
     }
 }
