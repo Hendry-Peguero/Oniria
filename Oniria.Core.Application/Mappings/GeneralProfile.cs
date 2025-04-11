@@ -67,5 +67,7 @@ namespace Oniria.Core.Application.Mappings
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
                 .IgnoreAuditMembers();
         }
+
+       
     }
 }

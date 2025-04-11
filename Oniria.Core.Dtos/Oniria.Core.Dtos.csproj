@@ -10,8 +10,4 @@
 	  <ProjectReference Include="..\Oniria.Core.Domain\Oniria.Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dream\Response\" />
-  </ItemGroup>
-
 </Project>
