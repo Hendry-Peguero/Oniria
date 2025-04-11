@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Oniria.Core.Dtos\Oniria.Core.Dtos.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Membership\Commands\" />
+  </ItemGroup>
+
 </Project>
