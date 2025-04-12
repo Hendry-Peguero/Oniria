@@ -11,8 +11,6 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
     public class CreateDreamTokenAsyncCommand : IRequest<OperationResult<DreamTokenEntity>>
     {
         public CreateDreamTokenRequest Request { get; set; }
-
-       
     }
 
     public class CreateDreamTokenAsyncCommandHandler : IRequestHandler<CreateDreamTokenAsyncCommand, OperationResult<DreamTokenEntity>>
@@ -36,7 +34,6 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
         {
             var result = OperationResult<DreamTokenEntity>.Create();
             var request = command.Request;
-
 
             var patientResult = await _mediator.Send(new GetPatientByIdAsyncQuery { Id = request.PatientId });
 

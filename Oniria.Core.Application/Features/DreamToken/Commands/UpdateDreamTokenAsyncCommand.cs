@@ -10,8 +10,7 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
 {
     public class UpdateDreamTokenAsyncCommand : IRequest<OperationResult<DreamTokenEntity>>
     {
-        public string Id { get; set; }
-        public CreateDreamTokenRequest Request { get; set; }
+        public UpdateDreamTokenRequest Request { get; set; }
     }
 
     public class UpdateDreamTokenAsyncCommandHandler : IRequestHandler<UpdateDreamTokenAsyncCommand, OperationResult<DreamTokenEntity>>
@@ -36,41 +35,34 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
             var result = OperationResult<DreamTokenEntity>.Create();
             var request = command.Request;
 
-            
-            var dreamTokenToUpdate = await _dreamTokenRepository.GetByIdAsync(command.Id);
+            var dreamTokenToUpdate = await _dreamTokenRepository.GetByIdAsync(request.Id);
+
             if (dreamTokenToUpdate == null)
             {
-                result.AddError("DreamToken not found");
+                result.AddError("DreamToken to update not found");
                 return result;
             }
 
-            
             var patientResult = await _mediator.Send(new GetPatientByIdAsyncQuery { Id = request.PatientId });
+
             if (!patientResult.IsSuccess)
             {
                 result.AddError(patientResult);
                 return result;
             }
 
-            
-            dreamTokenToUpdate = _mapper.Map<DreamTokenEntity>(request);
-            
-
             try
             {
+                dreamTokenToUpdate = _mapper.Map<DreamTokenEntity>(request);
                 await _dreamTokenRepository.UpdateAsync(dreamTokenToUpdate);
+                result.Data = dreamTokenToUpdate;
             }
             catch (Exception ex)
             {
-                result.AddError("Patient could not be updated");
-                return result;
+                result.AddError("DreamToken could not be updated");
             }
 
-            result.Data = dreamTokenToUpdate;
-
             return result;
-
-          
         }
     }
 }
