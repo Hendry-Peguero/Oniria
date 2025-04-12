@@ -3,6 +3,7 @@
     public class CreateDreamAnalysisRequest
     {
         public string Title { get; set; }
+        public string DreamId { get; set; }
         public string EmotionalStateId { get; set; }
         public string Recommendation { get; set; }
         public string PatternBehaviour { get; set; }
