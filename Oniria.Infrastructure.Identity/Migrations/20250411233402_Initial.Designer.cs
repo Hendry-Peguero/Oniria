@@ -12,8 +12,8 @@ using Oniria.Infrastructure.Identity.Context;
 namespace Oniria.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20250402032630_Initial_Migration")]
-    partial class Initial_Migration
+    [Migration("20250411233402_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

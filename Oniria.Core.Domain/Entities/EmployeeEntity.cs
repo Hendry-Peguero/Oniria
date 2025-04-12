@@ -10,5 +10,10 @@
         public string Address { get; set; }
         public string UserId { get; set; }
         public string? OrganizationId { get; set; }
+
+        //nav
+        public OrganizationEntity? OrganizationWhereWork { get; set; }
+        public ICollection<OrganizationEntity> OrganizationOwned { get; set; }
+
     }
 }

@@ -5,5 +5,8 @@
         public string PatientId { get; set; }
         public int? Amount { get; set; }
         public DateTime? RefreshDate { get; set; }
+
+        //nav
+        public PatientEntity Patient { get; set; }
     }
 }

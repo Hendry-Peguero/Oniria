@@ -5,5 +5,9 @@
         public bool Available { get; set; }
         public string MembershipId { get; set; }
         public string MembershipBenefitId { get; set; }
+
+        //nav
+        public MembershipEntity Membership { get; set; }
+        public MembershipBenefitEntity MembershipBenefit { get; set; }
     }
 }
