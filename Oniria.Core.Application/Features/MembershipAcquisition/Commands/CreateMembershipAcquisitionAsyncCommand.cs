@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Oniria.Core.Application.Features.Base;
-using Oniria.Core.Application.Features.User.Queries;
+using Oniria.Core.Application.Features.Organization.Queries;
+using Oniria.Core.Application.Features.Patient.Queries;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Core.Dtos.MembershipAcquisition.Request;
@@ -35,13 +36,32 @@ namespace Oniria.Core.Application.Features.MembershipAcquisition.Commands
             var result = OperationResult<MembershipAcquisitionEntity>.Create();
             var request = command.Request;
 
-            // Validación del usuario
-            var userResult = await mediator.Send(new GetUserByIdAsyncQuery { UserId = request.OwnerId });
-
-            if (!userResult.IsSuccess)
+            if (request.PatientId != null && request.OrganizationId != null)
             {
-                result.AddError(userResult);
+                result.AddError("You cannot assign a single membership to a patient and an organization");
                 return result;
+            }
+
+            if (request.PatientId != null)
+            {
+                var patientResult = await mediator.Send(new GetPatientByIdAsyncQuery { Id = request.PatientId });
+
+                if (!patientResult.IsSuccess)
+                {
+                    result.AddError(patientResult);
+                    return result;
+                }
+            }
+
+            if (request.OrganizationId != null)
+            {
+                var organizationResult = await mediator.Send(new GetOrganizationByIdAsyncQuery { Id = request.OrganizationId });
+
+                if (!organizationResult.IsSuccess)
+                {
+                    result.AddError(organizationResult);
+                    return result;
+                }
             }
 
             var acquisitionToCreate = mapper.Map<MembershipAcquisitionEntity>(request);

@@ -92,10 +92,6 @@ namespace Oniria.Core.Application.Mappings
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
                 .IgnoreAuditMembers();
-
-            CreateMap<MembershipAcquisitionEntity, UpdateMembershipAcquisitionRequest>()
-                .ReverseMap()
-                .IgnoreTimeStampsAuditMembers();
         }
 
     }
