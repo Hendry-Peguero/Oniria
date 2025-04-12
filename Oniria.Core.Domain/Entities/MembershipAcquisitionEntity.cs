@@ -2,12 +2,14 @@
 {
     public class MembershipAcquisitionEntity : BaseEntity
     {
-        public string OwnerId { get; set; }
+        public string? OrganizationId { get; set; }
+        public string? PatientId { get; set; }
         public string MembershipId { get; set; }
         public DateTime AcquisitionDate { get; set; }
 
         //nav
-        public PatientEntity Owner { get; set; }
+        public OrganizationEntity? Organization { get; set; }
+        public PatientEntity? Patient { get; set; }
         public MembershipEntity Membership { get; set; }
     }
 }

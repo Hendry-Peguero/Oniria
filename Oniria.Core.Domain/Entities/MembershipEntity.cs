@@ -10,5 +10,6 @@
         //nav
         public MembershipCategoryEntity MembershipCategory { get; set; }
         public ICollection<MembershipBenefitRelationEntity> BenefitRelations { get; set; }
+        public ICollection<MembershipAcquisitionEntity> Acquisitions { get; set; }
     }
 }

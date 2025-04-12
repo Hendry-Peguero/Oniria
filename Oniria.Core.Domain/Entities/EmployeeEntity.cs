@@ -12,6 +12,8 @@
         public string? OrganizationId { get; set; }
 
         //nav
-        public OrganizationEntity Organization { get; set; }
+        public OrganizationEntity? OrganizationWhereWork { get; set; }
+        public ICollection<OrganizationEntity> OrganizationOwned { get; set; }
+
     }
 }
