@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Oniria.Core.Application.Features.User.Queries;
 using Oniria.Helpers;
 using Oniria.Infrastructure.Identity.Features.User.Queries;
 

@@ -4,11 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Oniria.Core.Application.Features.Base;
 using Oniria.Core.Dtos.User.Response;
 using Oniria.Core.Application.Extensions;
+using Oniria.Core.Application.Features.User.Queries;
 
 namespace Oniria.Infrastructure.Identity.Features.User.Queries
 {
-    public class GetUserSessionAsyncQuery : IRequest<OperationResult<UserResponse>> { }
-
     public class GetUserSessionAsyncQueryHandler : IRequestHandler<GetUserSessionAsyncQuery, OperationResult<UserResponse>>
     {
         private readonly IHttpContextAccessor httpContextAccessor;

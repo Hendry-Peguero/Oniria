@@ -22,7 +22,17 @@ namespace Oniria.Core.Application.Features.Dream.Queries
         public async Task<OperationResult<DreamEntity>> Handle(GetDreamByIdAsyncQuery request, CancellationToken cancellationToken)
         {
             var result = OperationResult<DreamEntity>.Create();
-            result.Data = await dreamRepository.GetByIdAsync(request.Id);
+            var dream = await dreamRepository.GetByIdAsync(request.Id);
+
+            if (dream != null)
+            {
+                result.Data = dream;
+            }
+            else
+            {
+                result.AddError("No such dream found by ID");
+            }
+
             return result;
         }
     }

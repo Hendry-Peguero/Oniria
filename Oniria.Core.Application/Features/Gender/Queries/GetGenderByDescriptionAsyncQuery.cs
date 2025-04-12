@@ -5,8 +5,8 @@ using Oniria.Core.Domain.Interfaces.Repositories;
 
 namespace Oniria.Core.Application.Features.Gender.Queries
 {
-    public class GetGenderByDescriptionAsyncQuery : IRequest<OperationResult<GenderEntity>> 
-    { 
+    public class GetGenderByDescriptionAsyncQuery : IRequest<OperationResult<GenderEntity>>
+    {
         public string Description { get; set; }
     }
 
@@ -24,13 +24,14 @@ namespace Oniria.Core.Application.Features.Gender.Queries
             var result = OperationResult<GenderEntity>.Create();
             var gender = (await genderRepository.GetAllAsync()).FirstOrDefault(g => g.Description == request.Description);
 
-            if (gender == null)
+            if (gender != null)
+            {
+                result.Data = gender;
+            }
+            else
             {
                 result.AddError($"There is no gender with this description [{request.Description}]");
-                return result;
             }
-
-            result.Data = gender;
 
             return result;
         }

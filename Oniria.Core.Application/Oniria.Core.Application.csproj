@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\MembershipBenefitRelation\Commands\**" />
+    <Compile Remove="Features\MembershipBenefit\Commands\**" />
+    <Compile Remove="Features\MembershipCategory\Commands\**" />
+    <Compile Remove="Features\Membership\Commands\**" />
+    <EmbeddedResource Remove="Features\MembershipBenefitRelation\Commands\**" />
+    <EmbeddedResource Remove="Features\MembershipBenefit\Commands\**" />
+    <EmbeddedResource Remove="Features\MembershipCategory\Commands\**" />
+    <EmbeddedResource Remove="Features\Membership\Commands\**" />
+    <None Remove="Features\MembershipBenefitRelation\Commands\**" />
+    <None Remove="Features\MembershipBenefit\Commands\**" />
+    <None Remove="Features\MembershipCategory\Commands\**" />
+    <None Remove="Features\Membership\Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="11.0.0" />
@@ -21,13 +36,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Oniria.Core.Domain\Oniria.Core.Domain.csproj" />
     <ProjectReference Include="..\Oniria.Core.Dtos\Oniria.Core.Dtos.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Membership\Commands\" />
-    <Folder Include="Features\MembershipBenefitRelation\Commands\" />
-    <Folder Include="Features\MembershipBenefit\Commands\" />
-    <Folder Include="Features\MembershipCategory\Commands\" />
   </ItemGroup>
 
 </Project>

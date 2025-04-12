@@ -5,7 +5,7 @@ namespace Oniria.Controllers.Commons
 {
     public class BaseController : Controller
     {
-        private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>()!;
+        private IMediator _Mediator;
+        protected IMediator Mediator => _Mediator ??= HttpContext.RequestServices.GetService<IMediator>()!;
     }
 }

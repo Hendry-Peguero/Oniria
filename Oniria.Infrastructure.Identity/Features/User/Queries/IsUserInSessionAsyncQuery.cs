@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Oniria.Core.Application.Features.Base;
+using Oniria.Core.Application.Features.User.Queries;
 
 namespace Oniria.Infrastructure.Identity.Features.User.Queries
 {
