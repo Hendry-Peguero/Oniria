@@ -25,6 +25,9 @@
 
   <ItemGroup>
     <Folder Include="Features\Membership\Commands\" />
+    <Folder Include="Features\MembershipBenefitRelation\Commands\" />
+    <Folder Include="Features\MembershipBenefit\Commands\" />
+    <Folder Include="Features\MembershipCategory\Commands\" />
   </ItemGroup>
 
 </Project>

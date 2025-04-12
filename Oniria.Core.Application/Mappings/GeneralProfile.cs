@@ -6,6 +6,7 @@ using Oniria.Core.Domain.Enums;
 using Oniria.Core.Dtos.DreamAnalsys.Request;
 using Oniria.Core.Dtos.DreamToken.Request;
 using Oniria.Core.Dtos.Employee.Request;
+using Oniria.Core.Dtos.MembershipAcquisition.Request;
 using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
 
@@ -20,6 +21,7 @@ namespace Oniria.Core.Application.Mappings
             Employee();
             DreamAnalysis();
             DreamToken();
+            MembershipAcquisition();
         }
 
         private void Patient()
@@ -81,6 +83,15 @@ namespace Oniria.Core.Application.Mappings
             CreateMap<DreamTokenEntity, UpdateDreamTokenRequest>()
                 .ReverseMap()
                 .IgnoreTimeStampsAuditMembers();
+        }
+
+        private void MembershipAcquisition()
+        {
+            CreateMap<MembershipAcquisitionEntity, CreateMembershipAcquisitionRequest>()
+                .ReverseMap()
+                .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
+                .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
+                .IgnoreAuditMembers();
         }
 
     }
