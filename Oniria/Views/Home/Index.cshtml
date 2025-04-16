@@ -78,7 +78,7 @@
 
             const handlePost = (actionName, successMsg) => {
                 $.ajax({
-                    url: '@Url.Action("")'.replace("", actionName),
+                    url: `Home/${actionName}`,
                     type: 'POST',
                     contentType: 'application/json',
                     success: function (response) {

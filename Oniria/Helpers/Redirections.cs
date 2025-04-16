@@ -5,10 +5,13 @@ namespace Oniria.Helpers
 {
     public class Redirections
     {
+        // Home
         public static RedirectToRouteResult Home = new RedirectToRouteResult(new { controller = "Home", action = "Index" });
         public static RedirectToRouteResult UserDoctorHome = new RedirectToRouteResult(new { controller = "", action = "" });
         public static RedirectToRouteResult UserAssistanceHome = new RedirectToRouteResult(new { controller = "", action = "" });
         public static RedirectToRouteResult UserPatientHome = new RedirectToRouteResult(new { controller = "", action = "" });
+
+        // General
         public static RedirectToRouteResult AccessDenied = new RedirectToRouteResult(new { controller = "", action = "" });
         public static RedirectToRouteResult Undefinied = new RedirectToRouteResult(new { controller = "", action = "" });
 

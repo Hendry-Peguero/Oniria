@@ -2,6 +2,7 @@ using Oniria.Core.Application.Extensions;
 using Oniria.Infrastructure.Persistence.Extensions;
 using Oniria.Infrastructure.Identity.Extensions;
 using Oniria.Infrastructure.Shared.Extensions;
+using Oniria.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddApplicationDependency();
 builder.Services.AddPersistenceDependency(builder.Configuration);
 builder.Services.AddIdentityDependencyWeb(builder.Configuration);
 builder.Services.AddSharedDependency(builder.Configuration);
+builder.Services.AddPresentationDependency();
 
 
 var app = builder.Build();

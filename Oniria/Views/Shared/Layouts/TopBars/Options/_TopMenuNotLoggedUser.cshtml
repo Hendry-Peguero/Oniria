@@ -1,0 +1,32 @@
+﻿<style>
+    .btn {
+        font-size: 0.70rem;
+    }
+
+    .avatar {
+        background-color: #d4d4d4;
+    }
+
+    .sing-in:hover {
+        background-color: #f1f1f1;
+    }
+
+    .sing-up {
+        transition: all 0.3s ease;
+    }
+
+        .sing-up:hover {
+            transform: translateY(-1.5px);
+        }
+</style>
+<!-- Usuario dropdown + botones -->
+<div class="d-flex align-items-center justify-content-end gap-3 ms-auto">
+    <!-- Botones -->
+    <a class="sing-in btn btn-sm text-primary px-3" asp-controller="" asp-action="">Sign in</a>
+    <a class="sing-up btn btn-sm btn-primary px-3" asp-controller="" asp-action="">Sign up</a>
+
+    <!-- Dropdown con avatar -->
+    <a asp-controller="" asp-action="" class="d-flex align-items-center text-decoration-none ps-2">
+        <img src="~/images/icons/notLoggedUserAvatar.png" alt="avatar" width="32" height="32" class="rounded-circle avatar">
+    </a>
+</div>

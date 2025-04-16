@@ -1,0 +1,202 @@
+﻿@using Oniria.Services
+@inject Oniria.Services.ISideMenuService sideMenuService
+@{
+    var options = await sideMenuService.GetOptions();
+}
+<style>
+
+    /*
+    NOT COLLAPSE VERSION
+    */
+
+    /* MAIN CONTENT */
+
+    .content {
+    --content-prefered-py: 24px;
+    --content-prefered-px: 12px;
+    --content-prefered-width: 250px;
+
+    width: var(--content-prefered-width);
+    flex-shrink: 0;
+    /* min-width: var(--content-prefered-width); */
+    font-size: 14px;
+    user-select: none;
+    position: relative;
+    padding: var(--content-prefered-py) var(--content-prefered-px);
+    transition: width 0.3s ease-out;
+    }
+
+    .content-items {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    }
+
+    .content-items::-webkit-scrollbar {
+    width: 2px;
+    }
+
+    /* ITEM */
+
+    .item {
+    cursor: pointer;
+    color: #a287c9 !important;
+    transition: background-color 0.2s ease;
+    }
+
+    .item-selected {
+    color: #a287c9 !important;
+    background-color: #e0d7f7 !important;
+    }
+
+    .item:hover {
+    background-color: #e4e4e6;
+    }
+
+    .item:active:not(.item-selected) {
+    color: white !important;
+    background-color: #a287c9;
+    transition: none;
+    }
+
+    .item:hover .star-wrapper {
+    transform: scale(2);
+    }
+
+    .item-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+    .star {
+    display: inline-block;
+    font-size: 0.3rem;
+    animation: Around 5s infinite linear, Pulse 6s infinite ease-in-out;
+    }
+
+    .star-wrapper {
+    transition: transform 0.3s ease;
+    }
+
+    /* COLLAPSE BUTTON */
+
+    .collapse-button {
+    font-size: 1rem;
+    background-color: #F5F6FA;
+    color: #a287c9;
+    cursor: pointer;
+    left: 100%;
+    transform: translateX(-50%);
+    }
+
+    .collapse-button:hover {
+    background-color: #F1F1F1;
+    }
+
+    /* NO AUTHORIZATION */
+
+    .no-authorization {
+        color: #d66b7f;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* OTHERS */
+
+    @@keyframes Around {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    @@keyframes Pulse {
+    0%   { color: #a287c9; }
+    25%  { color: #cabaf5; }
+    75%  { color: #d2c1f0; }
+    100% { color: #a287c9; }
+    }
+
+
+    /* 
+    COLLAPSE VERSION
+    */
+
+    .content-collapse {
+    --content-prefered-width: 72px;
+    }
+
+    .content-collapse .item-section,
+    .content-collapse .item-text,
+    .content-collapse .star-wrapper,
+    .content-collapse .star,
+    .content-collapse .no-authorization span 
+    {
+        display: none !important;
+    }
+</style>    
+<div class="content border-end content-collapse">
+    <!-- COLLAPSE BUTTON -->
+    <div class="collapse-button position-absolute shadow-sm">
+        <i class="bi bi-caret-right-fill"></i>
+    </div>
+
+    <!-- OPTIONS -->
+    @if (options.Count != 0) {
+        <div class="content-items d-flex flex-column gap-1 h-100">
+            @foreach(var option in @options)
+            {
+                if (option.GetType() == typeof(Option)) {
+                    <a class="item @(option.Selected ? "item-selected" : null) text-decoration-none d-flex align-items-center gap-2 px-3 py-2 rounded-1"
+                    asp-controller="@option.Controller"
+                    asp-action="@option.Action"
+                    >
+                        @if (option.Selected)
+                        {
+                            <span class="star-wrapper d-flex align-items-center">
+                                <i class="star bi bi-star-fill"></i>
+                            </span>
+                        }
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi @option.BootstrapIcon"></i>
+                            <span class="item-text">@option.Text</span>
+                        </div>
+                    </a>
+                }
+
+                if (option.GetType() == typeof(Section))
+                {
+                    <span class="item-section text-secondary py-2 ps-2">@option.Text</span>
+                }
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-authorization d-flex flex-column align-items-center justify-content-center h-100">
+            <i class="bi bi-shield-lock-fill"></i>
+            <span>No Authorization</span>
+        </div>
+    }
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const content = $('.content');
+        const collapseKey = 'sideMenuCollapsed';
+
+        if (localStorage.getItem(collapseKey) === null) {
+            localStorage.setItem(collapseKey, 'true');
+        }
+
+        if (localStorage.getItem(collapseKey) === 'false') {
+            content.removeClass('content-collapse');
+        }
+
+        $('.collapse-button').on('click', function () {
+            content.toggleClass('content-collapse');
+            const isCollapsed = content.hasClass('content-collapse');
+            localStorage.setItem(collapseKey, isCollapsed);
+        });
+    });
+</script>
+

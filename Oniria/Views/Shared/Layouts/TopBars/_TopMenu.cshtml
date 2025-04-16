@@ -1,0 +1,23 @@
+﻿@inherits Oniria.Extensions.BaseRazor
+<header class="user-select-none">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white shadow-sm">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand poppins-extralight me-auto" asp-controller="Home" asp-action="Index">O N I R I A</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                @* OPTIONS *@
+                @if ((await LoggedUserAsync()) != null)
+                {
+                    <partial name="Layouts/TopBars/Options/_TopMenuLoggedUser" />
+                }
+                else
+                {
+                    <partial name="Layouts/TopBars/Options/_TopMenuNotLoggedUser" />
+                }
+            </div>
+        </div>
+    </nav>
+</header>

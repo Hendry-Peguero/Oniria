@@ -60,7 +60,7 @@ namespace Oniria.Controllers
             {
                 Request = new AuthenticationRequest
                 {
-                    Identifier = "moises",
+                    Identifier = "admin",
                     Password = "123Pa$word!"
                 }
             });
@@ -110,9 +110,9 @@ namespace Oniria.Controllers
             {
                 Request = new UpdateUserRequest
                 {
-                    Id = "1229c1d0-9ae5-43a7-8f69-aebf09b557e8",
-                    Email = "moisesgironarias@gmail.com",
-                    UserName = "moises",
+                    Id = "1ok2l-vxztp-yub64-qm7fr-1298z",
+                    Email = "admin@email.com",
+                    UserName = "admin",
                     Password = "123Pa$word!",
                     Status = StatusEntity.ACTIVE
                 }
