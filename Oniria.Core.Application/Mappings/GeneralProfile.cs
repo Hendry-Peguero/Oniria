@@ -30,7 +30,7 @@ namespace Oniria.Core.Application.Mappings
                 .ReverseMap()
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
-                .IgnoreAuditMembers();
+                .IgnoreTimeStampsAuditMembers();
 
             CreateMap<PatientEntity, UpdatePatientRequest>()
                 .ReverseMap()
@@ -43,7 +43,7 @@ namespace Oniria.Core.Application.Mappings
                 .ReverseMap()
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
-                .IgnoreAuditMembers();
+                .IgnoreTimeStampsAuditMembers();
 
             CreateMap<OrganizationEntity, UpdateOrganizationRequest>()
                 .ReverseMap()
@@ -56,7 +56,7 @@ namespace Oniria.Core.Application.Mappings
                 .ReverseMap()
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
-                .IgnoreAuditMembers();
+                .IgnoreTimeStampsAuditMembers();
 
             CreateMap<EmployeeEntity, UpdateEmployeeRequest>()
                 .ReverseMap()
@@ -69,7 +69,7 @@ namespace Oniria.Core.Application.Mappings
                 .ReverseMap()
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
-                .IgnoreAuditMembers();
+                .IgnoreTimeStampsAuditMembers();
         }
 
 
@@ -79,7 +79,8 @@ namespace Oniria.Core.Application.Mappings
                 .ReverseMap()
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
-                .IgnoreAuditMembers();
+                .IgnoreTimeStampsAuditMembers();
+
             CreateMap<DreamTokenEntity, UpdateDreamTokenRequest>()
                 .ReverseMap()
                 .IgnoreTimeStampsAuditMembers();
@@ -91,7 +92,7 @@ namespace Oniria.Core.Application.Mappings
                 .ReverseMap()
                 .ForMember(p => p.Id, opt => opt.MapFrom(s => GeneratorHelper.GuidString()))
                 .ForMember(p => p.Status, opt => opt.MapFrom(s => StatusEntity.ACTIVE))
-                .IgnoreAuditMembers();
+                .IgnoreTimeStampsAuditMembers();
         }
 
     }

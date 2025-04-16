@@ -176,14 +176,14 @@ namespace Oniria.Controllers
             {
                 Request = new CreatePatientRequest
                 {
-                    Name = "pepe",
-                    LastName = "pepe",
+                    Name = "pepePatient",
+                    LastName = "pepePatient",
                     BornDate = DateTime.Now,
                     PhoneNumber = "+1 000-000-0000",
-                    GenderId = "69946032-ecec-43b3-99ef-b3eb93e89fe4",
+                    GenderId = "70374aeb-5380-46dd-b3d5-88dc4c8056c9",
                     Address = "calle#3",
-                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
-                    OrganizationId = "#######"
+                    UserId = "a7fd3ce1-444c-4a15-ad4c-4116dd7a3c63",
+                    OrganizationId = "523e3dcd-f17b-48b9-831e-63be9db1eced"
                 }
             });
 
@@ -199,15 +199,15 @@ namespace Oniria.Controllers
             {
                 Request = new UpdatePatientRequest
                 {
-                    Id = "",
-                    Name = "pepe",
-                    LastName = "pepe",
+                    Id = "cd0fe123-b102-47b6-8772-4e9da9fcdedc",
+                    Name = "pepe++-",
+                    LastName = "pepe++-",
                     BornDate = DateTime.Now,
-                    PhoneNumber = "+1 000-000-0000",
-                    GenderId = "69946032-ecec-43b3-99ef-b3eb93e89fe4",
-                    Address = "calle#3",
-                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
-                    OrganizationId = "#######",
+                    PhoneNumber = "+1 000-000-0000++-",
+                    GenderId = "70374aeb-5380-46dd-b3d5-88dc4c8056c9",
+                    Address = "calle#3++-",
+                    UserId = "a7fd3ce1-444c-4a15-ad4c-4116dd7a3c63",
+                    OrganizationId = "523e3dcd-f17b-48b9-831e-63be9db1eced",
                     Status = StatusEntity.INACTIVE
                 }
             });
@@ -235,7 +235,7 @@ namespace Oniria.Controllers
                     Name = "PEPES COMPANY",
                     Address = "calle#4pepe",
                     PhoneNumber = "+1 000-000-0000",
-                    EmployeeOwnerld = "##########"
+                    EmployeeOwnerld = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f"
                 }
             });
 
@@ -251,11 +251,11 @@ namespace Oniria.Controllers
             {
                 Request = new UpdateOrganizationRequest
                 {
-                    Id = "",
+                    Id = "523e3dcd-f17b-48b9-831e-63be9db1eced",
                     Name = "PEPES COMPANY++",
                     Address = "calle#4pepe++",
                     PhoneNumber = "+1 000-000-0000++",
-                    EmployeeOwnerld = "##########",
+                    EmployeeOwnerld = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f",
                     Status = StatusEntity.INACTIVE
                 }
             });
@@ -285,7 +285,7 @@ namespace Oniria.Controllers
                     BornDate = DateTime.Now,
                     PhoneNumber = "+1 000-000-0000",
                     Address = "calle#4pepe",
-                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366"
+                    UserId = "a7fd3ce1-444c-4a15-ad4c-4116dd7a3c63"
                 }
             });
 
@@ -301,14 +301,15 @@ namespace Oniria.Controllers
             {
                 Request = new UpdateEmployeeRequest
                 {
-                    Id = "",
-                    Dni = "000000000000",
-                    Name = "pepito",
-                    LastName = "grande",
+                    Id = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f",
+                    Dni = "000000000000+",
+                    Name = "pepito+",
+                    LastName = "grande+",
                     BornDate = DateTime.Now,
-                    PhoneNumber = "+1 000-000-0000",
-                    Address = "calle#4pepe",
-                    UserId = "38fcc90e-9e2e-489d-87bb-8018178af366",
+                    PhoneNumber = "+1 000-000-0000+",
+                    Address = "calle#4pepe+",
+                    UserId = "a7fd3ce1-444c-4a15-ad4c-4116dd7a3c63",
+                    OrganizationId = "523e3dcd-f17b-48b9-831e-63be9db1eced",
                     Status = StatusEntity.INACTIVE
                 }
             });

@@ -35,6 +35,13 @@ namespace Oniria.Core.Application.Features.Employee.Commands
         {
             var result = OperationResult<EmployeeEntity>.Create();
             var request = command.Request;
+            var employeeToUpdate = await employeeRepository.GetByIdAsync(request.Id);
+
+            if (employeeToUpdate == null)
+            {
+                result.AddError("The employee to update was not found");
+                return result;
+            }
 
             // Only if the organization has value
             if (request.OrganizationId != null)
@@ -56,7 +63,7 @@ namespace Oniria.Core.Application.Features.Employee.Commands
                 return result;
             }
 
-            var employeeToUpdate = mapper.Map<EmployeeEntity>(request);
+            employeeToUpdate = mapper.Map<EmployeeEntity>(request);
 
             try
             {
