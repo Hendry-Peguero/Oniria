@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Oniria.Core.Application.Helpers;
 using Oniria.Core.Domain.Entities;
-using Oniria.Core.Domain.Enums;
+using Oniria.Infrastructure.Persistence.Seeds;
 
 namespace Oniria.Infrastructure.Persistence.Contexts
 {
@@ -173,163 +172,22 @@ namespace Oniria.Infrastructure.Persistence.Contexts
 
         private void Seeding(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GenderEntity>().HasData(
-                new GenderEntity { Id = GeneratorHelper.GuidString(), Description = "Hombre", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = GeneratorHelper.GuidString(), Description = "Mujer", Status = StatusEntity.ACTIVE },
-                new GenderEntity { Id = GeneratorHelper.GuidString(), Description = "Perfiero no decirlo", Status = StatusEntity.ACTIVE }
-            );
+            // Defaults
+            DefaultGenderSeeder.Seed(modelBuilder);
+            DefaultMembershipCategorySeeder.Seed(modelBuilder);
+            DefaultEmotionalStatesSeeder.Seed(modelBuilder);
+            DefaultMembershipBenefitSeeder.Seed(modelBuilder);
+            DefaultMembershipSeeder.Seed(modelBuilder);
+            DefaultMembershipBenefitRelationSeeder.Seed(modelBuilder);
 
-            modelBuilder.Entity<EmotionalStatesEntity>().HasData(
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Ansiedad", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Felicidad", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Tristeza", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Miedo", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Confusión", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Culpa", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Vergüenza", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Euforia", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Ira", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Amor", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Soledad", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Esperanza", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Relajación", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Sorpresa", Status = StatusEntity.ACTIVE },
-                new EmotionalStatesEntity { Id = GeneratorHelper.GuidString(), Description = "Gratitud", Status = StatusEntity.ACTIVE }
-            );
-
-            modelBuilder.Entity<MembershipBenefitEntity>().HasData(
-                // Patient Basic
-                new MembershipBenefitEntity { Id = "PB1", Description = "Limited dream recording & analysis", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PB2", Description = "General recommendations", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PB3", Description = "Summarized history", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PB4", Description = "Essential features", Status = StatusEntity.ACTIVE },
-
-                // Patient Standard
-                new MembershipBenefitEntity { Id = "PS1", Description = "Increased dream recording", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PS2", Description = "Personalized analysis & suggestions", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PS3", Description = "Evolution statistics", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PS4", Description = "Enhanced profile & support", Status = StatusEntity.ACTIVE },
-
-                // Patient Premium
-                new MembershipBenefitEntity { Id = "PP1", Description = "Unlimited dream recording", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PP2", Description = "Advanced, real-time analysis", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PP3", Description = "Wearable integration", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "PP4", Description = "Priority support & exclusive updates", Status = StatusEntity.ACTIVE },
-
-                // Organization Basic
-                new MembershipBenefitEntity { Id = "OB1", Description = "Manage up to 20 users", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OB2", Description = "Basic dashboard metrics", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OB3", Description = "Essential administration features", Status = StatusEntity.ACTIVE },
-
-                // Organization Standard
-                new MembershipBenefitEntity { Id = "OS1", Description = "Manage up to 100 users", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OS2", Description = "Advanced dashboard with detailed reports", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OS3", Description = "Basic system integration", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OS4", Description = "Dedicated support", Status = StatusEntity.ACTIVE },
-
-                // Organization Premium
-                new MembershipBenefitEntity { Id = "OP1", Description = "Unlimited user management", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OP2", Description = "Customizable reports & analytics", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OP3", Description = "Full integration with internal systems", Status = StatusEntity.ACTIVE },
-                new MembershipBenefitEntity { Id = "OP4", Description = "Priority support & consultancy", Status = StatusEntity.ACTIVE }
-            );
-
-            modelBuilder.Entity<MembershipCategoryEntity>().HasData(
-                new MembershipCategoryEntity { Id = "P", Description = "Patient", Status = StatusEntity.ACTIVE },
-                new MembershipCategoryEntity { Id = "O", Description = "Organization", Status = StatusEntity.ACTIVE }
-            );
-
-            modelBuilder.Entity<MembershipEntity>().HasData(
-                // Patient Memberships
-                new MembershipEntity
-                {
-                    Id = "PB",
-                    Price = 9.99,
-                    Description = "Basic",
-                    DurationDays = 30,
-                    MembershipCategoryId = "P"
-                },
-                new MembershipEntity
-                {
-                    Id = "PS",
-                    Price = 19.99,
-                    Description = "Standard",
-                    DurationDays = 90,
-                    MembershipCategoryId = "P"
-                },
-                new MembershipEntity
-                {
-                    Id = "PP",
-                    Price = 29.99,
-                    Description = "Premium",
-                    DurationDays = 365,
-                    MembershipCategoryId = "P"
-                },
-
-                // Organization Memberships
-                new MembershipEntity
-                {
-                    Id = "OB",
-                    Price = 49.99,
-                    Description = "Basic",
-                    DurationDays = 30,
-                    MembershipCategoryId = "O"
-                },
-                new MembershipEntity
-                {
-                    Id = "OS",
-                    Price = 99.99,
-                    Description = "Standard",
-                    DurationDays = 90,
-                    MembershipCategoryId = "O"
-                },
-                new MembershipEntity
-                {
-                    Id = "OP",
-                    Price = 199.99,
-                    Description = "Premium",
-                    DurationDays = 365,
-                    MembershipCategoryId = "O"
-                }
-            );
-
-            modelBuilder.Entity<MembershipBenefitRelationEntity>().HasData(
-                // Patient Basic Membership (PB)
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PB", MembershipBenefitId = "PB1" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PB", MembershipBenefitId = "PB2" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PB", MembershipBenefitId = "PB3" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PB", MembershipBenefitId = "PB4" },
-
-                // Patient Standard Membership (PS)
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PS", MembershipBenefitId = "PS1" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PS", MembershipBenefitId = "PS2" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PS", MembershipBenefitId = "PS3" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PS", MembershipBenefitId = "PS4" },
-
-                // Patient Premium Membership (PP)
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PP", MembershipBenefitId = "PP1" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PP", MembershipBenefitId = "PP2" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PP", MembershipBenefitId = "PP3" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "PP", MembershipBenefitId = "PP4" },
-
-                // Organization Basic Membership (OB)
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OB", MembershipBenefitId = "OB1" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OB", MembershipBenefitId = "OB2" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OB", MembershipBenefitId = "OB3" },
-
-                // Organization Standard Membership (OS)
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OS", MembershipBenefitId = "OS1" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OS", MembershipBenefitId = "OS2" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OS", MembershipBenefitId = "OS3" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OS", MembershipBenefitId = "OS4" },
-
-                // Organization Premium Membership (OP)
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OP", MembershipBenefitId = "OP1" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OP", MembershipBenefitId = "OP2" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OP", MembershipBenefitId = "OP3" },
-                new MembershipBenefitRelationEntity { Id = GeneratorHelper.GuidString(), Available = true, MembershipId = "OP", MembershipBenefitId = "OP4" }
-            );
-
+            //// Demo
+            DemoEmployeeSeeder.Seed(modelBuilder);
+            DemoOrganizationSeeder.Seed(modelBuilder);
+            DemoPatientSeeder.Seed(modelBuilder);
+            DemoMembershipAcquisitionSeeder.Seed(modelBuilder);
+            DemoDreamTokenSeeder.Seed(modelBuilder);
+            DemoDreamSeeder.Seed(modelBuilder);
+            DemoDreamAnalysisSeeder.Seed(modelBuilder);
         }
 
     }

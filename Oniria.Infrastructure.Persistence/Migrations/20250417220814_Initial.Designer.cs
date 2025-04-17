@@ -12,7 +12,7 @@ using Oniria.Infrastructure.Persistence.Contexts;
 namespace Oniria.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250417191847_Initial")]
+    [Migration("20250417220814_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -70,6 +70,73 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasIndex("EmotionalStateId");
 
                     b.ToTable("DreamAnalyses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dana1-drm1",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DreamId = "drm1-p122l-vxztp-yub64-qm7fr-1298z",
+                            EmotionalStateId = "ems4-p222l-vxztp-yub64-qm7fr-1298z",
+                            PatternBehaviour = "Sensación de falta de estabilidad emocional o vital.",
+                            Recommendation = "Practicar técnicas de grounding para manejar sensaciones de pérdida de control.",
+                            Status = 0,
+                            Title = "Análisis: Caída Infinita",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "dana2-drm2",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DreamId = "drm2-p222l-vxztp-yub64-qm7fr-1298z",
+                            EmotionalStateId = "ems9-p222l-vxztp-yub64-qm7fr-1298z",
+                            PatternBehaviour = "Reacción intensa ante eventos que escapan del control personal.",
+                            Recommendation = "Explorar posibles fuentes de frustración interna relacionadas con el hogar o el entorno cercano.",
+                            Status = 0,
+                            Title = "Análisis: Casa en Llamas",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "dana3-drm3",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DreamId = "drm3-p222l-vxztp-yub64-qm7fr-1298z",
+                            EmotionalStateId = "ems5-p222l-vxztp-yub64-qm7fr-1298z",
+                            PatternBehaviour = "Dificultad para adaptarse a cambios emocionales repentinos.",
+                            Recommendation = "Reflexionar sobre eventos recientes que hayan generado incertidumbre.",
+                            Status = 0,
+                            Title = "Análisis: Mar Revuelto",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "dana4-drm4",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DreamId = "drm4-p322l-vxztp-yub64-qm7fr-1298z",
+                            EmotionalStateId = "ems1-p222l-vxztp-yub64-qm7fr-1298z",
+                            PatternBehaviour = "Tendencia a sentirse amenazado por factores externos o desconocidos.",
+                            Recommendation = "Aplicar ejercicios de respiración consciente ante situaciones de estrés.",
+                            Status = 0,
+                            Title = "Análisis: Persecución en la Ciudad",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "dana5-drm5",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DreamId = "drm5-p322l-vxztp-yub64-qm7fr-1298z",
+                            EmotionalStateId = "ems12-p222l-vxztp-yub64-qm7fr-1298z",
+                            PatternBehaviour = "Ambición elevada acompañada de inseguridad o falta de dirección clara.",
+                            Recommendation = "Fomentar el enfoque positivo hacia metas personales, buscando equilibrio.",
+                            Status = 0,
+                            Title = "Análisis: Vuelo sin Control",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.DreamEntity", b =>
@@ -106,6 +173,63 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Dreams", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "drm1-p122l-vxztp-yub64-qm7fr-1298z",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p122l-vxztp-yub64-qm7fr-1298z",
+                            Prompt = "Soñé que caía por un pozo sin fondo, no podía gritar ni moverme.",
+                            Status = 0,
+                            Title = "Caída Infinita",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "drm2-p222l-vxztp-yub64-qm7fr-1298z",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p222l-vxztp-yub64-qm7fr-1298z",
+                            Prompt = "Estaba en mi casa y comenzaba a incendiarse, trataba de salvar a mis mascotas.",
+                            Status = 0,
+                            Title = "Casa en Llamas",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "drm3-p222l-vxztp-yub64-qm7fr-1298z",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p222l-vxztp-yub64-qm7fr-1298z",
+                            Prompt = "Estaba en una playa y una gran ola venía hacia mí. No podía correr.",
+                            Status = 0,
+                            Title = "Mar Revuelto",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "drm4-p322l-vxztp-yub64-qm7fr-1298z",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p322l-vxztp-yub64-qm7fr-1298z",
+                            Prompt = "Un desconocido me perseguía por una ciudad oscura y no encontraba salida.",
+                            Status = 0,
+                            Title = "Persecución en la Ciudad",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "drm5-p322l-vxztp-yub64-qm7fr-1298z",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p322l-vxztp-yub64-qm7fr-1298z",
+                            Prompt = "Podía volar, pero no sabía cómo aterrizar y cada vez subía más alto.",
+                            Status = 0,
+                            Title = "Vuelo sin Control",
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.DreamTokenEntity", b =>
@@ -141,6 +265,38 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("DreamTokens", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dtok1-p122l-vxztp-yub64-qm7fr-1298z",
+                            Amount = 5,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p122l-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "dtok2-p222l-vxztp-yub64-qm7fr-1298z",
+                            Amount = 3,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p222l-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "dtok3-p322l-vxztp-yub64-qm7fr-1298z",
+                            Amount = 7,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PatientId = "p322l-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.EmotionalStatesEntity", b =>
@@ -171,136 +327,136 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "16923cf4-4be3-49c6-969f-9124d676fb17",
+                            Id = "ems1-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Ansiedad",
+                            Description = "Anxiety",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "f4f1b01e-beed-4fe6-8d62-447286ae05cd",
+                            Id = "ems2-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Felicidad",
+                            Description = "Happiness",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "ff2e697c-8230-4fe2-a3aa-63334ecdfcb8",
+                            Id = "ems3-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Tristeza",
+                            Description = "Sadness",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "a6258641-5006-4602-9aa0-8291c6c47161",
+                            Id = "ems4-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Miedo",
+                            Description = "Fear",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "74ab134a-961c-4217-8e1b-bc3089d27622",
+                            Id = "ems5-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Confusión",
+                            Description = "Confusion",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "e942577f-29ef-4203-b773-7fbbd257fefc",
+                            Id = "ems6-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Culpa",
+                            Description = "Guilt",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "b10ccaaf-8624-4524-a5f9-ec149f14d1f4",
+                            Id = "ems7-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Vergüenza",
+                            Description = "Shame",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "60856617-06cf-4843-9b70-22d23c0f1b3a",
+                            Id = "ems8-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Euforia",
+                            Description = "Euphoria",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "9597f7bf-ede4-4a12-b912-de72f98f0ffa",
+                            Id = "ems9-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Ira",
+                            Description = "Anger",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "8770c7f2-64bb-469c-9bc9-cbd203d81c2e",
+                            Id = "ems10-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Amor",
+                            Description = "Love",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "5c616b5a-e0a3-4574-b543-fdc148afc36d",
+                            Id = "ems11-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Soledad",
+                            Description = "Loneliness",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "c0ecf0da-b0c9-469f-8a7a-57ac3cf08443",
+                            Id = "ems12-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Esperanza",
+                            Description = "Hope",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "ed3373ee-9f8c-4c5b-9fa1-004c3ac47490",
+                            Id = "ems13-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Relajación",
+                            Description = "Relaxation",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "9e636481-31d7-45f9-8fb7-0771bb084a35",
+                            Id = "ems14-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Sorpresa",
+                            Description = "Surprise",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "b0e41f07-1eba-49c9-8418-aa711a5b0761",
+                            Id = "ems15-p222l-vxztp-yub64-qm7fr-1298z",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Gratitud",
+                            Description = "Gratitude",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -358,6 +514,83 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Employees", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "emp1l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Calle Duarte #45, Santo Domingo",
+                            BornDate = new DateTime(1985, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00112345678",
+                            LastName = "Martínez",
+                            Name = "Laura",
+                            PhoneNumber = "+1 809-555-1234",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "d1k2l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
+                            Id = "emp2l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Av. 27 de Febrero, Santiago",
+                            BornDate = new DateTime(1990, 10, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00276543213",
+                            LastName = "Gómez",
+                            Name = "Carlos",
+                            PhoneNumber = "+1 829-321-5678",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "d2k2l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
+                            Id = "emp3l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Calle Las Palmas #12, San Cristóbal",
+                            BornDate = new DateTime(1992, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00345678901",
+                            LastName = "Rodríguez",
+                            Name = "Elena",
+                            PhoneNumber = "+1 849-678-9012",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "as12l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
+                            Id = "emp4l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Av. Independencia, La Vega",
+                            BornDate = new DateTime(1988, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00498765439",
+                            LastName = "Fernández",
+                            Name = "Miguel",
+                            PhoneNumber = "+1 809-999-2233",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "as22l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
+                            Id = "emp5l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Calle del Sol, Puerto Plata",
+                            BornDate = new DateTime(1995, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00532109876",
+                            LastName = "Santos",
+                            Name = "Camila",
+                            PhoneNumber = "+1 829-888-4455",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "d3k2l-vxztp-yub64-qm7fr-1298z"
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.GenderEntity", b =>
@@ -388,28 +621,28 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "93301371-a865-4711-b804-9173418953b8",
+                            Id = "GM",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Hombre",
+                            Description = "Male",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "fbc21c59-9061-4196-bb33-6a260aadd6af",
+                            Id = "GF",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Mujer",
+                            Description = "Female",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "e332690c-d656-485a-b8db-64add19a7aed",
+                            Id = "GPNS",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Perfiero no decirlo",
+                            Description = "Prefer not to say",
                             Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -454,6 +687,63 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("MembershipAcquisitions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "acq1-p122l-vxztp-yub64-qm7fr-1298z",
+                            AcquisitionDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipId = "PB",
+                            PatientId = "p122l-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "acq2-p222l-vxztp-yub64-qm7fr-1298z",
+                            AcquisitionDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipId = "PS",
+                            PatientId = "p222l-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "acq3-p322l-vxztp-yub64-qm7fr-1298z",
+                            AcquisitionDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipId = "PP",
+                            PatientId = "p322l-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "acq4-org1-vxztp-yub64-qm7fr-1298z",
+                            AcquisitionDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipId = "OB",
+                            OrganizationId = "org1-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "acq5-org2-vxztp-yub64-qm7fr-1298z",
+                            AcquisitionDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MembershipId = "OS",
+                            OrganizationId = "org2-vxztp-yub64-qm7fr-1298z",
+                            Status = 0,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.MembershipBenefitEntity", b =>
@@ -730,255 +1020,255 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f5351faa-1ac7-4866-8c6a-7f704a75e196",
+                            Id = "7fc451ec-8c80-4f36-8137-7aef9fed0dab",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PB1",
                             MembershipId = "PB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "c2fc8d04-db4c-4789-a176-59b10b6bcd89",
+                            Id = "a560eabf-f16a-4b6d-b512-35b6ac8aad2d",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PB2",
                             MembershipId = "PB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "f867d129-8d9c-43b9-b6ed-998b2c453af0",
+                            Id = "209ee14a-495f-41cf-b12f-29cab41e9700",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PB3",
                             MembershipId = "PB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "8cf10b1a-e1ea-4469-9e90-5a944c04909d",
+                            Id = "587c32a8-f962-423b-9867-735e0a6898b6",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PB4",
                             MembershipId = "PB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "93ee17fc-2230-423b-a271-6b4c27ea4978",
+                            Id = "44444bbc-a75e-4d25-ab0e-73cf60ae054c",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PS1",
                             MembershipId = "PS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "debcc415-9361-4d42-ba2f-9d1850d291b6",
+                            Id = "232aba32-7d19-403f-a8d6-22cbf47325ea",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PS2",
                             MembershipId = "PS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "cde8017d-541d-49a4-aae2-9841c33b6637",
+                            Id = "135382a5-cac5-4c81-be4f-0c71eebf3ff6",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PS3",
                             MembershipId = "PS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "044247f0-2eef-4720-bf7d-43585c393fc7",
+                            Id = "1067edc3-c0e2-4762-886a-c88086dc9782",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PS4",
                             MembershipId = "PS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "c86da238-5da4-497c-b2b7-65433070e58f",
+                            Id = "7a4fe74d-f25b-479d-a96d-4429981e2c34",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PP1",
                             MembershipId = "PP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "fcfb4dc1-5369-4407-8792-fd2d747ad4d0",
+                            Id = "505dce11-637e-4270-9133-978f1ba977cb",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PP2",
                             MembershipId = "PP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "3c115ff5-f6ab-4d56-9205-b284287f5084",
+                            Id = "e074016a-3b70-4656-88e5-b5e21ea51b19",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PP3",
                             MembershipId = "PP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "8004b425-7d3f-4114-bb29-3bba3f59e510",
+                            Id = "b7a36d5e-f957-4d08-9318-55cf839065b5",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "PP4",
                             MembershipId = "PP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "abbafd7b-10df-48ec-8eed-5f5b99f7eaca",
+                            Id = "46f59c0a-ef4a-4178-8dde-754b96eab7da",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OB1",
                             MembershipId = "OB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "2f65f0e1-ff2c-43c6-a603-ef91c672fb56",
+                            Id = "da4a8a3b-6441-45c8-9ef2-d23b01f3a2f0",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OB2",
                             MembershipId = "OB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "8e439977-11f1-4e19-944b-8fcb362ceffd",
+                            Id = "611592b2-11ba-421e-9cbc-bc5c3c198cc0",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OB3",
                             MembershipId = "OB",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "a500227d-0068-492c-af75-1aa56fb8d79e",
+                            Id = "60535a14-a4e6-48ef-96e3-f910a804244e",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OS1",
                             MembershipId = "OS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "399490a6-1a5b-49a9-a752-c9181441cc14",
+                            Id = "7f2f301a-f87f-433a-acfc-efa0edca8378",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OS2",
                             MembershipId = "OS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "66bf123c-5c66-419c-b3a9-85726baac673",
+                            Id = "b7cf6910-2d31-40c0-9165-5298fff10667",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OS3",
                             MembershipId = "OS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "4350b389-f092-49e5-8da0-26449277c006",
+                            Id = "1242d40a-66a9-431a-9647-e3f19e357cda",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OS4",
                             MembershipId = "OS",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "268f8c0a-6deb-423d-8a7a-150edd6b6047",
+                            Id = "afb2b371-e85d-4869-a7f7-0c2367103061",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OP1",
                             MembershipId = "OP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "cac18554-55be-4934-8948-3771701437a6",
+                            Id = "16cee30a-d82d-4a99-97e8-0fee0f609eeb",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OP2",
                             MembershipId = "OP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "3a9e4821-719e-4f4a-b438-39fe946ada73",
+                            Id = "f2d96b02-2cf9-4c6d-be86-08768822e6bf",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OP3",
                             MembershipId = "OP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "5f048c84-0a31-476c-8964-a6f1ec8d1bb5",
+                            Id = "883a9033-3ed6-4154-baa9-4a642f3d03bb",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MembershipBenefitId = "OP4",
                             MembershipId = "OP",
-                            Status = 0,
+                            Status = 1,
                             UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -1179,6 +1469,32 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasIndex("EmployeeOwnerId");
 
                     b.ToTable("Organizations", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "org1-vxztp-yub64-qm7fr-1298z",
+                            Address = "Calle Duarte #45, Santo Domingo",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeOwnerId = "emp1l-vxztp-yub64-qm7fr-1298z",
+                            Name = "Consultorio Psicólogico Laura",
+                            PhoneNumber = "+1 809-555-1234",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = "org2-vxztp-yub64-qm7fr-1298z",
+                            Address = "Av. 27 de Febrero, Santiago",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeOwnerId = "emp2l-vxztp-yub64-qm7fr-1298z",
+                            Name = "Consultorio Psicólogico Carlos",
+                            PhoneNumber = "+1 829-321-5678",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.PatientEntity", b =>
@@ -1236,6 +1552,56 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Patients", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "p122l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Calle 10, Santo Domingo",
+                            BornDate = new DateTime(1990, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GenderId = "GM",
+                            LastName = "Pérez",
+                            Name = "Marcos",
+                            OrganizationId = "org1-vxztp-yub64-qm7fr-1298z",
+                            PhoneNumber = "+1 809-555-9876",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "p122l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
+                            Id = "p222l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Avenida Independencia, Santiago",
+                            BornDate = new DateTime(1985, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GenderId = "GF",
+                            LastName = "Ramírez",
+                            Name = "Miguela",
+                            OrganizationId = "org2-vxztp-yub64-qm7fr-1298z",
+                            PhoneNumber = "+1 829-555-4321",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "p222l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
+                            Id = "p322l-vxztp-yub64-qm7fr-1298z",
+                            Address = "Calle Principal, Santo Domingo",
+                            BornDate = new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GenderId = "GM",
+                            LastName = "Jiménez",
+                            Name = "Ronald",
+                            OrganizationId = "org2-vxztp-yub64-qm7fr-1298z",
+                            PhoneNumber = "+1 809-555-6543",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "p322l-vxztp-yub64-qm7fr-1298z"
+                        });
                 });
 
             modelBuilder.Entity("Oniria.Core.Domain.Entities.DreamAnalysisEntity", b =>

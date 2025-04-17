@@ -60,8 +60,8 @@ namespace Oniria.Controllers
             {
                 Request = new AuthenticationRequest
                 {
-                    Identifier = "admin",
-                    Password = "123Pa$word!"
+                    Identifier = "marcos",
+                    Password = "123Pa$$Word!"
                 }
             });
 

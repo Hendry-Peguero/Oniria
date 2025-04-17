@@ -16,7 +16,7 @@
         <div class="flex-grow-1 d-flex overflow-hidden">
 
             <!-- SIDE BAR -->
-            @if ((await LoggedUserAsync()) != null)
+            @if ((await GetLoggedUserAsync()) != null)
             {
                 <partial name="Layouts/SideBars/_SideMenu" />
             }

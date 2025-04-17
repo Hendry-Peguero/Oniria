@@ -114,10 +114,10 @@ namespace Oniria.Infrastructure.Identity.Extensions
                 try
                 {
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    await DefaultRoles.SeedAsync(roleManager);
+                    await DefaultRolesSeeder.SeedAsync(roleManager);
 
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    await DefaultUsers.SeedAsync(userManager);
+                    await DefaultUsersSeeder.SeedAsync(userManager);
                 }
                 catch (Exception ex)
                 {

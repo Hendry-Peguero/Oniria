@@ -7,6 +7,7 @@ namespace Oniria.Extensions
         public static void AddPresentationDependency(this IServiceCollection services)
         {
             services.AddTransient<ISideMenuService, SideMenuService>();
+            services.AddScoped<IUserContextService, UserContextService>();
         }
     }
 }

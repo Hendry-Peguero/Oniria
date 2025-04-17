@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Oniria.Core.Application.Features.User.Queries;
-using Oniria.Core.Domain.Enums;
+﻿using Oniria.Core.Domain.Enums;
 using Oniria.Extensions;
 
 namespace Oniria.Services
@@ -22,24 +20,25 @@ namespace Oniria.Services
     public class SideMenuService : ISideMenuService
     {
         private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly IMediator mediator;
+        private readonly IUserContextService userContext;
 
         public SideMenuService(
             IHttpContextAccessor httpContextAccessor,
-            IMediator mediator
+            IUserContextService userContext
         )
         {
             this.httpContextAccessor = httpContextAccessor;
-            this.mediator = mediator;
+            this.userContext = userContext;
         }
 
         public async Task<List<dynamic>> GetOptions()
         {
             var options = new List<dynamic>();
-            var loggedUser = await mediator.Send(new GetUserSessionAsyncQuery());
+            var loggedUser = await userContext.GetLoggedUser();
 
-            if (loggedUser.IsSuccess && loggedUser.Data != null) {
-                switch (loggedUser.Data.Roles!.FirstOrDefault())
+            if (loggedUser != null)
+            {
+                switch (loggedUser.Roles!.FirstOrDefault())
                 {
                     case ActorsRoles.PATIENT: options = GetPatientOptions(); break;
                     case ActorsRoles.DOCTOR: options = GetDoctorOptions(); break;
@@ -47,8 +46,8 @@ namespace Oniria.Services
                 }
 
                 var routeInfo = httpContextAccessor.GetRouteInfo();
-                var optionToSelect = options.FirstOrDefault(x => 
-                    x is Option && 
+                var optionToSelect = options.FirstOrDefault(x =>
+                    x is Option &&
                     x.Controller == routeInfo.Controller &&
                     x.Action == routeInfo.Action
                 );

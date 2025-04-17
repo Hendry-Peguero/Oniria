@@ -3,7 +3,7 @@ using Oniria.Core.Domain.Enums;
 
 namespace Oniria.Infrastructure.Identity.Seeds
 {
-    public static class DefaultRoles
+    public static class DefaultRolesSeeder
     {
         public static async Task SeedAsync(RoleManager<IdentityRole> roleManager)
         {

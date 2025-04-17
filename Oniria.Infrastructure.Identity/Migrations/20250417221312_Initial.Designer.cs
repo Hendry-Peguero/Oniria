@@ -12,7 +12,7 @@ using Oniria.Infrastructure.Identity.Context;
 namespace Oniria.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20250411233402_Initial")]
+    [Migration("20250417221312_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
