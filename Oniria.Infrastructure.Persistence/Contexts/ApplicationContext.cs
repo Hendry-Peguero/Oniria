@@ -147,7 +147,7 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<OrganizationEntity>()
                 .HasOne(o => o.EmployeeOwner)
                 .WithMany(e => e.OrganizationOwned)
-                .HasForeignKey(o => o.EmployeeOwnerld)
+                .HasForeignKey(o => o.EmployeeOwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Patient

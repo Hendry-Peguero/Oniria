@@ -5,7 +5,7 @@
         public string Name { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
-        public string EmployeeOwnerld { get; set; }
+        public string EmployeeOwnerId { get; set; }
 
         //nav 
         public EmployeeEntity EmployeeOwner { get; set; }

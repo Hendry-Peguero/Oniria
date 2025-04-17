@@ -42,7 +42,7 @@ namespace Oniria.Core.Application.Features.Organization.Commands
                 return result;
             }
 
-            var employeeResult = await mediator.Send(new GetEmployeeByIdAsyncQuery { Id = request.EmployeeOwnerld });
+            var employeeResult = await mediator.Send(new GetEmployeeByIdAsyncQuery { Id = request.EmployeeOwnerId });
 
             if (!employeeResult.IsSuccess)
             {

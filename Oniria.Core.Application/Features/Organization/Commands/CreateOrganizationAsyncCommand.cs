@@ -35,7 +35,7 @@ namespace Oniria.Core.Application.Features.Organization.Commands
             var result = OperationResult<OrganizationEntity>.Create();
             var request = command.Request;
 
-            var employeeResult = await mediator.Send(new GetEmployeeByIdAsyncQuery { Id = request.EmployeeOwnerld });
+            var employeeResult = await mediator.Send(new GetEmployeeByIdAsyncQuery { Id = request.EmployeeOwnerId });
 
             if (!employeeResult.IsSuccess)
             {

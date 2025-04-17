@@ -235,7 +235,7 @@ namespace Oniria.Controllers
                     Name = "PEPES COMPANY",
                     Address = "calle#4pepe",
                     PhoneNumber = "+1 000-000-0000",
-                    EmployeeOwnerld = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f"
+                    EmployeeOwnerId = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f"
                 }
             });
 
@@ -255,7 +255,7 @@ namespace Oniria.Controllers
                     Name = "PEPES COMPANY++",
                     Address = "calle#4pepe++",
                     PhoneNumber = "+1 000-000-0000++",
-                    EmployeeOwnerld = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f",
+                    EmployeeOwnerId = "8a6334fb-a7e2-48f7-92e7-3dd7a8fb025f",
                     Status = StatusEntity.INACTIVE
                 }
             });
