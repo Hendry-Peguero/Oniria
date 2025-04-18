@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Oniria.Core.Domain.Interfaces.Repositories;
 using Oniria.Infrastructure.Persistence.Contexts;
 using Oniria.Infrastructure.Persistence.Repositories;
+using Oniria.Infrastructure.Persistence.Repositories.Base;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.Dream;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.DreamAnalysis;
 using Oniria.Infrastructure.Persistence.Repositories.SqlServer.EmotionalStates;
@@ -23,8 +24,8 @@ namespace Oniria.Infrastructure.Persistence.Extensions
     {
         public static void AddPersistenceDependency(this IServiceCollection services, IConfiguration configuration)
         {
+            // For Migrations
             var connectionString = configuration.GetConnectionString("SqlServerConnection");
-
             services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlServer(
                     connectionString,
@@ -46,6 +47,7 @@ namespace Oniria.Infrastructure.Persistence.Extensions
             services.AddTransient<IMembershipRepository, MembershipRepository>();
             services.AddTransient<IOrganizationRepository, OrganizationRepository>();
             services.AddTransient<IPatientRepository, PatientRepository>();
+            services.AddScoped(typeof(DbSetWrapper<>));
         }
     }
 }

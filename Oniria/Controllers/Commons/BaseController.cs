@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using Oniria.Core.Application.Features.Base;
 using Oniria.Services;
 
 namespace Oniria.Controllers.Commons
@@ -8,8 +9,8 @@ namespace Oniria.Controllers.Commons
     public class BaseController : Controller
     {
         // For Queries and Commands
-        private IMediator? _Mediator;
-        protected IMediator Mediator => _Mediator ??= HttpContext.RequestServices.GetService<IMediator>()!;
+        private IMediatorWrapper? _Mediator;
+        protected IMediatorWrapper Mediator => _Mediator ??= HttpContext.RequestServices.GetService<IMediatorWrapper>()!;
 
         // For Get All the user info if is Logged
         private IUserContextService? _userContextService;
