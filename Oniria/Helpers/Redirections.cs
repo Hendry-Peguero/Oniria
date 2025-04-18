@@ -12,9 +12,9 @@ namespace Oniria.Helpers
         public static RedirectToRouteResult UserAssistanceHome = new RedirectToRouteResult(new { controller = "", action = "" });
         public static RedirectToRouteResult UserPatientHome = new RedirectToRouteResult(new { controller = "", action = "" });
 
-        // General
-        public static RedirectToRouteResult AccessDenied = new RedirectToRouteResult(new { controller = "", action = "" });
-        public static RedirectToRouteResult Undefinied = new RedirectToRouteResult(new { controller = "", action = "" });
+        // HttpResponses
+        public static RedirectToRouteResult Unauthorized = new RedirectToRouteResult(new { controller = "HttpResponse", action = "UnauthorizedView" });
+        public static RedirectToRouteResult Forbidden = new RedirectToRouteResult(new { controller = "HttpResponse", action = "ForbiddenView" });
 
 
         public static RedirectToRouteResult GetHomeByUserRole(ActorsRoles? role)

@@ -58,10 +58,7 @@ namespace Oniria.Controllers
                 Token = token
             });
 
-            if (!confirmResult.IsSuccess)
-            {
-                return View("HttpResponses/_401");
-            }
+            if (!confirmResult.IsSuccess) return Redirections.Unauthorized;
 
             return View("Confirmations/_EmailConfirmation");
         }
@@ -75,10 +72,7 @@ namespace Oniria.Controllers
                 Token = token
             });
 
-            if (!confirmResult.IsSuccess)
-            {
-                return View("HttpResponses/_401");
-            }
+            if (!confirmResult.IsSuccess) return Redirections.Unauthorized;
 
             return View("Confirmations/_ResetPasswordConfirmation", confirmResult.Data!);
         }
