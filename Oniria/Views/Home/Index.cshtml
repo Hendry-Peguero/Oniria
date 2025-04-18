@@ -1,142 +1,507 @@
-﻿@using Oniria.Core.Domain.Entities
-@using Oniria.Core.Dtos.User.Response;
-@{
-    var genres = ViewBag.Genres as List<GenderEntity>;
-    var users = ViewBag.Users as List<UserResponse>;
-    var oneUser = ViewBag.User as UserResponse;
-}
+﻿<style>
 
-<div class="text-center">
-    <h1 class="display-4">Mondongo</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <img style="width: 100px; height:100px;" src="~/images/cat.png" />
-    <h1 class="mb-5">larry...</h1>
-    <div class="mb-5">
-        <ul>
-            <h1>GENRES: </h1>
-            @foreach (var genre in genres)
-            {
-                <li>@genre.Description</li>
-            }
-        </ul>
+    /* Buttons */
+    .btn-base {
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
 
-        <ul>
-            <h1>USERS: </h1>
-            @foreach (var user in users)
-            {
-                <li>
-                    @user.UserName + @user.Email + @user.Status
-                    <ul>
-                        <p>ROLES: </p>
-                        @foreach (var rol in user.Roles) {
-                            <li>@rol</li>
-                        }
-                    </ul>
-                </li>
-            }
-        </ul>
-    </div>
-    <div>
-        @if (oneUser != null)
-        {
-            <h3>UN SOLO USUARIO: </h3>
-            <p>
-                @oneUser.UserName + @oneUser.Email + @oneUser.Status
-            </p>
+        .btn-base:hover {
+            transform: translateY(-2px) !important;
         }
-        else
-        {
-            <h1>NO SE ENCONTRO DICHO USUARIO CON ESE DI QUE SE PUSO</h1>
+
+    .btn-start {
+        background-color: #4361EE;
+        color: white;
+    }
+
+        .btn-start:hover {
+            background-color: #3A56D4;
+            color: white;
         }
+
+    .btn-discover {
+        background-color: white;
+        color: #4361EE;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-discover:hover {
+            background-color: #f8f8f8;
+        }
+
+    /* Hero section */
+    .hero {
+        background: linear-gradient(135deg, #4361EE, #3A56D4);
+        color: white;
+        text-align: center;
+        padding: 80px 40px;
+        border-radius: 12px;
+        margin: 40px auto;
+        max-width: 80%;
+    }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+    /* About section */
+    .about {
+        text-align: center;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .about h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #525252;
+        }
+
+        .about hr {
+            margin-bottom: 32px;
+            width: 50px;
+            height: 2px;
+            margin-top: 0;
+            color: #608DFF;
+        }
+
+    .about-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .about-text {
+        text-align: left;
+        flex: 1;
+    }
+
+        .about-text h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, #4361EE, #FF5E78);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+    .about-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cloud-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Services section */
+    .services {
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .services h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #525252;
+        }
+
+        .services hr {
+            margin-bottom: 32px;
+            width: 50px;
+            height: 2px;
+            margin-top: 0;
+            color: #608DFF;
+        }
+
+    /* Card Styles with Wave Animation */
+    .cards-container {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        flex-wrap: wrap;
+        margin: 50px auto;
+        max-width: 1000px;
+    }
+
+    .e-card {
+        background: transparent;
+        box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
+        position: relative;
+        width: 240px;
+        height: 330px;
+        border-radius: 16px;
+        overflow: hidden;
+        margin: 20px 0;
+    }
+
+    .wave {
+        position: absolute;
+        width: 540px;
+        height: 700px;
+        opacity: 0.6;
+        left: 0;
+        top: 0;
+        margin-left: -50%;
+        margin-top: -70%;
+    }
+
+    .purple-card .wave {
+        background: linear-gradient(744deg, #8A2BE2, #6A5ACD 60%, #7B68EE);
+    }
+
+    .red-card .wave {
+        background: linear-gradient(744deg, #FF5E78, #FF3547 60%, #FF4757);
+    }
+
+    .blue-card .wave {
+        background: linear-gradient(744deg, #00C6FB, #005BEA 60%, #4361EE);
+    }
+
+    .orange-card .wave {
+        background: linear-gradient(744deg, #FFA500, #FF7800 60%, #FF8C00);
+    }
+
+    .icon {
+        width: 3em;
+        margin-top: -1em;
+        padding-bottom: 1em;
+    }
+
+    .infotop {
+        text-align: center;
+        font-size: 20px;
+        position: absolute;
+        top: 5.6em;
+        left: 0;
+        right: 0;
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+    }
+
+    .name {
+        font-size: 14px;
+        font-weight: 100;
+        position: relative;
+        top: 1em;
+        text-transform: lowercase;
+    }
+
+    .wave:nth-child(2),
+    .wave:nth-child(3) {
+        top: 210px;
+    }
+
+    .playing .wave {
+        border-radius: 40%;
+        animation: wave 3000ms infinite linear;
+    }
+
+    .wave {
+        border-radius: 40%;
+        animation: wave 55s infinite linear;
+    }
+
+    .playing .wave:nth-child(2) {
+        animation-duration: 4000ms;
+    }
+
+    .wave:nth-child(2) {
+        animation-duration: 50s;
+    }
+
+    .playing .wave:nth-child(3) {
+        animation-duration: 5000ms;
+    }
+
+    .wave:nth-child(3) {
+        animation-duration: 45s;
+    }
+
+    @@keyframes wave {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Features section */
+    .features {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature {
+        margin-bottom: 64px;
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        display: flex;
+        
+    }
+
+    .feature-header {
+        display: flex;
+        align-items: center;
+        padding: 24px;
+        padding-bottom: 0;
+    }
+
+    .feature-marker {
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(to bottom, #8A2BE2, #4361EE);
+        margin-right: 16px;
+        border-radius: 2px;
+    }
+
+    .feature-header h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .feature-content {
+        display: flex;
+        flex-direction: column;
+        width: 65%;
+        padding: 25px 15px;
+    }
+
+    .feature-text {
+        flex: 1;
+        padding: 24px;
+        padding-bottom: 40px;
+        text-align: justify;
+    }
+
+        .feature-text p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+            .feature-text p:last-child {
+                margin-bottom: 0;
+            }
+
+    .feature-image {
+        width: 50%;
+        overflow: hidden;
+    }
+
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* Responsive styles */
+    @@media (max-width: 768px) {
+        .about-content, .feature-content {
+            flex-direction: column;
+        }
+
+        .feature-image {
+            width: 100%;
+        }
+
+        .hero {
+            max-width: 90%;
+        }
+
+        .cards-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+<section class="hero">
+    <h1>Explore the Meaning of Your Dreams</h1>
+    <p>Understand, analyze, and uncover their hidden messages.</p>
+    <a class="btn-base btn-discover" asp-controller="Auth" asp-action="Login">Discover Now</a>
+</section>
+
+<section class="about">
+    <h2>About</h2>
+    <hr />
+    <div class="about-content">
+        <div class="about-text">
+            <h3>Understand Your Dreams With Ease</h3>
+            <p>Gain insights into your subconscious and uncover hidden meanings effortlessly.</p>
+            <a class="btn-base btn-start" asp-controller="Auth" asp-action="RegisterType">Start Now</a>
+        </div>
+        <div class="about-image">
+            <!-- Cloud image placeholder -->
+            <img src="~/images/cloudBadge.png" alt="Dream cloud" class="cloud-image">
+        </div>
     </div>
-</div>
-<button id="userSession">Get User Session</button>
-<button id="loginUser">Login User</button>
-<button id="createUser">Create User</button>
-<button id="updateUser">Update User</button>
-<button id="restorePasswordUser">Enviar Restore Password User</button>
-<button id="analyzeDream">Analyze Dream</button>
-<button id="createPatient">Create Patient</button>
-<button id="updatePatient">Update Patient</button>
-<button id="createOrganization">Create Organization</button>
-<button id="updateOrganization">Update Organization</button>
-<button id="createEmployee">Create Employee</button>
-<button id="updateEmployee">Update Employee</button>
+</section>
 
-<h1 id="result">####</h1>
+<section class="services">
+    <h2>Services</h2>
+    <hr />
+    <div class="cards-container">
+        <!-- Dream Analysis Card -->
+        <div class="e-card playing purple-card">
+            <div class="image"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="infotop">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
+                    <path fill="currentColor" d="M5 12a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1H5Z"></path>
+                    <path fill="currentColor" d="M11 8a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2Z"></path>
+                    <path fill="currentColor" d="M17 2a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2Z"></path>
+                    <path fill="currentColor" d="M3 22h18a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1Z"></path>
+                </svg><br>
+                Dream<br> Analysis
+                <div class="name"></div>
+            </div>
+        </div>
 
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            const setResult = (messages) => {
-                if (Array.isArray(messages) && messages.length > 0) {
-                    $("#result").html(messages.join("<br>"));
-                } else {
-                    $("#result").html("No messages available");
-                }
-            };
+        <!-- Suggestions Card -->
+        <div class="e-card playing red-card">
+            <div class="image"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="infotop">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
+                    <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674 4.89862C2.99153 5.7992 2 7.47596 2 9.2763V14.7235C2 16.5238 2.99153 18.2014 4.58674 19.1012L9.41368 21.8252C10.2079 22.2734 11.105 22.5 12.0046 22.5C12.6952 22.5 13.3874 22.3657 14.0349 22.0954C14.2204 22.018 14.4059 21.9273 14.5872 21.8252L19.4141 19.1012C19.9765 18.7831 20.4655 18.3728 20.8651 17.8825C21.597 16.9894 22 15.8671 22 14.7243V9.27713C22 7.47678 21.0085 5.7992 19.4133 4.89862Z"></path>
+                </svg><br>
+                Suggestions
+                <div class="name"></div>
+            </div>
+        </div>
 
-            const handlePost = (actionName, successMsg) => {
-                $.ajax({
-                    url: `Home/${actionName}`,
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function (response) {
-                        if (response.ok) {
-                            setResult([successMsg]);
-                        } else {
-                            setResult(response.messages);
-                        }
-                    },
-                    error: function (xhr) {
-                        setResult([`${actionName} failed: ` + xhr.statusText]);
-                    }
-                });
-            };
+        <!-- Stats Card -->
+        <div class="e-card playing blue-card">
+            <div class="image"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="infotop">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+                    <path fill="currentColor" d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path>
+                </svg><br>
+                Stats
+                <div class="name"></div>
+            </div>
+        </div>
 
-            $("#userSession").click(function () {
-                $.ajax({
-                    url: '@Url.Action("GetUserSession")',
-                    type: 'GET',
-                    success: function (response) {
-                        setResult(response.data ? [JSON.stringify(response.data)] : ["Error: No data available"]);
-                    },
-                    error: function (xhr) {
-                        setResult([`Error: ` + xhr.statusText]);
-                    }
-                });
-            });
+        <!-- User Management Card -->
+        <div class="e-card playing orange-card">
+            <div class="image"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="infotop">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
+                    <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H6v-.99c.2-.72 3.3-2.01 6-2.01s5.8 1.29 6 2v1z"></path>
+                </svg><br>
+                User Management
+                <div class="name"></div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            $("#loginUser").click(() => handlePost("Login", "Se Logeo nitido"));
-            $("#createUser").click(() => handlePost("CreateUser", "Se creo nitido"));
-            $("#updateUser").click(() => handlePost("UpdateUser", "Se actualizo nitido"));
-            $("#restorePasswordUser").click(() => handlePost("RestorePassword", "Se envio el correo de restablecer password nitido"));
-            $("#analyzeDream").click(function () {
-                $.ajax({
-                    url: '@Url.Action("AnalyzeDream")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function (response) {
-                        if (response.ok) {
-                            setResult([response.result]);
-                        } else {
-                            setResult(response.messages);
-                        }
-                    },
-                    error: function (xhr) {
-                        setResult([`Analyze dream failed: ` + xhr.statusText]);
-                    }
-                });
-            });
+<section class="features">
+    <div class="feature">
+        <div class="feature-content">
+            <div class="feature-header">
+                <span class="feature-marker"></span>
+                <h2>Dream Analysis</h2>
+            </div>
+            <div class="feature-text">
+                <p>Clinica's advanced program analyzes dream narratives to uncover hidden emotional patterns and subconscious thoughts. Using sophisticated algorithms along latest psychological insights, users can draw meaningful connections between thoughts, cues and contextual details, generating personalized reports that connect dreams to real-life experiences and challenges.</p>
+                <p>This feature is grounded in psychological frameworks, ensuring interpretations are both scientifically relevant and meaningful to the user.</p>
+            </div>
+        </div>
+        <div class="feature-image">
+            <img src="~/images/home-service1.jpg" alt="Person analyzing dreams on computer">
+        </div>
+    </div>
 
-            $("#createPatient").click(() => handlePost("CreatePatient", "Se creo nitido el paciente"));
-            $("#updatePatient").click(() => handlePost("UpdatePatient", "Se actualizo nitido el paciente"));
+    <div class="feature">
+        <div class="feature-content">
+            <div class="feature-header">
+                <span class="feature-marker"></span>
+                <h2>Suggestions</h2>
+            </div>
+            <div class="feature-text">
+                <p>Beyond interpretation, Clinica delivers actionable suggestions to improve mental health outcomes. The system provides wellness-focused prompts, sleep hygiene tips or prompts to consult professionals, all based on the user's specific dream patterns and psychological profile. Users can explore techniques such as guided imagery, mindful sleep practices, insight-guided meditation resources or stress-management strategies.</p>
+            </div>
+        </div>
+        <div class="feature-image">
+            <img src="~/images/home-service2.jpg" style="height: 362px;" alt="Therapist with client session">
+        </div>
+    </div>
 
-            $("#createOrganization").click(() => handlePost("CreateOrganization", "Se creo nitida la organización"));
-            $("#updateOrganization").click(() => handlePost("UpdateOrganization", "Se actualizo nitida la organización"));
+    <div class="feature">
+        <div class="feature-content">
+            <div class="feature-header">
+                <span class="feature-marker"></span>
+                <h2>Statistics</h2>
+            </div>
+            <div class="feature-text">
+                <p>Mental health professionals gain access to a detailed dashboard with tools to track patient progress, identify patterns, and utilize responsive, interactive visual elements.</p>
+            </div>
+        </div>
+        <div class="feature-image">
+            <img src="~/images/home-service3.jpg" alt="Statistics dashboard with charts">
+        </div>
+    </div>
 
-            $("#createEmployee").click(() => handlePost("CreateEmployee", "Se creo nitido el empleado"));
-            $("#updateEmployee").click(() => handlePost("UpdateEmployee", "Se actualizo nitido el empleado"));
-        });
-    </script>
-}
+    <div class="feature">
+        <div class="feature-content">
+            <div class="feature-header">
+                <span class="feature-marker"></span>
+                <h2>User Management</h2>
+            </div>
+            <div class="feature-text">
+                <p>Clinica's user management system adapts to different therapeutic approaches and psychology ethics. Clinical users create personalized profiles for big dreams, track progress, and set preferences for targeted recommendations.</p>
+            </div>
+        </div>
+        <div class="feature-image">
+            <img src="~/images/home-service4.jpg" alt="Therapist with client consultation">
+        </div>
+    </div>
+</section>

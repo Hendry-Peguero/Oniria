@@ -7,14 +7,11 @@ using Oniria.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddSession();
-builder.Services.AddHttpClient();
+builder.Services.AddPresentationDependency();
 builder.Services.AddApplicationDependency();
 builder.Services.AddPersistenceDependency(builder.Configuration);
 builder.Services.AddIdentityDependencyWeb(builder.Configuration);
 builder.Services.AddSharedDependency(builder.Configuration);
-builder.Services.AddPresentationDependency();
 
 
 var app = builder.Build();
@@ -30,18 +27,17 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseNToastNotify();
 app.UseSession();
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=HomeRedirection}/{id?}");
 
 app.Run();

@@ -6,6 +6,7 @@ namespace Oniria.Helpers
     public class Redirections
     {
         // Home
+        public static RedirectToRouteResult HomeRedirection = new RedirectToRouteResult(new { controller = "Home", action = "HomeRedirection" });
         public static RedirectToRouteResult Home = new RedirectToRouteResult(new { controller = "Home", action = "Index" });
         public static RedirectToRouteResult UserDoctorHome = new RedirectToRouteResult(new { controller = "", action = "" });
         public static RedirectToRouteResult UserAssistanceHome = new RedirectToRouteResult(new { controller = "", action = "" });

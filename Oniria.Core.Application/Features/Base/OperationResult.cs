@@ -37,6 +37,11 @@ namespace Oniria.Core.Application.Features.Base
             AddError(operationResult.Messages);
         }
 
+        public string LastMessage()
+        {
+            return Messages.Last();
+        }
+
 
         // Unsuccess UseCase
         private void Error()

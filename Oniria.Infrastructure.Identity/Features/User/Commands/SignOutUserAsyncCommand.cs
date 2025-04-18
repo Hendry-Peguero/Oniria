@@ -26,7 +26,7 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
             }
             catch (Exception ex)
             {
-                result.AddError("An error occurred while closing session");
+                result.AddError("An error occurred while closing the account");
             }
 
             return result;
