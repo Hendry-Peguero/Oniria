@@ -25,7 +25,6 @@ namespace Oniria.Infrastructure.Persistence.Contexts
         public DbSet<PatientEntity> Patients { get; set; }
 
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -35,6 +34,19 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             SetRelationships(modelBuilder);
             Seeding(modelBuilder);
         }
+
+        public override int SaveChanges()
+        {
+            ApplyAuditInfo();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            ApplyAuditInfo();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
 
         private void SetPrimaryKeys(ModelBuilder modelBuilder)
         {
@@ -190,5 +202,26 @@ namespace Oniria.Infrastructure.Persistence.Contexts
             DemoDreamAnalysisSeeder.Seed(modelBuilder);
         }
 
+        private void ApplyAuditInfo()
+        {
+            var entries = ChangeTracker.Entries().Where(e => 
+                e.Entity is BaseEntity &&
+                (
+                    e.State == EntityState.Added || 
+                    e.State == EntityState.Modified ||
+                    e.State == EntityState.Deleted
+                )
+            );
+
+            foreach (var entry in entries)
+            {
+                var entity = (BaseEntity)entry.Entity;
+                var now = DateTime.UtcNow;
+
+                if (entry.State == EntityState.Added) entity.CreatedOn = now;
+                if (entry.State == EntityState.Deleted) entity.DeletedOn = now;
+                entity.UpdatedOn = now;
+            }
+        }
     }
 }
