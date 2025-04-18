@@ -50,10 +50,9 @@ namespace Oniria.Core.Application.Features.Organization.Commands
                 return result;
             }
 
-            organizationToUpdate = mapper.Map<OrganizationEntity>(request);
-
             try
             {
+                mapper.Map(request, organizationToUpdate);
                 await organizationRepository.UpdateAsync(organizationToUpdate);
             }
             catch (Exception ex)

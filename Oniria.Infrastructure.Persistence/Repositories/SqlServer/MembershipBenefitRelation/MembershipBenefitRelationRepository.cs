@@ -1,50 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
-using Oniria.Infrastructure.Persistence.Contexts;
+using Oniria.Infrastructure.Persistence.Repositories.Base;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.MembershipBenefitRelation
 {
     public class MembershipBenefitRelationRepository : IMembershipBenefitRelationRepository
     {
-        private readonly ApplicationContext context;
+        private readonly DbSetWrapper<MembershipBenefitRelationEntity> wrapper;
 
-        public MembershipBenefitRelationRepository(ApplicationContext context)
+        public MembershipBenefitRelationRepository(DbSetWrapper<MembershipBenefitRelationEntity> wrapper)
         {
-            this.context = context;
+            this.wrapper = wrapper;
         }
 
         public async Task<List<MembershipBenefitRelationEntity>> GetAllAsync()
         {
-            return await context.Set<MembershipBenefitRelationEntity>().ToListAsync();
+            return await wrapper.Query().ToListAsync();
         }
 
         public async Task<MembershipBenefitRelationEntity?> GetByIdAsync(string id)
         {
-            return await context.Set<MembershipBenefitRelationEntity>().FindAsync(id);
+            return await wrapper.Query().FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<MembershipBenefitRelationEntity> CreateAsync(MembershipBenefitRelationEntity entity)
+        public async Task CreateAsync(MembershipBenefitRelationEntity entity)
         {
-            await context.Set<MembershipBenefitRelationEntity>().AddAsync(entity);
-            await context.SaveChangesAsync();
-            return entity;
+            await wrapper.context.Set<MembershipBenefitRelationEntity>().AddAsync(entity);
+            await wrapper.context.SaveChangesAsync();
         }
-        public async Task<MembershipBenefitRelationEntity> UpdateAsync(MembershipBenefitRelationEntity entity)
+
+        public async Task UpdateAsync(MembershipBenefitRelationEntity entity)
         {
-            MembershipBenefitRelationEntity? entityToModify = await context.Set<MembershipBenefitRelationEntity>().FindAsync(entity.Id);
-            if (entityToModify != null)
-            {
-                context.Entry(entityToModify).CurrentValues.SetValues(entity);
-                await context.SaveChangesAsync();
-            }
-            return entity;
+            await wrapper.context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(MembershipBenefitRelationEntity entity)
         {
-            context.Set<MembershipBenefitRelationEntity>().Remove(entity);
-            await context.SaveChangesAsync();
+            wrapper.context.Set<MembershipBenefitRelationEntity>().Remove(entity);
+            await wrapper.context.SaveChangesAsync();
         }
     }
 }

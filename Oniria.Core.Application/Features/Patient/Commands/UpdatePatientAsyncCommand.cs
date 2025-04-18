@@ -68,10 +68,9 @@ namespace Oniria.Core.Application.Features.Patient.Commands
                 return result;
             }
 
-            patientToUpdate = mapper.Map<PatientEntity>(request);
-
             try
             {
+                mapper.Map(request, patientToUpdate);
                 await patientRepository.UpdateAsync(patientToUpdate);
             }
             catch (Exception ex)

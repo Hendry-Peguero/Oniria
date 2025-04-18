@@ -1,27 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Interfaces.Repositories;
-using Oniria.Infrastructure.Persistence.Contexts;
+using Oniria.Infrastructure.Persistence.Repositories.Base;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Membership
 {
     public class MembershipRepository : IMembershipRepository
     {
-        private readonly ApplicationContext context;
+        private readonly DbSetWrapper<MembershipEntity> wrapper;
 
-        public MembershipRepository(ApplicationContext context)
+        public MembershipRepository(DbSetWrapper<MembershipEntity> wrapper)
         {
-            this.context = context;
+            this.wrapper = wrapper;
         }
 
         public async Task<List<MembershipEntity>> GetAllAsync()
         {
-            return await context.Set<MembershipEntity>().ToListAsync();
+            return await wrapper.Query().ToListAsync();
         }
 
         public async Task<MembershipEntity?> GetByIdAsync(string id)
         {
-            return await context.Set<MembershipEntity>().FindAsync(id);
+            return await wrapper.Query().FirstOrDefaultAsync(m => m.Id == id);
         }
     }
 }

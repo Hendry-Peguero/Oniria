@@ -63,10 +63,9 @@ namespace Oniria.Core.Application.Features.Employee.Commands
                 return result;
             }
 
-            employeeToUpdate = mapper.Map<EmployeeEntity>(request);
-
             try
             {
+                mapper.Map(request, employeeToUpdate);
                 await employeeRepository.UpdateAsync(employeeToUpdate);
             }
             catch (Exception ex)

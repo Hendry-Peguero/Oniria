@@ -94,8 +94,8 @@ namespace Oniria.Infrastructure.Identity.Extensions
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Home/HomeBasic";
-                options.AccessDeniedPath = "/Authorization/AccessDenied";
+                options.LoginPath = "/Home/HomeRedirection";
+                options.AccessDeniedPath = "/HttpResponse/ForbiddenView";
             });
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));

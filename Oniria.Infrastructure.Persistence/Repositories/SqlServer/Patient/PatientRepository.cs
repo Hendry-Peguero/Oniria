@@ -14,23 +14,15 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Patient
             this.wrapper = wrapper;
         }
 
-        public async Task<PatientEntity> CreateAsync(PatientEntity entity)
+        public async Task CreateAsync(PatientEntity entity)
         {
             await wrapper.context.Set<PatientEntity>().AddAsync(entity);
             await wrapper.context.SaveChangesAsync();
-
-            return (await GetByIdAsync(entity.Id))!;
         }
 
-        public async Task<PatientEntity> UpdateAsync(PatientEntity entity)
+        public async Task UpdateAsync(PatientEntity entity)
         {
-            PatientEntity? entityToModify = await GetByIdAsync(entity.Id);
-            if (entityToModify != null)
-            {
-                wrapper.context.Entry(entityToModify).CurrentValues.SetValues(entity);
-                await wrapper.context.SaveChangesAsync();
-            }
-            return entity;
+            await wrapper.context.SaveChangesAsync();
         }
 
         public async Task<List<PatientEntity>> GetAllAsync()

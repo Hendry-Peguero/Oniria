@@ -2,6 +2,6 @@
 {
     public interface CreateAsync<Entity>
     {
-        abstract Task<Entity> CreateAsync(Entity entity);
+        abstract Task CreateAsync(Entity entity);
     }
 }

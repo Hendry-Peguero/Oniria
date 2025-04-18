@@ -1,33 +1,33 @@
-﻿using Oniria.Core.Domain.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
-using Oniria.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
+using Oniria.Core.Domain.Interfaces.Repositories;
+using Oniria.Infrastructure.Persistence.Repositories.Base;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.DreamAnalysis
 {
-    class DreamAnalysisRepository : IDreamAnalysisRepository
+    public class DreamAnalysisRepository : IDreamAnalysisRepository
     {
-        private readonly ApplicationContext context;
+        private readonly DbSetWrapper<DreamAnalysisEntity> wrapper;
 
-        public DreamAnalysisRepository(ApplicationContext context)
+        public DreamAnalysisRepository(DbSetWrapper<DreamAnalysisEntity> wrapper)
         {
-            this.context = context;
+            this.wrapper = wrapper;
         }
-        public async Task<DreamAnalysisEntity> CreateAsync(DreamAnalysisEntity entity)
+
+        public async Task CreateAsync(DreamAnalysisEntity entity)
         {
-            await context.Set<DreamAnalysisEntity>().AddAsync(entity);
-            await context.SaveChangesAsync();
-            return entity;
+            await wrapper.context.Set<DreamAnalysisEntity>().AddAsync(entity);
+            await wrapper.context.SaveChangesAsync();
         }
 
         public async Task<List<DreamAnalysisEntity>> GetAllAsync()
         {
-            return await context.Set<DreamAnalysisEntity>().ToListAsync();
+            return await wrapper.Query().ToListAsync();
         }
 
         public async Task<DreamAnalysisEntity?> GetByIdAsync(string id)
         {
-            return await context.Set<DreamAnalysisEntity>().FindAsync(id);
+            return await wrapper.Query().FirstOrDefaultAsync(a => a.Id == id);
         }
     }
 }

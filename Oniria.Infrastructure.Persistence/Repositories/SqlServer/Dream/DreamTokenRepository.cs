@@ -1,44 +1,38 @@
-﻿using Oniria.Core.Domain.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 using Oniria.Core.Domain.Entities;
-using Oniria.Infrastructure.Persistence.Contexts;
-using Microsoft.EntityFrameworkCore;
+using Oniria.Core.Domain.Interfaces.Repositories;
+using Oniria.Infrastructure.Persistence.Repositories.Base;
 
 namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.Dream
 {
-    class DreamTokenRepository : IDreamTokenRepository
+    public class DreamTokenRepository : IDreamTokenRepository
     {
-        private readonly ApplicationContext context;
+        private readonly DbSetWrapper<DreamTokenEntity> wrapper;
 
-        public DreamTokenRepository(ApplicationContext context)
+        public DreamTokenRepository(DbSetWrapper<DreamTokenEntity> wrapper)
         {
-            this.context = context;
+            this.wrapper = wrapper;
         }
-        public async Task<DreamTokenEntity> CreateAsync(DreamTokenEntity entity)
+
+        public async Task CreateAsync(DreamTokenEntity entity)
         {
-            await context.Set<DreamTokenEntity>().AddAsync(entity);
-            await context.SaveChangesAsync();
-            return entity;
+            await wrapper.context.Set<DreamTokenEntity>().AddAsync(entity);
+            await wrapper.context.SaveChangesAsync();
         }
 
         public async Task<List<DreamTokenEntity>> GetAllAsync()
         {
-            return await context.Set<DreamTokenEntity>().ToListAsync();
+            return await wrapper.Query().ToListAsync();
         }
 
         public async Task<DreamTokenEntity?> GetByIdAsync(string id)
         {
-            return await context.Set<DreamTokenEntity>().FindAsync(id);
+            return await wrapper.Query().FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public async Task<DreamTokenEntity> UpdateAsync(DreamTokenEntity entity)
+        public async Task UpdateAsync(DreamTokenEntity entity)
         {
-            DreamTokenEntity? entityToModify = await context.Set<DreamTokenEntity>().FindAsync(entity.Id);
-            if (entityToModify != null)
-            {
-                context.Entry(entityToModify).CurrentValues.SetValues(entity);
-                await context.SaveChangesAsync();
-            }
-            return entity;
+            await wrapper.context.SaveChangesAsync();
         }
     }
 }

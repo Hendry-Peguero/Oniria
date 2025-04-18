@@ -53,7 +53,7 @@ namespace Oniria.Core.Application.Features.DreamToken.Command
 
             try
             {
-                dreamTokenToUpdate = _mapper.Map<DreamTokenEntity>(request);
+                _mapper.Map(request, dreamTokenToUpdate);
                 await _dreamTokenRepository.UpdateAsync(dreamTokenToUpdate);
                 result.Data = dreamTokenToUpdate;
             }
