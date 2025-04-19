@@ -45,12 +45,13 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
                 await userManager.FindByEmailAsync(request.Identifier) ?? 
                 await userManager.FindByNameAsync(request.Identifier);
 
-            // Validate password
+            // Try Sing In
             var signInResult = await signInManager.PasswordSignInAsync(
                 userByNameOrEmail?.UserName ?? "",
                 request.Password,
                 isPersistent: false,
-                lockoutOnFailure: false);
+                lockoutOnFailure: false
+            );
 
             if (userByNameOrEmail == null  || !signInResult.Succeeded)
             {
@@ -72,9 +73,18 @@ namespace Oniria.Infrastructure.Identity.Features.User.Commands
                 return result;
             }
 
+            // Fill response
             var userResponse = mapper.Map<UserResponse>(userByNameOrEmail);
             userResponse.Roles = (await mediator.Send(new GetAllUserRolesAsyncQuery { User = userByNameOrEmail })).Data;
             result.Data = userResponse;
+
+            // Set User Session
+            var sessionResult = await mediator.Send(new SetUserSessionAsyncCommand { User = userResponse });
+
+            if (!sessionResult.IsSuccess)
+            {
+                result.AddError($"A server error occurred, please contact the administrator");
+            }
 
             return result;
         }

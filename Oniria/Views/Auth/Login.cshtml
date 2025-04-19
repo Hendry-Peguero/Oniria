@@ -1,3 +1,123 @@
-﻿@{
+﻿@inject Oniria.Services.IBackgroundService backgroundService
+@model Oniria.ViewModels.Auth.LoginViewModel
+@{
     Layout = "~/Views/Shared/Layouts/_OnlyBodyLayout.cshtml";
 }
+<style>
+    .login-container {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .left-container {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-form {
+        width: 100%;
+        min-width: 400px;
+        max-width: 1040px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 80px;
+    }
+
+    .image-container {
+        width: 50%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .sign-in-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .new-to-product {
+        font-size: 14px;
+        color: #333;
+        text-align: center;
+    }
+
+        .new-to-product a {
+            color: #3366ff;
+            text-decoration: none;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .checkbox-container input {
+            margin-right: 8px;
+        }
+
+        .checkbox-container label {
+            font-size: 14px;
+            color: #333;
+        }
+
+    .forgot-password {
+        text-align: center;
+        font-size: 14px;
+    }
+
+        .forgot-password a {
+            color: #3366ff;
+            text-decoration: none;
+        }
+
+    .general-error{
+        background: rgba(255, 0, 0, 0.1);
+        user-select: none;
+    }
+</style>
+<div class="login-container">
+    <div class="left-container">
+        <form class="login-form" asp-controller="Auth" asp-action="Login" method="post">
+            <h1 class="sign-in-title">Sign In</h1>
+            <p class="new-to-product">New to Our Product? <a asp-controller="Auth" asp-action="RegisterType">Create an Account</a></p>
+
+            <div class="d-flex justify-content-center mb-3">
+                <div asp-validation-summary="ModelOnly" class="general-error text-danger px-4 py-2 rounded-3"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="identifier">Email or Username</label>
+                <input asp-for="Identifier" class="form-control" type="text" id="identifier" placeholder="Enter Identifier">
+                <span asp-validation-for="Identifier" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input asp-for="Password" class="form-control" type="password" id="password" placeholder="Enter Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button class="my-3 btn btn-primary" type="submit">Sign In</button>
+
+            <div class="forgot-password">
+                <a asp-controller="Auth" asp-action="RestorePassword">Forgot your password?</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="image-container">
+        <img src="@backgroundService.GetRandom()" alt="Backgorund Image" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</div>
