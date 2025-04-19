@@ -18,7 +18,7 @@ namespace Oniria.ViewModels.Auth
 
             RuleFor(x => x.Password)
                 .NotEmpty()
-                .WithMessage("Password is required.");
+                .WithMessage("Password is required");
         }
     }
 }
