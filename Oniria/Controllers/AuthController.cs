@@ -72,6 +72,30 @@ namespace Oniria.Controllers
         }
 
 
+        [GoHome(GoHomeWhen.USER_IN_SESSION)]
+        public IActionResult RestorePassword() => View();
+
+
+        [HttpPost]
+        [GoHome(GoHomeWhen.USER_IN_SESSION)]
+        public async Task<IActionResult> RestorePassword(RestorePasswordViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var restoreResult = await Mediator.Send(new SendUserPasswordResetEmailAsyncCommand { Email = model.Email });
+
+            if (!restoreResult.IsSuccess)
+            {
+                ModelState.AddModelError(string.Empty, restoreResult.LastMessage());
+                return View(model);
+            }
+
+            ToastNotification.AddSuccessToastMessage("Your password has been successfully reset, please check your email");
+
+            return Redirections.Login;
+        }
+
+
         public async Task<IActionResult> ConfirmUserPasswordRestore(string userId, string token)
         {
             var confirmResult = await Mediator.Send(new ConfirmRestoreUserPasswordAsyncCommand

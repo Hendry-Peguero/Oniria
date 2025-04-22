@@ -1,4 +1,5 @@
 ﻿using Oniria.Core.Domain.Enums;
+using Oniria.Core.Dtos.User.Response;
 using Oniria.Extensions;
 
 namespace Oniria.Services
@@ -53,6 +54,32 @@ namespace Oniria.Services
                 );
 
                 if (optionToSelect != null) optionToSelect.Selected = true;
+            }
+
+            return await FilterOptions(options, loggedUser);
+        }
+
+        private async Task<List<dynamic>> FilterOptions(List<dynamic> options, UserResponse? loggedUser)
+        {
+            if (loggedUser != null)
+            {
+                switch (loggedUser.Roles!.FirstOrDefault())
+                {
+                    case ActorsRoles.DOCTOR:
+                        {
+                            var organization = await userContext.GetEmployeeOrganizationInfo();
+
+                            if (organization == null)
+                            {
+                                options = options.Where(o =>
+                                    o.Text != "Organization Profile" &&
+                                    o.Text != "Change Membership"
+                                ).ToList();
+                            }
+
+                            break;
+                        }
+                }
             }
 
             return options;
