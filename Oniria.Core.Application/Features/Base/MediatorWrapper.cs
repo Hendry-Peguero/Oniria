@@ -15,7 +15,6 @@ namespace Oniria.Core.Application.Features.Base
             this.userIncludeContext = userIncludeContext;
         }
 
-        // For one Entity
         public Task<OperationResult<TEntity>> Send<TEntity>(
             IRequest<OperationResult<TEntity>> request,
             params Expression<Func<TEntity, object>>[] includes
@@ -25,13 +24,30 @@ namespace Oniria.Core.Application.Features.Base
             return sender.Send(request);
         }
 
-        // For List of Entities
         public Task<OperationResult<List<TEntity>>> Send<TEntity>(
             IRequest<OperationResult<List<TEntity>>> request,
             params Expression<Func<TEntity, object>>[] includes
         )
         {
             userIncludeContext.AddIncludes(includes);
+            return sender.Send(request);
+        }
+
+        public Task<OperationResult<TEntity>> Send<TEntity>(
+            IRequest<OperationResult<TEntity>> request,
+            params string[] stringIncludes
+        )
+        {
+            userIncludeContext.AddIncludes(stringIncludes);
+            return sender.Send(request);
+        }
+
+        public Task<OperationResult<List<TEntity>>> Send<TEntity>(
+            IRequest<OperationResult<List<TEntity>>> request,
+            params string[] stringIncludes
+        )
+        {
+            userIncludeContext.AddIncludes(stringIncludes);
             return sender.Send(request);
         }
 
@@ -49,9 +65,19 @@ namespace Oniria.Core.Application.Features.Base
             params Expression<Func<TEntity, object>>[] includes
         );
 
-        public Task<OperationResult<List<TEntity>>> Send<TEntity>(
+        Task<OperationResult<List<TEntity>>> Send<TEntity>(
             IRequest<OperationResult<List<TEntity>>> request,
             params Expression<Func<TEntity, object>>[] includes
+        );
+
+        Task<OperationResult<TEntity>> Send<TEntity>(
+            IRequest<OperationResult<TEntity>> request,
+            params string[] stringIncludes
+        );
+
+        Task<OperationResult<List<TEntity>>> Send<TEntity>(
+            IRequest<OperationResult<List<TEntity>>> request,
+            params string[] stringIncludes
         );
 
         Task<TResponse> Send<TResponse>(IRequest<TResponse> request);

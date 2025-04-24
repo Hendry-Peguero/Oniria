@@ -1,7 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Oniria.Attributes;
 using Oniria.Controllers.Commons;
+using Oniria.Core.Application.Features.Gender.Queries;
+using Oniria.Core.Application.Features.Membership.Queries;
+using Oniria.Core.Application.Features.Patient.Commands;
+using Oniria.Core.Domain.Entities;
+using Oniria.Core.Domain.Enums;
+using Oniria.Core.Dtos.Patient.Request;
 using Oniria.Core.Dtos.User.Request;
+using Oniria.Extensions;
 using Oniria.Helpers;
 using Oniria.Infrastructure.Identity.Features.User.Commands;
 using Oniria.ViewModels.Auth;
@@ -24,7 +32,7 @@ namespace Oniria.Controllers
 
             if (!loginResult.IsSuccess)
             {
-                ModelState.AddModelError(string.Empty, loginResult.LastMessage());
+                ModelState.AddGeneralError(loginResult);
                 return View(model);
             }
 
@@ -34,6 +42,60 @@ namespace Oniria.Controllers
 
         [GoHome(GoHomeWhen.USER_IN_SESSION)]
         public IActionResult RegisterType() => View();
+
+
+        [GoHome(GoHomeWhen.USER_IN_SESSION)]
+        public async Task<IActionResult> RegisterPatient()
+        {
+            var model = new RegisterPatientViewModel()
+            {
+                Genders = await GetGenderAsSelectListAsync(),
+                Memberships = await GetPatientMembershipsAsSelectListAsync()
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [GoHome(GoHomeWhen.USER_IN_SESSION)]
+        public async Task<IActionResult> RegisterPatient(RegisterPatientViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Genders = await GetGenderAsSelectListAsync();
+                model.Memberships = await GetPatientMembershipsAsSelectListAsync();
+                return View(model);
+            }
+
+            var registerResult = await Mediator.Send(new RegisterPatientAsyncCommand() { Request = Mapper.Map<RegisterPatientRequest>(model) });
+
+            if (!registerResult.IsSuccess)
+            {
+                model.Genders = await GetGenderAsSelectListAsync();
+                model.Memberships = await GetPatientMembershipsAsSelectListAsync();
+                ModelState.AddGeneralError(registerResult);
+                return View(model);
+            }
+
+            ToastNotification.AddSuccessToastMessage("Your patient account was successfully created");
+
+            return Redirections.Login;
+        }
+
+
+        //[GoHome(GoHomeWhen.USER_IN_SESSION)]
+        //public IActionResult RegisterOrganization() => View();
+
+
+        //[HttpPost]
+        //[GoHome(GoHomeWhen.USER_IN_SESSION)]
+        //public IActionResult RegisterOrganization()
+        //{
+        //    if (!ModelState.IsValid) return View(model);
+
+
+        //    return Redirections.Login;
+        //}
 
 
         [GoHome(GoHomeWhen.USER_OUT_SESSION)]
@@ -86,7 +148,7 @@ namespace Oniria.Controllers
 
             if (!restoreResult.IsSuccess)
             {
-                ModelState.AddModelError(string.Empty, restoreResult.LastMessage());
+                ModelState.AddGeneralError(restoreResult);
                 return View(model);
             }
 
@@ -107,6 +169,26 @@ namespace Oniria.Controllers
             if (!confirmResult.IsSuccess) return Redirections.Unauthorized;
 
             return View("Confirmations/_ResetPasswordConfirmation", confirmResult.Data!);
+        }
+
+
+        private async Task<SelectList> GetGenderAsSelectListAsync()
+        {
+            var data = (await Mediator.Send(new GetAllGenderAsyncQuery())).Data;
+            return new SelectList(data, "Id", "Description");
+        }
+
+        private async Task<List<MembershipEntity>> GetPatientMembershipsAsSelectListAsync()
+        {
+            return (await Mediator.Send(
+                new GetAllMembershipAsyncQuery(),
+                "MembershipCategory",
+                "BenefitRelations",
+                "BenefitRelations.MembershipBenefit"
+            ))
+            .Data!
+            .Where(m => m.MembershipCategory.Description == MembershipCategoryTypes.Patient.ToString())
+            .ToList();
         }
     }
 }

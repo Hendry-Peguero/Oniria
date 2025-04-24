@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Oniria.Core.Application.Extensions;
 using Oniria.Core.Application.Features.Base;
+using Oniria.Core.Application.Features.User.Commands;
 using Oniria.Core.Dtos.Email.Request;
 using Oniria.Infrastructure.Identity.Entities;
 using Oniria.Infrastructure.Shared.Features.Email.Commands;
@@ -12,11 +13,6 @@ using System.Text;
 
 namespace Oniria.Infrastructure.Identity.Features.User.Commands
 {
-    public class SendUserConfirmationEmailAsyncCommand : IRequest<OperationResult>
-    {
-        public string Email { get; set; }
-    }
-
     public class SendUserConfirmationEmailAsyncCommandHandler : IRequestHandler<SendUserConfirmationEmailAsyncCommand, OperationResult>
     {
         private readonly UserManager<ApplicationUser> userManager;

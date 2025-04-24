@@ -14,6 +14,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
+                UPDATE Employees SET OrganizationId = 'for-orphaned-patients' WHERE Id = 'ADMIN';
                 UPDATE Employees SET OrganizationId = 'org1-vxztp-yub64-qm7fr-1298z' WHERE Id = 'emp1l-vxztp-yub64-qm7fr-1298z';
                 UPDATE Employees SET OrganizationId = 'org2-vxztp-yub64-qm7fr-1298z' WHERE Id = 'emp2l-vxztp-yub64-qm7fr-1298z';
                 UPDATE Employees SET OrganizationId = 'org1-vxztp-yub64-qm7fr-1298z' WHERE Id = 'emp3l-vxztp-yub64-qm7fr-1298z';
@@ -27,6 +28,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
         {
             migrationBuilder.Sql(@"
                 UPDATE Employees SET OrganizationId = NULL WHERE Id IN (
+                    'ADMIN',
                     'emp1l-vxztp-yub64-qm7fr-1298z',
                     'emp2l-vxztp-yub64-qm7fr-1298z',
                     'emp3l-vxztp-yub64-qm7fr-1298z',

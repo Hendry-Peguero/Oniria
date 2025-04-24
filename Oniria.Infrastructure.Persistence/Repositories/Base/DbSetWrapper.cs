@@ -24,14 +24,23 @@ namespace Oniria.Infrastructure.Persistence.Repositories.Base
         {
             var query = context.Set<TEntity>().AsQueryable();
 
-            var includes = userIncludeContext.GetLatestIncludes()
-                .OfType<Expression<Func<TEntity, object>>>();
+            var includeType = userIncludeContext.GetLatestIncludeType();
 
-            foreach (var include in includes) {
-                query = query.Include(include);
+            if (includeType == IncludeType.Lambda)
+            {
+                var lambdaIncludes = userIncludeContext.GetLatestLambdaIncludes()
+                    .OfType<Expression<Func<TEntity, object>>>();
+
+                foreach (var include in lambdaIncludes) query = query.Include(include);
+            }
+            else if (includeType == IncludeType.String)
+            {
+                var stringIncludes = userIncludeContext.GetLatestStringIncludes();
+
+                foreach (var include in stringIncludes) query = query.Include(include);
             }
 
-            userIncludeContext.RemoveLatestIncludes();
+            userIncludeContext.RemoveLatestIncludeByType();
 
             return query;
         }

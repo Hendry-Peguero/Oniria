@@ -30,3 +30,11 @@
 .field-validation-error span{
     font-size: 14px;
 }
+
+.general-error:not(:empty) {
+    background: rgba(255, 0, 0, 0.1);
+    user-select: none;
+    color: #dc3545;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.3rem;
+}

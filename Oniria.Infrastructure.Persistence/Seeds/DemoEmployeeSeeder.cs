@@ -11,6 +11,19 @@ namespace Oniria.Infrastructure.Persistence.Seeds
             modelBuilder.Entity<EmployeeEntity>().HasData(
                 new EmployeeEntity
                 {
+                    Id = "ADMIN",
+                    Dni = "00000000000",
+                    Name = "ADMIN",
+                    LastName = "",
+                    BornDate = new DateTime(1985, 4, 23),
+                    PhoneNumber = "+0 000-000-0000",
+                    Address = "####",
+                    UserId = "a1k2l-vxztp-yub64-qm7fr-1298z",
+                    OrganizationId = null,
+                    Status = StatusEntity.ACTIVE
+                },
+                new EmployeeEntity
+                {
                     Id = "emp1l-vxztp-yub64-qm7fr-1298z",
                     Dni = "00112345678",
                     Name = "Laura",

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Oniria.Core.Application.Extensions;
 using Oniria.Core.Application.Helpers;
+using Oniria.Core.Domain.Constants;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Enums;
 using Oniria.Core.Dtos.DreamAnalsys.Request;
@@ -9,6 +10,7 @@ using Oniria.Core.Dtos.Employee.Request;
 using Oniria.Core.Dtos.MembershipAcquisition.Request;
 using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
+using Oniria.Core.Dtos.User.Request;
 
 namespace Oniria.Core.Application.Mappings
 {
@@ -35,6 +37,13 @@ namespace Oniria.Core.Application.Mappings
             CreateMap<PatientEntity, UpdatePatientRequest>()
                 .ReverseMap()
                 .IgnoreTimeStampsAuditMembers();
+
+            CreateMap<RegisterPatientRequest, CreateUserRequest>();
+
+            CreateMap<RegisterPatientRequest, CreatePatientRequest>()
+                .ForMember(rp => rp.UserId, opt => opt.Ignore())
+                .ForMember(rp => rp.OrganizationId, opt => opt.MapFrom(cp => OrganizationIdsConstants.OrphanedOrganization));
+
         }
 
         private void Organization()

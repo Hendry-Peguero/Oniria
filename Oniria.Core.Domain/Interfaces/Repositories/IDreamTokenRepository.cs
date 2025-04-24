@@ -7,7 +7,8 @@ namespace Oniria.Core.Domain.Interfaces.Repositories
     GetAllAsync<DreamTokenEntity>,
     GetByIdAsync<DreamTokenEntity, string>,
     CreateAsync<DreamTokenEntity>,
-    UpdateAsync<DreamTokenEntity>
+    UpdateAsync<DreamTokenEntity>,
+    DeleteAsync<DreamTokenEntity>
     {
     }
 }

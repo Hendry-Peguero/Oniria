@@ -6,6 +6,11 @@ namespace Oniria.Core.Application.Features.Base
     {
         bool IsSuccess { get; }
         List<string> Messages { get; }
+        void AddMessage(string errorMessage);
+        void AddError(string errorMessage);
+        void AddError(List<string> errorMessages);
+        void AddError(IBaseOperationResult operationResult);
+        string LastMessage();
     }
 
     public abstract class BaseOperationResult : IBaseOperationResult

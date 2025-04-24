@@ -9,8 +9,8 @@ namespace Oniria.Infrastructure.Persistence.Seeds
         public static void Seed(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MembershipCategoryEntity>().HasData(
-                new MembershipCategoryEntity { Id = "P", Description = "Patient", Status = StatusEntity.ACTIVE },
-                new MembershipCategoryEntity { Id = "O", Description = "Organization", Status = StatusEntity.ACTIVE }
+                new MembershipCategoryEntity { Id = "P", Description = MembershipCategoryTypes.Patient.ToString(), Status = StatusEntity.ACTIVE },
+                new MembershipCategoryEntity { Id = "O", Description = MembershipCategoryTypes.Organization.ToString(), Status = StatusEntity.ACTIVE }
             );
         }
     }

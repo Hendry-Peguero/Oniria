@@ -1,0 +1,210 @@
+﻿@model Oniria.ViewModels.Auth.RegisterPatientViewModel
+@{
+    var firstItem = true;
+}
+<style>
+    .title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        background: linear-gradient(90deg, #4c7dfa 0%, #cd74e6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .plans-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .plan-monthly {
+        flex: 1;
+        min-width: 280px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 25px;
+        transition: all 0.3s;
+        position: relative;
+    }
+
+        .plan-monthly.selected {
+            border-color: #4c7dfa;
+            box-shadow: 0 5px 15px rgba(76, 125, 250, 0.1);
+        }
+
+    .plan-price {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .plan-period {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .plan-name {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .plan-description {
+        color: #777;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding-left: 0px;
+    }
+
+    .feature-item {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+        .feature-item .check-icon, .feature-item .minus-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .feature-item .check-icon {
+            color: #22c55e;
+        }
+
+        .feature-item .minus-icon {
+            color: #999;
+        }
+
+    .select-btn {
+        display: block;
+        width: 100%;
+        padding: 12px 15px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 30px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .select-btn:hover {
+            border-color: #4c7dfa;
+            color: #4c7dfa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(76, 125, 250, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .select-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .select-btn.primary {
+            background-color: #4c7dfa;
+            color: white;
+            border-color: #4c7dfa;
+        }
+
+            .select-btn.primary:hover {
+                background-color: #3a6ade;
+                box-shadow: 0 4px 10px rgba(76, 125, 250, 0.2);
+            }
+
+            .select-btn.primary::before {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+    @@media (max-width: 768px) {
+        .plans-container {
+            flex-direction: column;
+        }
+
+        .plan-monthly {
+            width: 100%;
+        }
+    }
+</style>
+
+<h1 class="title">Choose Your Membership</h1>
+<div class="plans-container">
+    <!-- Input oculto para almacenar el ID de la membresía seleccionada -->
+    <input type="hidden" id="selected-membership-id" asp-for="MembershipId" />
+
+    @foreach (var membership in Model.Memberships!)
+    {
+        <div class="plan-monthly @(firstItem ? "selected" : "")" data-membership-id="@membership.Id" data-price="@membership.Price">
+            <div class="plan-price">$@membership.Price <span class="plan-period">/month</span></div>
+            <h3 class="plan-name">@membership.Description Plan</h3>
+            <p class="plan-description">Start your stuffs</p>
+
+            <ul class="feature-list">
+                @foreach (var benefitRelation in membership.BenefitRelations)
+                {
+                    <li class="feature-item">
+                        <span class="@(benefitRelation.Available ? "check-icon" : "minus-icon")">
+                            @(benefitRelation.Available ? "✓" : "−")
+                        </span>
+                        @benefitRelation.MembershipBenefit.Description
+                    </li>
+                }
+            </ul>
+
+            <button type="button" class="select-btn @(firstItem ? "primary" : "")" data-membership-id="@membership.Id">Select Plan</button>
+        </div>
+
+        firstItem = false;
+    }
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select-btn').on('click', function () {
+            const membershipId = $(this).data('membership-id');
+
+            $('#selected-membership-id').val(membershipId);
+
+            $('.plan-monthly').removeClass('selected');
+            $(this).closest('.plan-monthly').addClass('selected');
+
+            $('.select-btn').removeClass('primary').text('Select Plan');
+            $(this).addClass('primary').text('Selected ✓');
+
+            setTimeout(function () {
+                hideMemberships();
+            }, 500);
+        });
+    });
+</script>

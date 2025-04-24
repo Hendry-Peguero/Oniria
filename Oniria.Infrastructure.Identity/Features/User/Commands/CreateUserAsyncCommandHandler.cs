@@ -2,18 +2,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Oniria.Core.Application.Features.Base;
-using Oniria.Core.Dtos.User.Request;
+using Oniria.Core.Application.Features.User.Commands;
 using Oniria.Core.Dtos.User.Response;
 using Oniria.Infrastructure.Identity.Entities;
 using Oniria.Infrastructure.Identity.Features.User.Queries;
 
 namespace Oniria.Infrastructure.Identity.Features.User.Commands
 {
-    public class CreateUserAsyncCommand : IRequest<OperationResult<UserResponse>>
-    {
-        public CreateUserRequest Request { get; set; }
-    }
-
     public class CreateUserAsyncCommandHandler : IRequestHandler<CreateUserAsyncCommand, OperationResult<UserResponse>>
     {
         private readonly UserManager<ApplicationUser> userManager;

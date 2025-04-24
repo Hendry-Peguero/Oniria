@@ -12,8 +12,8 @@ using Oniria.Infrastructure.Persistence.Contexts;
 namespace Oniria.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250417220915_SeedFix_EmployeeOrganization")]
-    partial class SeedFix_EmployeeOrganization
+    [Migration("20250422162459_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -518,6 +518,21 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "ADMIN",
+                            Address = "####",
+                            BornDate = new DateTime(1985, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00000000000",
+                            LastName = "",
+                            Name = "ADMIN",
+                            PhoneNumber = "+0 000-000-0000",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "a1k2l-vxztp-yub64-qm7fr-1298z"
+                        },
+                        new
+                        {
                             Id = "emp1l-vxztp-yub64-qm7fr-1298z",
                             Address = "Calle Duarte #45, Santo Domingo",
                             BornDate = new DateTime(1985, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1020,7 +1035,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8f2bda55-971c-4298-b044-4e5da5902dce",
+                            Id = "641d6a12-8cdf-4594-9a12-58234cba7c12",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1031,7 +1046,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "9f5a3ebc-15df-433f-a926-45a6eda112db",
+                            Id = "254164a2-471c-45e1-abb2-948b56b65798",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1042,7 +1057,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "e1bb45e3-40e0-4c79-b60f-abddd32c6ee5",
+                            Id = "17e9f997-fa2f-499c-8577-bf7bb26245b1",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1053,7 +1068,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "a06014d5-9706-4251-a800-a0418da82a64",
+                            Id = "706cf18c-4427-4e28-a280-dba5023abd76",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1064,7 +1079,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "9f41fca7-8c9c-444f-932a-3bc39dd67c16",
+                            Id = "3093f381-bc97-44ba-b823-d00788ec00ee",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1075,7 +1090,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "261b6d41-7134-4e08-a48d-08da477dab84",
+                            Id = "9fa8603a-ea7a-40f8-a124-7eb28ca93233",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1086,7 +1101,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "04bac249-77d2-4e47-b08e-b235e31ba701",
+                            Id = "926dfe4f-112a-452b-8b9c-dbf5df5fdf4f",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1097,7 +1112,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "002fe65b-06b5-4e56-b140-445d803dca4a",
+                            Id = "ec11cc12-5533-4a6b-914a-25067f6a47a1",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1108,7 +1123,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "7ccdcf80-5cda-45db-a8b9-5445cc6f945b",
+                            Id = "c0d9f187-98b4-4567-a835-8f600d98229e",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1119,7 +1134,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "2cd1571c-04b8-4822-8b5a-708c7fa13ea2",
+                            Id = "f7f713d1-f248-44ee-a911-2ee5f6745067",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1130,7 +1145,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "5b4e0b47-54d9-474b-bdb0-b73582ccbe42",
+                            Id = "561f6b4e-b717-4c1c-a912-7b3e8a795e57",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1141,7 +1156,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "f419d8d0-ea80-45ab-8cea-612cd2e3919b",
+                            Id = "984b4571-6930-40c0-807d-a24b5cced1f8",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1152,7 +1167,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "3bf59f1a-9538-4d16-895f-b588d889dd6f",
+                            Id = "14610bc1-1c19-4f43-afda-d29e5ffe37ee",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1163,7 +1178,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "6d32b925-916b-4621-ae77-fe3d1f337f6c",
+                            Id = "3e3f11c3-ce59-4af0-874f-c578a55fc707",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1174,7 +1189,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "814dd024-bfd5-402e-918a-c9aa3fabbd28",
+                            Id = "405f4e7f-84d4-422c-a915-2e9c3f159865",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1185,7 +1200,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "94146e48-7018-4d3c-9687-de6384dd3f40",
+                            Id = "625f0f1d-a33d-4ba9-874d-8bf1f4f636ed",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1196,7 +1211,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "cd8df0f5-6141-439a-abaf-af17d6b52ede",
+                            Id = "8dcf3a61-d88c-471d-ae28-4bacf786459c",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1207,7 +1222,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "ecfda488-fc86-403e-90a7-7bb225d47497",
+                            Id = "7c8007ed-f86f-43ad-a0f8-aa99b654e4ad",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1218,7 +1233,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "02b6c582-c967-47f3-8a91-ada2398cea18",
+                            Id = "cf4bd8f1-a6f8-4d49-950d-037174b1c410",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1229,7 +1244,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "42c595b4-35a6-4bd6-8a6d-4248dda279b8",
+                            Id = "b2ed9a82-5cad-47c3-ad6a-7c204ac353c3",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1240,7 +1255,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "5b6b6a76-ad60-4efa-ab16-ded45d5fdda1",
+                            Id = "cc464872-32fd-4088-b206-07b2cb8a5074",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1251,7 +1266,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "1198477e-a6b7-4c6c-ab77-50202168c24b",
+                            Id = "64147a94-156e-4cdf-b328-2c60f68d9b5c",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1262,7 +1277,7 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "04bed06c-5e18-47c6-bf2f-4c62a41bc6f1",
+                            Id = "be349fc1-31bc-46cd-ac79-0cadff83ce13",
                             Available = true,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1471,6 +1486,18 @@ namespace Oniria.Infrastructure.Persistence.Migrations
                     b.ToTable("Organizations", (string)null);
 
                     b.HasData(
+                        new
+                        {
+                            Id = "for-orphaned-patients",
+                            Address = "####",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeOwnerId = "ADMIN",
+                            Name = "For Orphaned Patients",
+                            PhoneNumber = "+0 000-000-0000",
+                            Status = 1,
+                            UpdatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
                         new
                         {
                             Id = "org1-vxztp-yub64-qm7fr-1298z",

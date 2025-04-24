@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Oniria.Core.Domain.Constants;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Enums;
 
@@ -9,6 +10,15 @@ namespace Oniria.Infrastructure.Persistence.Seeds
         public static void Seed(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrganizationEntity>().HasData(
+                new OrganizationEntity
+                {
+                    Id = OrganizationIdsConstants.OrphanedOrganization,
+                    Name = "For Orphaned Patients",
+                    Address = "####",
+                    PhoneNumber = "+0 000-000-0000",
+                    EmployeeOwnerId = "ADMIN",
+                    Status = StatusEntity.ACTIVE
+                },
                 new OrganizationEntity
                 {
                     Id = "org1-vxztp-yub64-qm7fr-1298z",

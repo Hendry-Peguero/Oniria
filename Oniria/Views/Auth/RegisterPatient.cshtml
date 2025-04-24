@@ -1,0 +1,628 @@
+﻿@inject Oniria.Services.IBackgroundService backgroundService
+@model Oniria.ViewModels.Auth.RegisterPatientViewModel
+@{
+    Layout = "~/Views/Shared/Layouts/_OnlyBodyLayout.cshtml";
+}
+<style>
+    .root-view {
+        display: flex;
+        min-height: 100vh;
+        background-color: #f5f5f5;
+        overflow-x: hidden;
+    }
+
+    .left-panel {
+        width: 50%;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-image: url(@backgroundService.GetRandom());
+        background-size: cover;
+        background-position: center;
+    }
+
+    .right-panel {
+        width: 50%;
+        margin-left: 50%;
+        min-height: 100vh;
+        padding: 40px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        border-left: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .signin-link {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .signin-link a {
+        color: #4285f4;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+
+    .signin-link a:hover {
+        text-decoration: underline;
+    }
+
+    .tabs {
+        display: flex;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tab {
+        padding: 12px 24px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-bottom: 2px solid transparent;
+    }
+
+    .tab.active {
+        color: #2563EB;
+        border-bottom: 2px solid #2563EB;
+    }
+
+    .tab:hover:not(.active) {
+        color: #333;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .form-container {
+        flex: 1;
+        position: relative;
+    }
+
+    #form-content {
+        transition: height 0.3s ease;
+    }
+
+    .tab-content {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        pointer-events: none; /* Esto lo necesitas */
+    }
+
+        .tab-content.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Y esto también */
+        }
+
+/*     .tab-content {
+        position: absolute;
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+        .tab-content.active {
+            position: relative;
+            visibility: visible;
+            pointer-events: auto;
+            opacity: 1;
+        } */
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 13px;
+    }
+
+    .form-group {
+        flex: 1;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    .required::after {
+        content: " *";
+        color: #e53935;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s;
+        appearance: none;
+        background-color: transparent;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+        border-color: #4285f4;
+        box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+    }
+
+    .error-message {
+        color: #e53935;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+    }
+
+    .date-input {
+        position: relative;
+    }
+
+    .date-input input {
+        padding-right: 40px;
+    }
+
+    .date-input::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23555' viewBox='0 0 24 24'%3E%3Cpath d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM5 7V6h14v1H5z'/%3E%3C/svg%3E");
+        background-size: contain;
+        pointer-events: none;
+    }
+
+    .create-btn {
+        width: 100%;
+        padding: 14px;
+        background-color: #2563EB;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .create-btn:hover {
+        background-color: #1d4ed8;
+    }
+
+    .terms {
+        text-align: center;
+        font-size: 13px;
+        color: #555;
+    }
+
+    .terms a {
+        color: #4285f4;
+        text-decoration: none;
+    }
+
+    .terms a:hover {
+        text-decoration: underline;
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+    .select-wrapper::after {
+        content: "▼";
+        font-size: 10px;
+        color: #555;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .invalid {
+        border-color: #e53935 !important;
+    }
+
+    /* Estilo para el campo de teléfono con formato */
+    .phone-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .phone-prefix {
+        position: absolute;
+        left: 15px;
+        color: #555;
+        font-size: 14px;
+        pointer-events: none;
+    }
+
+    .phone-input {
+        padding-left: 35px !important;
+    }
+
+    @@media (max-width: 768px) {
+        body {
+            flex-direction: column;
+        }
+            
+        .left-panel {
+            position: relative;
+            width: 100%;
+            height: 200px;
+        }
+            
+        .right-panel {
+            width: 100%;
+            height: auto;
+            margin-left: 0;
+        }
+            
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+
+    /* PARA MEMBRESIAS */
+    #memberships-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    #memberships-container .container {
+        position: relative;
+        max-width: 1000px;
+        width: 100%;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Animación para aparecer suavemente */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Botón para cerrar (opcional) */
+    #memberships-container .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #777;
+        z-index: 10;
+    }
+
+    #memberships-container .close-btn:hover {
+        color: #333;
+    }
+</style>
+<div class="root-view">
+    <div class="left-panel"></div>
+    <div class="right-panel">
+        <div class="header">
+            <h1>Create Patient Account</h1>
+            <div class="signin-link">Have an Account? <a asp-action="Login">Sign In</a></div>
+        </div>
+
+        <div class="d-flex justify-content-center mb-3">
+            <div asp-validation-summary="ModelOnly" class="general-error"></div>
+            <span asp-validation-for="MembershipId" class="general-error"></span>
+        </div>
+
+        <!-- Inverted tabs order: Users first, then Patient -->
+        <div class="tabs">
+            <div class="tab active" data-tab="users">User</div>
+            <div class="tab" data-tab="patient">Patient</div>
+        </div>
+
+        <form class="form-container" asp-controller="Auth" asp-action="RegisterPatient" method="post">
+            <div id="form-content">
+                <!-- Users form - now comes first and is active by default -->
+                <div id="users-form" class="tab-content active">
+                    <div class="form-group">
+                        <label for="user_name" class="required">Username</label>
+                        <input asp-for="UserName" type="text" id="user_name" placeholder="Enter username">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_email" class="required">Email</label>
+                        <input asp-for="Email" type="email" id="user_email" placeholder="Enter email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="user_password" class="required">Password</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input asp-for="Password" type="password" id="user_password" placeholder="Enter password" class="form-control">
+                                <i class="bi bi-info-circle-fill text-secondary"
+                                   tabindex="0"
+                                   data-bs-toggle="popover"
+                                   data-bs-trigger="hover focus"
+                                   data-bs-placement="right"
+                                   data-bs-content="Password must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, and 1 number."
+                                   style="cursor: pointer;"></i>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_confirm_password" class="required">Confirm Password</label>
+                            <input asp-for="ConfirmPassword" type="password" id="user_confirm_password" placeholder="Confirm password">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient form - removed duplicate fields that exist in user form -->
+                <div id="patient-form" class="tab-content">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="required">Name</label>
+                            <input asp-for="Name" type="text" id="name" placeholder="Enter name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="required">Last Name</label>
+                            <input asp-for="LastName" type="text" id="lastname" placeholder="Enter last name">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone" class="required">Phone Number</label>
+                            <div class="phone-input-container">
+                                <span class="phone-prefix">+1</span>
+                                <input asp-for="PhoneNumber" type="tel" id="phone" class="phone-input" placeholder="(123) 456-7890" oninput="this.value = this.value.replace(/[^0-9\(\)\-\s]/g, '')">
+                                <i class="bi bi-info-circle-fill text-secondary ms-2"
+                                    tabindex="0"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover focus"
+                                    data-bs-placement="right"
+                                    data-bs-content="El número de teléfono debe tener el formato: (849) 586-9875. Solo se aceptan los códigos de área 809, 829 y 849."
+                                    style="cursor: pointer;"></i>
+                            </div>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday" class="required">Birth Date</label>
+                            <div class="">
+                                <input asp-for="BornDate" type="date" id="birthday" placeholder="dd/MM/yyyy">
+                                <span asp-validation-for="BornDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="GenderId" class="required">Gender</label>
+                            <div class="select-wrapper">
+                                <select asp-for="GenderId" asp-items="Model.Genders" class="form-control">
+                                    <option value="">Select an option</option>
+                                </select>
+                                <span asp-validation-for="GenderId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="required">Address</label>
+                            <input asp-for="Address" type="text" id="address" placeholder="Enter address">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <button type="button"
+                        class="btn btn-outline-success"
+                        style="padding: 14px 18px;"
+                        onclick="showMemberships()"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="hover focus"
+                        data-bs-placement="top"
+                        data-bs-content="Show Memberships ✨">
+                    <i class="bi-credit-card-2-back-fill"></i>
+                </button>
+                <button type="submit" class="create-btn flex-grow-1">Create Account</button>
+            </div>
+
+            <div class="terms">
+                By creating the account, you agree to our<br>
+                <a asp-controller="Home" asp-action="HomeRedirection">Terms of Service</a>
+            </div>
+
+            @* Membership select *@
+            <div id="memberships-container">
+                <button class="close-btn" onclick="hideMemberships()">×</button>
+                <div class="container">
+                    <partial name="Partials/_ChooseMembershipRegisterPatient" model="Model"></partial>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        // Mover estas funciones al scope global (fuera de document.ready)
+        function showMemberships() {
+            document.getElementById('memberships-container').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // Cierra cualquier popover de Bootstrap que esté abierto
+            const popover = bootstrap.Popover.getInstance(document.querySelector('[data-bs-toggle="popover"]'));
+            if (popover) {
+                popover.hide();
+            }
+        }
+
+        function hideMemberships() {
+            document.getElementById('memberships-container').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        $(document).ready(function () {
+
+            // Add rule Validator
+            $.validator.addMethod('dateInPast', function(value, element) {
+                if (!value) return true; // Si está vacío, la regla NotEmpty se encargará
+
+                var today = new Date();
+                today.setHours(0, 0, 0, 0); // Establecer hora a 00:00:00 para comparar solo fechas
+                var inputDate = new Date(value);
+
+                return inputDate < today;
+            }, 'Birthdate must be in the past');
+
+            // Ponerselo a borndate
+            $('#birthday').rules('add', {
+                dateInPast: true
+            });
+
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            popoverTriggerList.forEach(function (popoverTriggerEl) {
+                new bootstrap.Popover(popoverTriggerEl)
+            })
+
+            // Enhanced JavaScript for tab switching with smoother animation
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const formContent = document.getElementById('form-content');
+
+            function updateFormContentHeight() {
+                const activeContent = document.querySelector('.tab-content.active');
+                if (activeContent) {
+                    formContent.style.height = activeContent.offsetHeight + 'px';
+                }
+            }
+
+            const observer = new ResizeObserver(() => {
+                updateFormContentHeight();
+            });
+
+            // Llamar esto cada vez que cambias de tab
+            function observeActiveTab() {
+                const activeContent = document.querySelector('.tab-content.active');
+                if (activeContent) {
+                    observer.disconnect(); // Deja de observar el anterior
+                    observer.observe(activeContent); // Observa el nuevo activo
+                    updateFormContentHeight(); // Ajusta altura al momento del cambio
+                }
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Get the target tab
+                    const targetTab = this.getAttribute('data-tab');
+
+                    // Only proceed if the clicked tab isn't already active
+                    if (!this.classList.contains('active')) {
+                        // Deactivate all tabs
+                        tabs.forEach(t => t.classList.remove('active'));
+
+                        // Activate the selected tab
+                        this.classList.add('active');
+
+                        // Hide all tab contents with animation
+                        tabContents.forEach(content => {
+                            if (content.classList.contains('active')) {
+                                content.style.opacity = '0';
+                                content.style.transform = 'translateY(20px)';
+
+                                setTimeout(() => {
+                                    content.classList.remove('active');
+
+                                    // Show the corresponding content with animation
+                                    const targetContent = document.getElementById(targetTab + '-form');
+                                    targetContent.classList.add('active');
+
+                                    // Trigger reflow for animation
+                                    void targetContent.offsetWidth;
+
+                                    // Animate in
+                                    targetContent.style.opacity = '1';
+                                    targetContent.style.transform = 'translateY(0)';
+
+                                    // Set Height of form-content to psoitionate the button correctly
+                                    observeActiveTab();
+                                }, 300); // Animation duration
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Phone number input mask (US format)
+            const phoneInput = document.getElementById('phone');
+
+            phoneInput.addEventListener('input', function(e) {
+                // Get only digits from the input
+                let input = this.value.replace(/\D/g, '');
+
+                // Limit to 10 digits (area code + phone number)
+                if (input.length > 10) {
+                    input = input.substring(0, 10);
+                }
+
+                // Format the phone number
+                if (input.length > 0) {
+                    // Format: (XXX) XXX-XXXX
+                    if (input.length <= 3) {
+                        this.value = '(' + input;
+                    } else if (input.length <= 6) {
+                        this.value = '(' + input.substring(0, 3) + ') ' + input.substring(3);
+                    } else {
+                        this.value = '(' + input.substring(0, 3) + ') ' + input.substring(3, 6) + '-' + input.substring(6);
+                    }
+                }
+            });
+
+            // Inicializar
+            observeActiveTab();
+        });
+    </script>
+}
