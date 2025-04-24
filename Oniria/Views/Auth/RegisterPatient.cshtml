@@ -1,4 +1,5 @@
-﻿@inject Oniria.Services.IBackgroundService backgroundService
+﻿@using Oniria.ViewModels.Auth.Partials
+@inject Oniria.Services.IBackgroundService backgroundService
 @model Oniria.ViewModels.Auth.RegisterPatientViewModel
 @{
     Layout = "~/Views/Shared/Layouts/_OnlyBodyLayout.cshtml";
@@ -93,6 +94,7 @@
 
     #form-content {
         transition: height 0.3s ease;
+        height: 300px;
     }
 
     .tab-content {
@@ -109,20 +111,6 @@
             transform: translateY(0);
             pointer-events: auto; /* Y esto también */
         }
-
-/*     .tab-content {
-        position: absolute;
-        visibility: hidden;
-        pointer-events: none;
-        opacity: 0;
-    }
-
-        .tab-content.active {
-            position: relative;
-            visibility: visible;
-            pointer-events: auto;
-            opacity: 1;
-        } */
 
     .form-row {
         display: flex;
@@ -480,7 +468,15 @@
             <div id="memberships-container">
                 <button class="close-btn" onclick="hideMemberships()">×</button>
                 <div class="container">
-                    <partial name="Partials/_ChooseMembershipRegisterPatient" model="Model"></partial>
+                    <partial 
+                        name="Partials/_ChooseMembershipRegister" 
+                        model='new ChooseMembershipViewModel {
+                            InputKey = "selected-membership-id",
+                            Memberships = Model.Memberships
+                        }'
+                    ></partial>
+                    <!-- Input oculto para almacenar el ID de la membresía seleccionada -->
+                    <input type="hidden" id="selected-membership-id" asp-for="MembershipId" />
                 </div>
             </div>
         </form>

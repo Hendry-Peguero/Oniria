@@ -1,4 +1,4 @@
-﻿@model Oniria.ViewModels.Auth.RegisterPatientViewModel
+﻿@model Oniria.ViewModels.Auth.Partials.ChooseMembershipViewModel
 @{
     var firstItem = true;
 }
@@ -160,8 +160,6 @@
 
 <h1 class="title">Choose Your Membership</h1>
 <div class="plans-container">
-    <!-- Input oculto para almacenar el ID de la membresía seleccionada -->
-    <input type="hidden" id="selected-membership-id" asp-for="MembershipId" />
 
     @foreach (var membership in Model.Memberships!)
     {
@@ -194,7 +192,7 @@
         $('.select-btn').on('click', function () {
             const membershipId = $(this).data('membership-id');
 
-            $('#selected-membership-id').val(membershipId);
+            $('#@(Model.InputKey)').val(membershipId);
 
             $('.plan-monthly').removeClass('selected');
             $(this).closest('.plan-monthly').addClass('selected');
