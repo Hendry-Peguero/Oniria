@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
 using Oniria.Core.Dtos.User.Request;
 using Oniria.ViewModels.Auth;
@@ -16,6 +17,7 @@ namespace Oniria.Mappings
         {
             CreateMap<LoginViewModel, AuthenticationRequest>();
             CreateMap<RegisterPatientViewModel, RegisterPatientRequest>();
+            CreateMap<RegisterOrganizationViewModel, RegisterOrganizationRequest>();
         }
     }
 }

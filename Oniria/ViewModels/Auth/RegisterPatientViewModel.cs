@@ -15,7 +15,7 @@ namespace Oniria.ViewModels.Auth
         public string LastName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime BornDate { get; set; } = new DateTime(2000, 1, 1);
+        public DateTime BornDate { get; set; } = DateTime.Now.AddYears(-25);
 
         public string PhoneNumber { get; set; }
         public string Address { get; set; }

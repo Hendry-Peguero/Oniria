@@ -57,6 +57,24 @@ namespace Oniria.Core.Application.Mappings
             CreateMap<OrganizationEntity, UpdateOrganizationRequest>()
                 .ReverseMap()
                 .IgnoreTimeStampsAuditMembers();
+
+            CreateMap<RegisterOrganizationRequest, CreateUserRequest>();
+
+            CreateMap<RegisterOrganizationRequest, CreateEmployeeRequest>()
+                .ForMember(dest => dest.Dni, opt => opt.MapFrom(src => src.EmployeeDni))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.EmployeeName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.EmployeeLastName))
+                .ForMember(dest => dest.BornDate, opt => opt.MapFrom(src => src.EmployeeBornDate))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.EmployeePhoneNumber))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.EmployeeAddress))
+                .ForMember(dest => dest.UserId, opt => opt.Ignore())
+                .ForMember(dest => dest.OrganizationId, opt => opt.Ignore());
+
+            CreateMap<RegisterOrganizationRequest, CreateOrganizationRequest>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrganizationName))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.OrganizationAddress))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.OrganizationPhoneNumber))
+                .ForMember(dest => dest.EmployeeOwnerId, opt => opt.Ignore());
         }
 
         private void Employee()
