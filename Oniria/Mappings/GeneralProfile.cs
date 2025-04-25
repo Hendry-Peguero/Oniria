@@ -2,6 +2,7 @@
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Dtos.Dream.Request;
 using Oniria.Core.Dtos.Employee.Request;
+using Oniria.Core.Dtos.Organization.Reponse;
 using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
 using Oniria.Core.Dtos.User.Request;
@@ -34,6 +35,12 @@ namespace Oniria.Mappings
         {
             CreateMap<OrganizationEntity, OrganizationProfileViewModel>();
             CreateMap<OrganizationProfileViewModel, UpdateOrganizationRequest>();
+
+            CreateMap<DashboardResponse, DashboardViewModel>();
+            CreateMap<PatientDreamCountResponse, PatientDreamCountViewModel>();
+            CreateMap<RecentPatientResponse, RecentPatientViewModel>();
+            CreateMap<RecentDreamResponse, RecentDreamViewModel>();
+            CreateMap<RecentEmployeeResponse, RecentEmployeeViewModel>();
         }
 
         private void Auth()

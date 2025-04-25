@@ -1,0 +1,419 @@
+﻿@model Oniria.ViewModels.Organization.DashboardViewModel
+<style>
+    .sidebar {
+        background-color: #fff;
+        border-right: 1px solid #e5e7eb;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+    }
+
+        .card:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+    .stat-card {
+        border-left: 4px solid;
+    }
+
+    .blue-pastel {
+        background-color: #e0f2fe;
+        border-color: #93c5fd;
+    }
+
+    .green-pastel {
+        background-color: #dcfce7;
+        border-color: #86efac;
+    }
+
+    .purple-pastel {
+        background-color: #f3e8ff;
+        border-color: #c4b5fd;
+    }
+
+    .pink-pastel {
+        background-color: #fce7f3;
+        border-color: #f9a8d4;
+    }
+
+    .warning-card {
+        background-color: #fff1f2;
+        border-left: 4px solid #fda4af;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    th {
+        background-color: #f8fafc;
+        color: #64748b;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .menu-item.active {
+        color: #3b82f6;
+        background-color: #eff6ff;
+        border-left: 3px solid #3b82f6;
+    }
+</style>
+<!-- Main Content -->
+<div class="p-8 flex-1">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-semibold text-gray-800">Dashboard</h1>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="card stat-card blue-pastel p-6">
+            <div class="text-sm font-medium text-gray-500 mb-2">Total Patients</div>
+            <div class="flex justify-between items-end">
+                <div class="text-2xl font-bold text-gray-800">@Model.TotalPatients</div>
+                <div class="text-xs font-medium flex items-center text-green-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    8%
+                </div>
+            </div>
+        </div>
+
+        <div class="card stat-card green-pastel p-6">
+            <div class="text-sm font-medium text-gray-500 mb-2">Total Employees</div>
+            <div class="flex justify-between items-end">
+                <div class="text-2xl font-bold text-gray-800">@Model.TotalEmployees</div>
+                <div class="text-xs font-medium flex items-center text-green-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    3%
+                </div>
+            </div>
+        </div>
+
+        <div class="card stat-card purple-pastel p-6">
+            <div class="text-sm font-medium text-gray-500 mb-2">Total Dreams</div>
+            <div class="flex justify-between items-end">
+                <div class="text-2xl font-bold text-gray-800">@Model.TotalDreams</div>
+                <div class="text-xs font-medium flex items-center text-green-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    12%
+                </div>
+            </div>
+        </div>
+
+        <div class="card stat-card pink-pastel p-6">
+            <div class="text-sm font-medium text-gray-500 mb-2">Dreams Today</div>
+            <div class="flex justify-between items-end">
+                <div class="text-2xl font-bold text-gray-800">@Model.DreamsToday</div>
+                <div class="text-xs font-medium flex items-center text-green-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    5%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Dreams by Date Chart -->
+        <div class="card p-6 col-span-2">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-medium text-gray-800">Dreams Registered</h2>
+                <div class="relative">
+                    <select class="block w-full bg-white border border-gray-200 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm">
+                        <option>Last 7 Days</option>
+                        <option selected>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                    </select>
+                </div>
+            </div>
+            <div class="relative h-64">
+                <canvas id="dreamsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Demographics Chart -->
+        <div class="card p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">Patient Demographics</h2>
+            <div class="relative h-64 flex justify-center">
+                <canvas id="demographicsChart"></canvas>
+            </div>
+            <div class="mt-4 space-y-2">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-gray-600">Men</span>
+                    <span class="font-medium">@(Model.PatientsByGender.ContainsKey("Male") ? Model.PatientsByGender["Male"] : 0)</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-gray-600">Women</span>
+                    <span class="font-medium">@(Model.PatientsByGender.ContainsKey("Female") ? Model.PatientsByGender["Female"] : 0)</span>
+                </div>
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-gray-600">Other</span>
+                    <span class="font-medium">@(Model.PatientsByGender.ContainsKey("Other") ? Model.PatientsByGender["Other"] : 0)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Card -->
+    @if (Model.PatientsWithoutDreamsIn30Days > 0)
+    {
+        <div class="card warning-card p-6 mb-8">
+            <div class="flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <h2 class="text-lg font-medium text-red-600">Attention Required</h2>
+            </div>
+            <p class="mt-2 text-gray-700">@Model.PatientsWithoutDreamsIn30Days patients have not registered any dreams in the last 30 days. Consider scheduling follow-up consultations.</p>
+        </div>
+    }
+
+    <!-- Tables Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Top Patients by Dreams -->
+        <div class="card p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">Top Patients by Dreams</h2>
+            <div class="table-container">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="rounded-tl-lg">Patient</th>
+                            <th>Dreams</th>
+                            <th class="rounded-tr-lg">Dreams/Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var patient in Model.TopPatientsByDreams)
+                        {
+                            <tr>
+                                <td class="py-3">
+                                    <div class="flex items-center">
+                                        <span class="font-medium text-gray-800">@patient.FullName</span>
+                                    </div>
+                                </td>
+                                <td class="py-3">
+                                    <span class="font-medium">@patient.DreamCount</span>
+                                </td>
+                                <td class="py-3">
+                                    <span class="font-medium">@(Math.Round((double)patient.DreamCount / 30, 1))</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Dreams -->
+        <div class="card p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">Recent Dreams</h2>
+            <div class="space-y-4">
+                @foreach (var dream in Model.RecentDreams)
+                {
+                    <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-800 truncate">@dream.ShortDescription</p>
+                            <p class="text-sm text-gray-500">@dream.PatientName</p>
+                        </div>
+                        <div class="text-xs text-gray-500">@dream.DreamDate.ToString("MMM dd, yyyy")</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Age Distribution & Recent Data Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+        <!-- Age Distribution -->
+        <div class="card p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">Patient Age Distribution</h2>
+            <div class="relative h-64">
+                <canvas id="ageDistributionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent Patients -->
+        <div class="card p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">New Patients</h2>
+            <div class="space-y-4">
+                @foreach (var patient in Model.RecentPatients)
+                {
+                    <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-800 truncate">@patient.FullName</p>
+                            <p class="text-sm text-gray-500">Registered</p>
+                        </div>
+                        <div class="text-xs text-gray-500">@patient.RegisteredDate.ToString("MMM dd, yyyy")</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Extract data from model
+        const dreamsByDateLabels = @Html.Raw(Json.Serialize(Model.DreamsByDate.Keys.Select(d => d.ToString("MMM dd"))));
+        const dreamsByDateValues = @Html.Raw(Json.Serialize(Model.DreamsByDate.Values));
+
+        const patientsByGenderLabels = @Html.Raw(Json.Serialize(Model.PatientsByGender.Keys));
+        const patientsByGenderValues = @Html.Raw(Json.Serialize(Model.PatientsByGender.Values));
+
+        const patientsByAgeLabels = @Html.Raw(Json.Serialize(Model.PatientsByAgeGroup.Keys));
+        const patientsByAgeValues = @Html.Raw(Json.Serialize(Model.PatientsByAgeGroup.Values));
+
+        // Dreams by Date Chart
+        const dreamsCtx = document.getElementById('dreamsChart').getContext('2d');
+        new Chart(dreamsCtx, {
+            type: 'line',
+            data: {
+                labels: dreamsByDateLabels,
+                datasets: [{
+                    label: 'Dreams',
+                    data: dreamsByDateValues,
+                    backgroundColor: 'rgba(147, 197, 253, 0.2)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                    pointBorderColor: '#fff',
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            fontColor: '#9ca3af'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#9ca3af'
+                        },
+                        gridLines: {
+                            color: 'rgba(243, 244, 246, 1)',
+                            zeroLineColor: 'rgba(243, 244, 246, 1)'
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Demographics Chart
+        const demographicsCtx = document.getElementById('demographicsChart').getContext('2d');
+        new Chart(demographicsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: patientsByGenderLabels,
+                datasets: [{
+                    data: patientsByGenderValues,
+                    backgroundColor: [
+                        'rgba(96, 165, 250, 0.7)',
+                        'rgba(249, 168, 212, 0.7)',
+                        'rgba(196, 181, 253, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(96, 165, 250, 1)',
+                        'rgba(249, 168, 212, 1)',
+                        'rgba(196, 181, 253, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutoutPercentage: 70,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    titleFontColor: '#fff',
+                    bodyFontColor: '#fff',
+                    caretSize: 5,
+                    cornerRadius: 5
+                },
+                animation: {
+                    animateRotate: true,
+                    animateScale: true
+                }
+            }
+        });
+
+        // Age Distribution Chart
+        const ageDistributionCtx = document.getElementById('ageDistributionChart').getContext('2d');
+        new Chart(ageDistributionCtx, {
+            type: 'bar',
+            data: {
+                labels: patientsByAgeLabels,
+                datasets: [{
+                    label: 'Patients',
+                    data: patientsByAgeValues,
+                    backgroundColor: 'rgba(147, 197, 253, 0.7)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            fontColor: '#9ca3af'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#9ca3af'
+                        },
+                        gridLines: {
+                            color: 'rgba(243, 244, 246, 1)',
+                            zeroLineColor: 'rgba(243, 244, 246, 1)'
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}

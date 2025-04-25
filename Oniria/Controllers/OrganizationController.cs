@@ -96,5 +96,21 @@ namespace Oniria.Controllers
 
             return Redirections.OrganizationProfile;
         }
+
+
+        public async Task<IActionResult> Dashboard()
+        {
+            var organizationResult = await UserContext.GetEmployeeOrganizationInfo();
+
+            if (organizationResult is null)
+            {
+                ToastNotification.AddErrorToastMessage("A problem occurred obtaining organizational information");
+                return Redirections.EmployeeProfile;
+            }
+
+            var dashboardResult = await Mediator.Send(new GetDashboardAsyncQuery { OrganizationId = organizationResult.Id});
+
+            return View(Mapper.Map<DashboardViewModel>(dashboardResult.Data!));
+        }
     }
 }
