@@ -154,12 +154,6 @@ namespace Oniria.Services
                     Controller = "Organization",
                     Action = "PatientRecords"
                 },
-                new Option {
-                    Text = "Patient Tracking",
-                    BootstrapIcon = "bi-graph-up-arrow",
-                    Controller = "Organization",
-                    Action = "PatientTracking"
-                },
                 new Section {
                     Text = "Employees"
                 },

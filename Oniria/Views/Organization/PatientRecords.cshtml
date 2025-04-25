@@ -296,7 +296,7 @@
             <tbody>
                 @foreach (var patient in Model)
                 {
-                    <tr>
+                    <tr data-id="@patient.Id" style="cursor: pointer;">
                         <td>@patient.Name</td>
                         <td>@patient.LastName</td>
                         <td>@patient.BornDate.ToString("MM/dd/yyyy")</td>
@@ -321,6 +321,20 @@
                 order: [[1, 'asc']],
                 responsive: true,
                 autoWidth: false
+            });
+
+            $('#patientsTable tbody').on('click', 'tr', function () {
+                var patientId = $(this).data('id');
+                if (patientId) {
+                    window.location.href = '@Url.Action("PatientTraking", "Organization")/' + patientId;
+                }
+            });
+
+            $('#patientsTable tbody').on('click', 'td', function () {
+                var patientId = $(this).closest('tr').data('id');
+                if (patientId) {
+                    window.location.href = '@Url.Action("PatientTraking", "Organization")/' + patientId;
+                }
             });
         });
     </script>

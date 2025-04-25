@@ -112,5 +112,18 @@ namespace Oniria.Controllers
 
             return View(Mapper.Map<DashboardViewModel>(dashboardResult.Data!));
         }
+
+        public async Task<IActionResult> PatientTraking(string id)
+        {
+            var patientTrakingResult = await Mediator.Send(new GetPatientTrakingAsyncQuery { PatientId = id });
+
+            if (!patientTrakingResult.IsSuccess)
+            {
+                ToastNotification.AddErrorToastMessage("A problem occurred obtaining patient traking information");
+                return Redirections.HomeRedirection;
+            }
+
+            return View(Mapper.Map<PatientTrackingViewModel>(patientTrakingResult.Data!));
+        }
     }
 }

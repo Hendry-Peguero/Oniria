@@ -1,0 +1,394 @@
+﻿@model Oniria.ViewModels.Organization.PatientTrackingViewModel
+<style>
+    :root {
+        --primary-pastel: #e0f2fe;
+        --primary-border: #93c5fd;
+        --secondary-pastel: #dcfce7;
+        --secondary-border: #86efac;
+        --tertiary-pastel: #f3e8ff;
+        --tertiary-border: #c4b5fd;
+        --warning-pastel: #fef3c7;
+        --warning-border: #fcd34d;
+        --danger-pastel: #fee2e2;
+        --danger-border: #fca5a5;
+        --info-pastel: #ecfdf5;
+        --info-border: #6ee7b7;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+        margin-bottom: 24px;
+        background-color: white;
+    }
+
+    .card-header {
+        background-color: transparent;
+        border-bottom: 1px solid #e2e8f0;
+        font-weight: 600;
+        padding: 16px 20px;
+        color: #1e293b;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .stat-card {
+        border-left: 4px solid;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .stat-card.primary {
+        background-color: var(--primary-pastel);
+        border-color: var(--primary-border);
+    }
+
+    .stat-card.secondary {
+        background-color: var(--secondary-pastel);
+        border-color: var(--secondary-border);
+    }
+
+    .stat-card.tertiary {
+        background-color: var(--tertiary-pastel);
+        border-color: var(--tertiary-border);
+    }
+
+    .stat-card.warning {
+        background-color: var(--warning-pastel);
+        border-color: var(--warning-border);
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: #64748b;
+    }
+
+    .patient-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #93c5fd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    .patient-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .patient-meta {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .last-dream-alert {
+        background-color: var(--info-pastel);
+        border-left: 4px solid var(--info-border);
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .no-dreams-alert {
+        background-color: var(--warning-pastel);
+        border-left: 4px solid var(--warning-border);
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 250px;
+    }
+
+    table.dataTable {
+        border-collapse: collapse !important;
+        margin-top: 12px !important;
+    }
+
+    table.dataTable thead th {
+        border-bottom: 1px solid #e2e8f0 !important;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    table.dataTable tbody td {
+        border-top: 1px solid #f1f5f9 !important;
+        vertical-align: middle;
+    }
+
+    .dream-type-badge {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .dream-type-normal {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+    }
+
+    .dream-type-lucid {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+    }
+
+    .dream-type-nightmare {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+</style>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 d-flex justify-content-center align-items-center">
+                            <div class="patient-avatar">
+                                @Model.FullName.Split(' ').Select(x => x[0]).Take(2).Aggregate("", (a, b) => a + b)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h2 class="patient-name">@Model.FullName</h2>
+                            <div class="patient-meta"><i class="bi bi-calendar3 me-2"></i> @Model.Age years (@Model.BornDate.ToString("MMM dd, yyyy"))</div>
+                            <div class="patient-meta"><i class="bi bi-gender-@(Model.Gender.ToLower() == "male" ? "male" : "female") me-2"></i> @Model.Gender</div>
+                            <div class="patient-meta"><i class="bi bi-telephone me-2"></i> @Model.PhoneNumber</div>
+                            <div class="patient-meta"><i class="bi bi-geo-alt me-2"></i> @Model.Address</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-card primary">
+                                <div class="stat-value">@Model.TotalDreams</div>
+                                <div class="stat-label">Total Dreams</div>
+                            </div>
+
+                            @if (Model.HasDreamsInLast30Days)
+                            {
+                                <div class="last-dream-alert">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Last dream recorded on @Model.LastDreamDate?.ToString("MMM dd, yyyy")
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="no-dreams-alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    No dreams recorded in the last 30 days
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Dream Activity (Last 30 Days)</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="dreamsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Dream Statistics</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="stat-card secondary">
+                                <div class="stat-value">@Model.Dreams.Count(d => d.Date >= DateTime.Now.AddDays(-7))</div>
+                                <div class="stat-label">Last 7 Days</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card tertiary">
+                                <div class="stat-value">@Model.Dreams.Count(d => d.Date >= DateTime.Now.AddDays(-30))</div>
+                                <div class="stat-label">Last 30 Days</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Dream Register</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="dreamsTable" class="table table-hover w-100">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Summary</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dream in Model.Dreams.OrderByDescending(d => d.Date))
+                            {
+                                <tr>
+                                    <td>@dream.Date.ToString("MMM dd, yyyy")</td>
+                                    <td>@dream.Title</td>
+                                    <td>@(dream.Summary.Length > 50 ? dream.Summary.Substring(0, 50) + "..." : dream.Summary)</td>
+                                    <td>
+                                        <span class="dream-type-badge dream-type-normal">Normal</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i> View
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#dreamsTable').DataTable({
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search dreams...",
+                    lengthMenu: "Show _MENU_ dreams per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ dreams",
+                    infoEmpty: "No dreams found",
+                    infoFiltered: "(filtered from _MAX_ total dreams)"
+                },
+                columnDefs: [
+                    { orderable: false, targets: [4] }
+                ]
+            });
+
+            // Prepare chart data
+            const dates = [];
+            const dreamCounts = [];
+
+            // Get the serialized data from the model
+            const dreamsByDateList = @Html.Raw(Json.Serialize(Model.DreamsByDateList));
+
+            // Convert to a more accessible format
+            const dreamsByDateMap = {};
+            dreamsByDateList.forEach(item => {
+                dreamsByDateMap[item.Date] = item.Count;
+            });
+
+            // Get last 30 days
+            const today = new Date();
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(today.getDate() - i);
+                dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+
+                // Find dreams for this date
+                const dateStr = date.toISOString().split('T')[0];
+                const count = dreamsByDateMap[dateStr] || 0;
+                dreamCounts.push(count);
+            }
+
+            // Initialize Dreams Chart
+            const dreamsCtx = document.getElementById('dreamsChart').getContext('2d');
+            new Chart(dreamsCtx, {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Dreams',
+                        data: dreamCounts,
+                        backgroundColor: 'rgba(147, 197, 253, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#f8fafc',
+                            borderColor: '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(226, 232, 240, 0.5)'
+                            },
+                            ticks: {
+                                color: '#64748b'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#64748b'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

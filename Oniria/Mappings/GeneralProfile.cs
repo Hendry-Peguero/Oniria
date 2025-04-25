@@ -41,6 +41,10 @@ namespace Oniria.Mappings
             CreateMap<RecentPatientResponse, RecentPatientViewModel>();
             CreateMap<RecentDreamResponse, RecentDreamViewModel>();
             CreateMap<RecentEmployeeResponse, RecentEmployeeViewModel>();
+
+            CreateMap<PatientTrackingResponse, PatientTrackingViewModel>();
+            CreateMap<PatientDreamResponse, PatientDreamViewModel>();
+            CreateMap<DreamDateCountResponse, DreamDateCountViewModel>();
         }
 
         private void Auth()
