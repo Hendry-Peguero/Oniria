@@ -1,82 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
 using Oniria.Core.Application.Features.Employee.Commands;
-using Oniria.Core.Application.Features.Employee.Queries;
 using Oniria.Core.Dtos.Employee.Request;
-using System.Threading.Tasks;
+using Oniria.Extensions;
+using Oniria.Helpers;
+using Oniria.ViewModels.Employee;
 
 namespace Oniria.Controllers
 {
     public class EmployeeController : BaseController
     {
-        public IActionResult Create()
+        public async Task<IActionResult> Profile()
         {
-            return View();
-        }
+            var employeeResult = await UserContext.GetUserEmployeeInfo();
 
-        public async Task<IActionResult> Create(CreateEmployeeRequest request)
-        {
-            if (!ModelState.IsValid)
-                return View(request);
-
-            var result = await Mediator.Send(new CreateEmployeeAsyncCommand { Request = request });
-
-            if (!result.IsSuccess)
+            if (employeeResult is null)
             {
-                foreach (var message in result.Messages)
-                    ModelState.AddModelError(string.Empty, message);
-
-                return View(request);
+                ToastNotification.AddErrorToastMessage("A problem occurred obtaining employee information");
+                return Redirections.HomeRedirection;
             }
 
-            return RedirectToAction("Index", "Employee");
+            return View(Mapper.Map<EmployeeProfileViewModel>(employeeResult));
         }
 
-        public async Task<IActionResult> Edit(string id)
+        [HttpPost]
+        public async Task<IActionResult> Profile(EmployeeProfileViewModel model)
         {
-            var result = await Mediator.Send(new GetEmployeeByIdAsyncQuery { Id = id });
+            if (!ModelState.IsValid) return View(model);
 
-            if (!result.IsSuccess || result.Data == null)
-                return NotFound();
+            var updateResult = await Mediator.Send(new UpdateEmployeeAsyncCommand { Request = Mapper.Map<UpdateEmployeeRequest>(model) });
 
-            var employee = result.Data;
-
-            var model = new UpdateEmployeeRequest
+            if (!updateResult.IsSuccess)
             {
-                Id = employee.Id,
-                Dni = employee.Dni,
-                Name = employee.Name,
-                LastName = employee.LastName,
-                BornDate = employee.BornDate,
-                PhoneNumber = employee.PhoneNumber,
-                Address = employee.Address,
-                UserId = employee.UserId,
-                OrganizationId = employee.OrganizationId,
-                Status = employee.Status
-            };
-
-            return View(model);
-        }
-
-        public async Task<IActionResult> Edit(string id, UpdateEmployeeRequest request)
-        {
-            if (id != request.Id)
-                return BadRequest();
-
-            if (!ModelState.IsValid)
-                return View(request);
-
-            var result = await Mediator.Send(new UpdateEmployeeAsyncCommand { Request = request });
-
-            if (!result.IsSuccess)
+                ModelState.AddGeneralError(updateResult);
+            }
+            else
             {
-                foreach (var message in result.Messages)
-                    ModelState.AddModelError(string.Empty, message);
-
-                return View(request);
+                ToastNotification.AddSuccessToastMessage("Successfully updated the employee's information");
             }
 
-            return RedirectToAction("Index", "Employee");
+            return Redirections.EmployeeProfile;
         }
     }
 }
+
