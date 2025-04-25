@@ -15,6 +15,13 @@ namespace Oniria.Helpers
         // Auth
         public static RedirectToRouteResult Login = new RedirectToRouteResult(new { controller = "Auth", action = "Login" });
 
+        // Organization
+        public static RedirectToRouteResult OrganizationProfile = new RedirectToRouteResult(new { controller = "Organization", action = "Profile" });
+
+        // Employee
+        public static RedirectToRouteResult EmployeeProfile = new RedirectToRouteResult(new { controller = "Employee", action = "Profile" });
+
+
         // HttpResponses
         public static RedirectToRouteResult Unauthorized = new RedirectToRouteResult(new { controller = "HttpResponse", action = "UnauthorizedView" });
         public static RedirectToRouteResult Forbidden = new RedirectToRouteResult(new { controller = "HttpResponse", action = "ForbiddenView" });

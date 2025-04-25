@@ -10,4 +10,9 @@
 	  <ProjectReference Include="..\Oniria.Core.Domain\Oniria.Core.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Employee\Response\" />
+    <Folder Include="Organization\Reponse\" />
+  </ItemGroup>
+
 </Project>
