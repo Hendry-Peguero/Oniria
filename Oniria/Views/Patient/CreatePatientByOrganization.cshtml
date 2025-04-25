@@ -1,0 +1,297 @@
+﻿@model Oniria.ViewModels.Patient.CreatePatientByOrganizationViewModel
+<style>
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px 15px;
+    }
+
+    .section {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .section-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 13px;
+    }
+
+    .form-group {
+        flex: 1;
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+    .required::after {
+        content: " *";
+        color: #e53935;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s;
+        background-color: white;
+    }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #4285f4;
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.1);
+        }
+
+    .text-danger {
+        color: #e53935;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .date-input {
+        position: relative;
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+        .select-wrapper::after {
+            font-size: 10px;
+            color: #555;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+    .phone-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .phone-prefix {
+        position: absolute;
+        left: 15px;
+        color: #555;
+        font-size: 14px;
+        pointer-events: none;
+    }
+
+    .phone-input {
+        padding-left: 35px !important;
+    }
+
+    .create-btn {
+        padding: 14px 20px;
+        background-color: #2563EB;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .create-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+    @@media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+<div class="container">
+    <h1 class="mb-4">Create Patient</h1>
+
+    <form asp-action="CreatePatient" method="post">
+        <div class="section">
+            <h2 class="section-title">Patient Information</h2>
+            <p class="section-subtitle">Most important information about the patient</p>
+
+            <div class="d-flex justify-content-center mb-3">
+                <div asp-validation-summary="ModelOnly" class="general-error"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Name" class="required">First Name</label>
+                    <input asp-for="Name" placeholder="Enter first name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName" class="required">Last Name</label>
+                    <input asp-for="LastName" placeholder="Enter last name">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Email" class="required">Email Address</label>
+                    <input asp-for="Email" type="email" placeholder="Enter email address">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="required">Phone Number</label>
+                    <div class="phone-input-container">
+                        <span class="phone-prefix">+1</span>
+                        <input asp-for="PhoneNumber" type="tel" class="phone-input" placeholder="(849) 586-9875" id="PhoneNumber" oninput="this.value = this.value.replace(/[^0-9\(\)\-\s]/g, '')">
+                        <i class="bi bi-info-circle-fill text-secondary ms-2"
+                           tabindex="0"
+                           data-bs-toggle="popover"
+                           data-bs-trigger="hover focus"
+                           data-bs-placement="top"
+                           data-bs-content="El número de teléfono debe tener el formato: (849) 586-9875. Solo se aceptan los códigos de área 809, 829 y 849."
+                           style="cursor: pointer;"></i>
+                    </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="BornDate" class="required">Birth Date</label>
+                    <div class="date-input">
+                        <input asp-for="BornDate" type="date" id="BornDate">
+                    </div>
+                    <span asp-validation-for="BornDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GenderId" class="required">Gender</label>
+                    <div class="select-wrapper">
+                        <select asp-for="GenderId" asp-items="Model.Genders">
+                            <option value="">Select Gender</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="GenderId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Account Information</h2>
+            <p class="section-subtitle">Login credentials for the patient</p>
+
+            <div class="form-group">
+                <label asp-for="UserName" class="required">Username</label>
+                <input asp-for="UserName" placeholder="Enter username">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Password" class="required">Password</label>
+                    <input asp-for="Password" type="password" placeholder="Enter password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="required">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" placeholder="Confirm password">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Address Information</h2>
+            <p class="section-subtitle">Patient's address details</p>
+
+            <div class="form-group">
+                <label asp-for="Address" class="required">Address</label>
+                <input asp-for="Address" placeholder="Enter full address">
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+
+        <input type="hidden" asp-for="OrganizationId" />
+
+        <div class="text-end mt-4">
+            <button type="submit" class="create-btn" asp-controller="Patient" asp-action="CreatePatientByOrganization">Create Patient</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+
+
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            popoverTriggerList.forEach(function (popoverTriggerEl) {
+                new bootstrap.Popover(popoverTriggerEl)
+            })
+
+            // Add rule Validator for birth date
+            $.validator.addMethod('dateInPast', function(value, element) {
+                if (!value) return true; // Empty validation handled by required rule
+                var today = new Date();
+                today.setHours(0, 0, 0, 0); // Set time to 00:00:00 to compare dates only
+                var inputDate = new Date(value);
+                return inputDate < today;
+            }, 'Birth date must be in the past');
+
+            // Apply date validation rule
+            $('#BornDate').rules('add', {
+                dateInPast: true
+            });
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('PhoneNumber');
+            phoneInput.addEventListener('input', function(e) {
+                // Get only digits from input
+                let input = this.value.replace(/\D/g, '');
+
+                // Limit to 10 digits (area code + phone number)
+                if (input.length > 10) {
+                    input = input.substring(0, 10);
+                }
+
+                // Format phone number
+                if (input.length > 0) {
+                    // Format: (XXX) XXX-XXXX
+                    if (input.length <= 3) {
+                        this.value = '(' + input;
+                    } else if (input.length <= 6) {
+                        this.value = '(' + input.substring(0, 3) + ') ' + input.substring(3);
+                    } else {
+                        this.value = '(' + input.substring(0, 3) + ') ' + input.substring(3, 6) + '-' + input.substring(6);
+                    }
+                }
+            });
+        });
+    </script>
+}
