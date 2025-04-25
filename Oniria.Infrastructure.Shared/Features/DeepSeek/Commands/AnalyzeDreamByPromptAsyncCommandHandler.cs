@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Options;
 using Oniria.Core.Application.Features.Base;
+using Oniria.Core.Application.Features.DeepSeek.Commands;
 using Oniria.Core.Application.Features.EmotionalStates.Queries;
-using Oniria.Core.Domain.Entities;
 using Oniria.Core.Dtos.DreamAnalsys.Response;
 using Oniria.Infrastructure.Shared.Entities;
 using System.Net.Http.Headers;
@@ -12,11 +12,6 @@ using System.Text.RegularExpressions;
 
 namespace Oniria.Infrastructure.Shared.Features.DeepSeek.Commands
 {
-    public class AnalyzeDreamByPromptAsyncCommand : IRequest<OperationResult<DreamAnalysisDeepSeekResponse>>
-    {
-        public string DreamPrompt { get; set; }
-    }
-
     public class AnalyzeDreamByPromptAsyncCommandHandler : IRequestHandler<AnalyzeDreamByPromptAsyncCommand, OperationResult<DreamAnalysisDeepSeekResponse>>
     {
         private readonly HttpClient httpClient;
@@ -59,14 +54,16 @@ namespace Oniria.Infrastructure.Shared.Features.DeepSeek.Commands
                             role = "user",
                             content = $@"
                                 Analiza este sueño en español y devuelve SOLO un objeto JSON con las siguientes propiedades:
-                                1. 'Title': Título creativo que resuma la esencia del sueño
-                                2. 'EmotionalState': Emoción principal identificada (DEBE ser una de: {string.Join(',', emotionsResult.Data!.Select(e => $"'{e.Description}'"))})
-                                3. 'Recommendation': Recomendación práctica para mejorar el estado emocional
-                                4. 'PatternBehaviour': Interpretación del sueño junto con patrones de comportamiento identificados
+                                1. 'DreamTitle': Título literal del sueño, puede ser una frase destacada o algo que represente lo que la persona soñó.
+                                2. 'AnalysisTitle': Título creativo que resuma la esencia o interpretación del sueño.
+                                3. 'EmotionalState': Emoción principal identificada (DEBE ser una de: {string.Join(',', emotionsResult.Data!.Select(e => $"'{e.Description}'"))})
+                                4. 'Recommendation': Recomendación práctica para mejorar el estado emocional
+                                5. 'PatternBehaviour': Interpretación del sueño junto con patrones de comportamiento identificados
 
                                 Formato requerido (en español):
                                 {{
-                                    ""Title"": ""..."",
+                                    ""DreamTitle"": ""..."",
+                                    ""AnalysisTitle"": ""..."",
                                     ""EmotionalState"": ""..."",
                                     ""Recommendation"": ""..."",
                                     ""PatternBehaviour"": ""...""
@@ -131,7 +128,8 @@ namespace Oniria.Infrastructure.Shared.Features.DeepSeek.Commands
 
                 if (
                     resultResponse == null ||
-                    string.IsNullOrWhiteSpace(resultResponse.Title) ||
+                    string.IsNullOrWhiteSpace(resultResponse.DreamTitle) ||
+                    string.IsNullOrWhiteSpace(resultResponse.AnalysisTitle) ||
                     string.IsNullOrWhiteSpace(resultResponse.EmotionalState) ||
                     string.IsNullOrWhiteSpace(resultResponse.Recommendation) ||
                     string.IsNullOrWhiteSpace(resultResponse.PatternBehaviour)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Oniria.Core.Domain.Entities;
+using Oniria.Core.Dtos.Dream.Request;
 using Oniria.Core.Dtos.Employee.Request;
 using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Core.Dtos.Patient.Request;
@@ -16,9 +17,10 @@ namespace Oniria.Mappings
         public GeneralProfile()
         {
             Auth();
-            Patient();
             Employee();
             Organization();
+            Dream();
+            Patient();
         }
 
         private void Employee()
@@ -43,6 +45,17 @@ namespace Oniria.Mappings
         private void Patient()
         {
             CreateMap<CreatePatientByOrganizationViewModel, CreatePatientByOrganizationRequest>();
+
+            CreateMap<PatientEntity, PatientProfileViewModel>()
+                .ForMember(x => x.Genders, opt => opt.Ignore());
+
+            CreateMap<PatientProfileViewModel, UpdatePatientRequest>();
+        }
+
+        private void Dream()
+        {
+            CreateMap<CreateDreamRequest, DreamEntity>();
+            CreateMap<RegisterDreamViewModel, RegisterDreamRequest>();
         }
     }
 }

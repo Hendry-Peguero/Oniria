@@ -1,0 +1,287 @@
+﻿@model Oniria.ViewModels.Patient.PatientProfileViewModel
+<style>
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .tabs {
+        display: flex;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 30px;
+    }
+
+    .tab {
+        padding: 15px 20px;
+        cursor: pointer;
+        color: #3a8fff;
+        border-bottom: 2px solid #3a8fff;
+    }
+
+    .form-section {
+        background-color: #fff;
+        padding: 24px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        margin-bottom: 40px;
+    }
+
+        .form-section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    .form-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .edit-button {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #666;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+
+        .edit-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+    .save-button {
+        background-color: #3a8fff;
+        border: none;
+        color: white;
+    }
+
+        .save-button:hover {
+            background-color: #2a7eee;
+        }
+
+    .cancel-button {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        color: #666;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .required::after {
+        content: " *";
+        color: #e74c3c;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #888;
+        box-sizing: border-box;
+        pointer-events: none;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #3a8fff;
+    }
+
+    .editable input[type="text"],
+    .editable input[type="tel"],
+    .editable input[type="date"],
+    .editable select {
+        background-color: #ffffff;
+        color: #333;
+        border-color: #aaa;
+        pointer-events: auto;
+    }
+
+    .text-danger {
+        color: #e74c3c;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .phone-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .phone-input {
+        padding-left: 35px !important;
+    }
+
+    .phone-prefix {
+        position: absolute;
+        left: 15px;
+        color: #555;
+        font-size: 14px;
+        pointer-events: none;
+    }
+</style>
+<div class="container">
+    <div class="tabs">
+        <div class="tab">Patient Information</div>
+    </div>
+
+    <form id="patient-form" asp-action="Profile" asp-controller="Patient" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="OrganizationId" />
+        <input type="hidden" asp-for="Status" />
+
+        <div class="d-flex justify-content-center mb-3">
+            <div asp-validation-summary="ModelOnly" class="general-error"></div>
+        </div>
+
+        <div class="form-section" id="patient-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Patient Details</h2>
+                <div class="form-buttons">
+                    <button type="button" class="edit-button" id="edit-patient">Edit</button>
+                    <button type="submit" class="edit-button save-button d-none" id="save-patient">Save</button>
+                    <button type="button" class="edit-button cancel-button d-none" id="cancel-patient">Cancel</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="required">First Name</label>
+                <input type="text" asp-for="Name" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="required">Last Name</label>
+                <input type="text" asp-for="LastName" required />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BornDate" class="required">Date of Birth</label>
+                <input type="date" asp-for="BornDate" required id="birthday" />
+                <span asp-validation-for="BornDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="required">Phone Number</label>
+                <div class="phone-input-container">
+                    <span class="phone-prefix">+1</span>
+                    <input asp-for="PhoneNumber" type="tel" id="phone" class="phone-input" placeholder="(849) 586-9875" />
+                    <i class="bi bi-info-circle-fill text-secondary ms-2"
+                       tabindex="0"
+                       data-bs-toggle="popover"
+                       data-bs-trigger="hover focus"
+                       data-bs-placement="right"
+                       data-bs-content="The phone number must follow the format: (849) 586-9875. Only area codes 809, 829, and 849 are accepted."
+                       style="cursor: pointer;"></i>
+                </div>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="required">Address</label>
+                <input type="text" asp-for="Address" required />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GenderId" class="required">Gender</label>
+                <select asp-for="GenderId" asp-items="Model.Genders" required>
+                    <option value="">-- Select Gender --</option>
+                </select>
+                <span asp-validation-for="GenderId" class="text-danger"></span>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            // Add rule Validator
+            $.validator.addMethod('dateInPast', function(value, element) {
+                if (!value) return true; // Si está vacío, la regla NotEmpty se encargará
+
+                var today = new Date();
+                today.setHours(0, 0, 0, 0); // Establecer hora a 00:00:00 para comparar solo fechas
+                var inputDate = new Date(value);
+
+                return inputDate < today;
+            }, 'Birthdate must be in the past');
+
+            // Ponerselo a borndate
+            $('#birthday').rules('add', {
+                dateInPast: true
+            });
+
+            const section = $('#patient-section');
+            const editBtn = $('#edit-patient');
+            const saveBtn = $('#save-patient');
+            const cancelBtn = $('#cancel-patient');
+            const form = $('#patient-form');
+
+            let originalValues = {};
+
+            editBtn.on('click', function () {
+                section.addClass('editable');
+                originalValues = {};
+                section.find('input, select').each(function () {
+                    originalValues[this.name] = this.value;
+                });
+
+                editBtn.addClass('d-none');
+                saveBtn.removeClass('d-none');
+                cancelBtn.removeClass('d-none');
+            });
+
+            cancelBtn.on('click', function () {
+                section.find('input, select').each(function () {
+                    if (originalValues[this.name]) {
+                        this.value = originalValues[this.name];
+                    }
+                });
+
+                section.removeClass('editable');
+                editBtn.removeClass('d-none');
+                saveBtn.addClass('d-none');
+                cancelBtn.addClass('d-none');
+                $('.text-danger').text('');
+            });
+
+            $('[data-bs-toggle="popover"]').popover();
+
+            $('#phone').on('input', function () {
+                let input = this.value.replace(/\D/g, '');
+                if (input.length > 10) input = input.substring(0, 10);
+                if (input.length <= 3) this.value = '(' + input;
+                else if (input.length <= 6) this.value = '(' + input.slice(0, 3) + ') ' + input.slice(3);
+                else this.value = '(' + input.slice(0, 3) + ') ' + input.slice(3, 6) + '-' + input.slice(6);
+            });
+        });
+    </script>
+}

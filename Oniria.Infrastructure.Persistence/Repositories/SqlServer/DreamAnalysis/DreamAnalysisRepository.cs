@@ -29,5 +29,11 @@ namespace Oniria.Infrastructure.Persistence.Repositories.SqlServer.DreamAnalysis
         {
             return await wrapper.Query().FirstOrDefaultAsync(a => a.Id == id);
         }
+
+        public async Task DeleteAsync(DreamAnalysisEntity entity)
+        {
+            wrapper.context.Set<DreamAnalysisEntity>().Remove(entity);
+            await wrapper.context.SaveChangesAsync();
+        }
     }
 }

@@ -1,5 +1,76 @@
 ﻿@{
     Layout = "~/Views/Shared/Layouts/_OnlyBodyLayout.cshtml";
 }
-<h1>403</h1>
-<a asp-controller="Home" asp-action="HomeRedirection">back</a>
+<style>
+    #app {
+        padding: 2rem;
+        background: white;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .error-container {
+        background: linear-gradient(135deg, #0c2e5e 0%, #1e5799 100%);
+        padding: 3rem 5rem;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 15px 30px rgba(30, 87, 153, 0.2);
+    }
+
+    .error-code {
+        font-size: 8rem;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: 5px;
+    }
+
+    .error-text {
+        font-size: 2rem;
+        margin-top: 1rem;
+        letter-spacing: 2px;
+    }
+
+    @@keyframes blink {
+        0% {
+            opacity: 0;
+        }
+
+        49% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .blink {
+        animation-name: blink;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+
+    .company-info {
+        margin-top: 2rem;
+        color: #1e5799;
+        font-size: 1rem;
+    }
+</style>
+<div id="app">
+    <div class="error-container">
+        <div class="error-code">403</div>
+        <div class="error-text">Forbidden<span class="blink">_</span></div>
+    </div>
+    <div class="company-info">
+        Restricted access • Contact administrator
+    </div>
+</div>

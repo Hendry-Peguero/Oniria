@@ -29,5 +29,11 @@ namespace Oniria.Infrastructure.Persistence.Repositories
             await wrapper.context.Set<DreamEntity>().AddAsync(dream);
             await wrapper.context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(DreamEntity entity)
+        {
+            wrapper.context.Set<DreamEntity>().Remove(entity);
+            await wrapper.context.SaveChangesAsync();
+        }
     }
 }

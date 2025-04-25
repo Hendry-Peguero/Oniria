@@ -1,0 +1,201 @@
+﻿@model Oniria.Core.Domain.Entities.DreamAnalysisEntity
+<style>
+    /* Estilos Flat Design */
+    :root {
+        --primary-color: #6a5acd; /* SlateBlue */
+        --secondary-color: #9370db; /* MediumPurple */
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        
+        /* Colores para emociones */
+        --anxiety-color: #ff6b6b;
+        --happiness-color: #4ecdc4;
+        --sadness-color: #5f6caf;
+        --fear-color: #ff9f1c;
+        --confusion-color: #a37eba;
+        --guilt-color: #e5989b;
+        --shame-color: #b5838d;
+        --euphoria-color: #84a98c;
+        --anger-color: #e63946;
+        --love-color: #ff6b6b;
+        --loneliness-color: #457b9d;
+        --hope-color: #a8dadc;
+        --relaxation-color: #b7e4c7;
+        --surprise-color: #ffd166;
+        --gratitude-color: #06d6a0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .dream-analysis-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .dream-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    .dream-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    .emotional-state-badge {
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        color: white;
+        font-weight: bold;
+        text-transform: capitalize;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        font-size: 1.1rem;
+    }
+
+    .dream-details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    @@media (max-width: 768px) {
+        .dream-details-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .dream-card, .analysis-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .dream-card:hover, .analysis-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.2rem;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    .card-content {
+        padding: 1.8rem;
+    }
+
+    .detail-item {
+        margin-bottom: 1.8rem;
+    }
+
+    .detail-label {
+        display: block;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .detail-value {
+        display: block;
+        font-size: 1rem;
+    }
+
+    .dream-prompt, .recommendation-text {
+        background-color: #f8f9fa;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border-left: 4px solid var(--secondary-color);
+        line-height: 1.7;
+    }
+</style>
+
+<div class="dream-analysis-container">
+    <div class="dream-header">
+        <h1 class="dream-title">@Model.Title</h1>
+        <div class="emotional-state-badge" style="background-color: @GetEmotionalStateColor(Model.EmotionalState.Description)">
+            @Model.EmotionalState.Description
+        </div>
+    </div>
+
+    <div class="dream-details-grid">
+        <!-- Sección del Sueño -->
+        <div class="dream-card">
+            <div class="card-header">
+                <h2>Dream Details</h2>
+            </div>
+            <div class="card-content">
+                <div class="detail-item">
+                    <span class="detail-label">Title:</span>
+                    <span class="detail-value">@Model.Dream.Title</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Description:</span>
+                    <p class="dream-prompt">@Model.Dream.Prompt</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Análisis -->
+        <div class="analysis-card">
+            <div class="card-header">
+                <h2>Analysis</h2>
+            </div>
+            <div class="card-content">
+                <div class="detail-item">
+                    <span class="detail-label">Behavior Pattern:</span>
+                    <span class="detail-value">@Model.PatternBehaviour</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Recommendation:</span>
+                    <p class="recommendation-text">@Model.Recommendation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetEmotionalStateColor(string description)
+    {
+        switch (description.ToLower())
+        {
+            case "anxiety": return "var(--anxiety-color)";
+            case "happiness": return "var(--happiness-color)";
+            case "sadness": return "var(--sadness-color)";
+            case "fear": return "var(--fear-color)";
+            case "confusion": return "var(--confusion-color)";
+            case "guilt": return "var(--guilt-color)";
+            case "shame": return "var(--shame-color)";
+            case "euphoria": return "var(--euphoria-color)";
+            case "anger": return "var(--anger-color)";
+            case "love": return "var(--love-color)";
+            case "loneliness": return "var(--loneliness-color)";
+            case "hope": return "var(--hope-color)";
+            case "relaxation": return "var(--relaxation-color)";
+            case "surprise": return "var(--surprise-color)";
+            case "gratitude": return "var(--gratitude-color)";
+            default: return "#6c757d"; // gris por defecto
+        }
+    }
+}
