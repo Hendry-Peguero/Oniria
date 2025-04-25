@@ -2,7 +2,7 @@
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace OniriaApi.Controllers
+namespace OniriaApi.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
