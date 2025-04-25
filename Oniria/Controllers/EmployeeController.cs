@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
 using Oniria.Core.Application.Features.Employee.Commands;
+using Oniria.Core.Domain.Enums;
 using Oniria.Core.Dtos.Employee.Request;
 using Oniria.Extensions;
 using Oniria.Helpers;
@@ -8,6 +10,7 @@ using Oniria.ViewModels.Employee;
 
 namespace Oniria.Controllers
 {
+    [Authorize(Roles = $"{nameof(ActorsRoles.DOCTOR)},{nameof(ActorsRoles.ASSISTANT)}")]
     public class EmployeeController : BaseController
     {
         public async Task<IActionResult> Profile()

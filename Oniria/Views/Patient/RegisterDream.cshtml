@@ -1,0 +1,611 @@
+﻿@model Oniria.ViewModels.Patient.RegisterDreamViewModel
+<style>
+    .main-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        text-align: center;
+        overflow-y: auto;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .content::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .welcome-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-top: 50px;
+    }
+
+    .welcome-logo {
+        background-color: #a9a9a9; /* Medium gray */
+        width: 70px;
+        height: 70px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .welcome-hand {
+        color: #fff; /* White icon */
+        font-size: 40px;
+    }
+
+    .welcome-title {
+        color: #808080; /* Darker gray */
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight: 300;
+    }
+
+    .welcome-subtitle {
+        color: #666; /* Medium-dark gray */
+        font-size: 36px;
+        font-weight: 200;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .welcome-text {
+        color: #808080; /* Darker gray */
+        font-size: 16px;
+        max-width: 600px;
+        margin-bottom: 50px;
+        font-weight: 300;
+        line-height: 1.6;
+    }
+
+    .cards-container {
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 900px;
+    }
+
+    .card {
+        background-color: #eee; /* Very light gray */
+        border-radius: 15px;
+        padding: 25px;
+        width: 180px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Softer shadow */
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.15); /* Softer hover shadow */
+    }
+
+    .card-icon {
+        background-color: #ccc; /* Light gray */
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+        color: #666; /* Medium-dark gray icon */
+    }
+
+    .card-title {
+        font-size: 16px;
+        font-weight: 400;
+        color: #444; /* Darker text */
+        margin-bottom: 8px;
+    }
+
+    .card-subtitle {
+        font-size: 14px;
+        color: #777; /* Medium gray */
+        font-weight: 300;
+    }
+
+    .footer {
+        padding: 18px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(240, 240, 240, 0.8); /* Light background with transparency */
+        backdrop-filter: blur(5px);
+        z-index: 10;
+        border-top: 1px solid #ddd; /* Light border */
+    }
+
+    .footer-left {
+        display: flex;
+        gap: 15px;
+    }
+
+    .settings-icon, .link-icon {
+        width: 30px;
+        height: 30px;
+        background-color: #ccc; /* Light gray */
+        display: flex;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+        color: #666; /* Medium-dark gray icon */
+        cursor: pointer;
+    }
+
+    .input-container {
+        flex: 1;
+        margin: 0 20px;
+        background-color: #ddd; /* Light gray input */
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: relative;
+        height: 50px;
+    }
+
+    .dream-input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        padding: 15px 0;
+        font-size: 16px;
+        color: #444; /* Darker input text */
+        outline: none;
+        font-weight: 300;
+    }
+
+    .dream-input::placeholder {
+        color: #999; /* Medium-light gray placeholder */
+        font-weight: 300;
+    }
+
+    .send-icon {
+        margin-left: 8px;
+    }
+
+    /* Chat area styles */
+    .chat-area {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        overflow-y: auto;
+        gap: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .chat-area::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .message {
+        max-width: 70%;
+        padding: 15px 20px;
+        border-radius: 20px;
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.5;
+    }
+
+    .user-message {
+        background-color: #ddd; /* Light gray user message */
+        color: #444; /* Darker user text */
+        align-self: flex-end;
+        border-bottom-right-radius: 5px;
+    }
+
+    .ai-message {
+        background-color: #e0e0e0; /* Slightly lighter gray AI message */
+        color: #555; /* Medium-dark AI text */
+        align-self: flex-start;
+        border-bottom-left-radius: 5px;
+    }
+
+    .message-time {
+        font-size: 12px;
+        color: #999; /* Medium-light gray time */
+        text-align: right;
+        margin-top: 5px;
+    }
+
+    /* Dream interpretation area */
+    .interpretation {
+        width: 100%;
+        background-color: #eee; /* Very light gray interpretation */
+        border-radius: 20px;
+        padding: 25px;
+        margin-top: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Even softer shadow */
+        text-align: left;
+    }
+
+    .interpretation-title {
+        font-size: 22px;
+        font-weight: 500;
+        color: #444; /* Darker title */
+        margin-bottom: 15px;
+    }
+
+    .interpretation-text {
+        font-size: 16px;
+        color: #666; /* Medium-dark text */
+        line-height: 1.6;
+        font-weight: 300;
+        margin-bottom: 20px;
+    }
+
+    .symbols-section {
+        margin-top: 20px;
+    }
+
+    .symbol-item {
+        display: flex;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd; /* Light separator */
+    }
+
+    .symbol-name {
+        font-weight: 500;
+        min-width: 120px;
+        color: #444; /* Darker symbol name */
+        font-size: 16px;
+    }
+
+    .symbol-meaning {
+        color: #777; /* Medium gray meaning */
+        flex: 1;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .cards-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .message {
+            max-width: 85%;
+        }
+
+        .welcome-subtitle {
+            font-size: 28px;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .loader-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparente */
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden; /* Por defecto invisible */
+    }
+
+        .loader-container.active {
+            visibility: visible;
+        }
+
+    .no-interaction {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+</style>
+<div class="main-container">
+    @* LOADER *@
+    <div id="loader-container" class="loader-container">
+        <partial name="Loaders/_TitleLoader" />
+    </div>
+
+    @* CONTENT *@
+    <div class="content">
+        <div class="welcome-section" id="welcome-section">
+            <div class="welcome-logo">
+                <span class="welcome-hand">✨</span>
+            </div>
+            <div class="welcome-title">Hello, dreamer</div>
+            <div class="welcome-subtitle">Tell me your dreams</div>
+            <div class="welcome-text">Record your dreams and discover their meaning with our AI specialized in dream analysis. Start by writing your dream below.</div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <span asp-validation-for="Prompt" class="general-error"></span>
+            </div>
+
+            <div class="cards-container">
+                <div class="card" onclick="selectCategory('lucid')">
+                    <div class="card-icon">🌙</div>
+                    <div class="card-title">Lucid Dreams</div>
+                    <div class="card-subtitle">How to master them</div>
+                </div>
+                <div class="card" onclick="selectCategory('symbols')">
+                    <div class="card-icon">🔮</div>
+                    <div class="card-title">Dream Symbols</div>
+                    <div class="card-subtitle">Common meanings</div>
+                </div>
+                <div class="card" onclick="selectCategory('analytics')">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Your History</div>
+                    <div class="card-subtitle">Personal analysis</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-area" id="chat-area">
+            <!-- Dynamic messages will be added here by JavaScript -->
+        </div>
+    </div>
+    <form asp-controller="Patient" asp-action="RegisterDream" method="post" id="dream-form">
+        <div class="footer">
+            <div class="footer-left">
+                <div class="settings-icon">⚙️</div>
+                <div class="link-icon">📂</div>
+            </div>
+            <div class="input-container">
+                    <input asp-for="Prompt" type="text" class="dream-input" id="dream-input" placeholder="Describe your dream here...">
+            </div>
+            <button type="submit" class="btn btn-success rounded-2 px-3 py-2" id="send-button">
+                send <i class="bi bi-send"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+            // Dream interpretation database (simplified)
+            const dreamSymbols = {
+                "water": "Represents emotions and the subconscious. Clear water indicates mental peace, murky water can signify emotional confusion.",
+                "flying": "Symbolizes freedom, transcendence or escape from limitations. Can also reflect desires for independence.",
+                "falling": "May indicate insecurities, loss of control or fear of failure in real life.",
+                "teeth": "Dreaming of teeth falling out can reflect anxiety about appearance or fear of losing power/capability.",
+                "chase": "Usually indicates that you're avoiding a problem or situation in your waking life.",
+                "house": "Represents the inner self, different rooms can symbolize different aspects of yourself.",
+                "death": "Rarely literal, usually symbolizes endings and new beginnings, personal transformations.",
+                "exam": "Reflects feeling tested or evaluated in real life, or fear of failure.",
+                "snake": "Can symbolize wisdom, transformation or hidden fears, depending on context.",
+                "baby": "Often represents new beginnings, creativity or a vulnerable aspect of yourself.",
+                "beach": "Symbolizes the interface between conscious and unconscious, a place of rest and reflection.",
+                "forest": "Represents the unconscious, personal exploration or feeling lost in some aspect of your life.",
+                "snow": "Can indicate emotional coldness, purity or a period of quietness in your life.",
+                "fire": "Symbolizes passion, transformation, destruction or purification.",
+                "mountain": "Represents challenges, achievements or elevated perspective on your problems.",
+                "fox": "Often symbolizes cunning, adaptability, and quick thinking. Can represent someone deceptive in your life or your own clever nature."
+            };
+
+            // Categories information
+            const categories = {
+                "lucid": {
+                    title: "Lucid Dreams",
+                    content: "Lucid dreams occur when you are aware that you're dreaming while dreaming. To master them: 1) Perform reality checks during the day, 2) Keep a dream journal, 3) Meditate before sleeping, 4) Set the intention to be conscious in your dreams. Consistent practice increases the chances of experiencing lucid dreams and eventually being able to control them at will."
+                },
+                "symbols": {
+                    title: "Common Dream Symbols",
+                    content: "Each symbol in your dream can have personal and universal meanings. The most frequent symbols include water (emotions), flying (freedom), falling (insecurity), being chased (avoidance), and familiar figures (aspects of yourself). Remember that context is fundamental: the same symbol can have different meanings depending on the circumstances of the dream and your personal experiences."
+                },
+                "analytics": {
+                    title: "Personal Analysis",
+                    content: "Your dream profile shows trends toward exploration and discovery dreams. In recent months, the predominant themes have been personal transformation (40%), relationships (30%) and creativity (20%). Recurring patterns suggest you are in a period of significant personal development. Share more dreams to get a deeper and more personalized analysis."
+                }
+            };
+
+            // DOM Elements
+            const dreamInput = document.getElementById('dream-input');
+            const sendButton = document.getElementById('send-button');
+            const chatArea = document.getElementById('chat-area');
+            const welcomeSection = document.getElementById('welcome-section');
+
+            // Function to add a message to the chat
+            function addMessage(text, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
+                messageDiv.textContent = text;
+
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'message-time';
+                const now = new Date();
+                timeDiv.textContent = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+                messageDiv.appendChild(timeDiv);
+                chatArea.appendChild(messageDiv);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+
+            // Function to analyze dream and provide interpretation
+            function analyzeDream(dreamText) {
+                // Show chat area, hide welcome section
+                welcomeSection.style.display = 'none';
+                chatArea.style.display = 'flex';
+
+                // Add user message
+                addMessage(dreamText, true);
+
+                // Simulate AI thinking
+                setTimeout(() => {
+                    // Generate interpretation based on content
+                    let interpretation = "Analyzing your dream...";
+                    let foundSymbols = [];
+
+                    // Check for symbols in the dream text
+                    for (let symbol in dreamSymbols) {
+                        if (dreamText.toLowerCase().includes(symbol)) {
+                            foundSymbols.push({
+                                name: symbol,
+                                meaning: dreamSymbols[symbol]
+                            });
+                        }
+                    }
+
+                    if (foundSymbols.length > 0) {
+                        interpretation = `I've identified some important symbols in your dream:`;
+
+                        const interpretationDiv = document.createElement('div');
+                        interpretationDiv.className = 'interpretation';
+
+                        const titleDiv = document.createElement('div');
+                        titleDiv.className = 'interpretation-title';
+                        titleDiv.textContent = 'Interpretation of your dream';
+
+                        const textDiv = document.createElement('div');
+                        textDiv.className = 'interpretation-text';
+                        textDiv.textContent = 'Your dream seems to reflect an internal process of transformation. The symbols suggest that you are processing important emotions and experiences in your conscious life through the symbolic language of dreams.';
+
+                        const symbolsSection = document.createElement('div');
+                        symbolsSection.className = 'symbols-section';
+
+                        foundSymbols.forEach(symbol => {
+                            const symbolItem = document.createElement('div');
+                            symbolItem.className = 'symbol-item';
+
+                            const symbolName = document.createElement('div');
+                            symbolName.className = 'symbol-name';
+                            symbolName.textContent = symbol.name.charAt(0).toUpperCase() + symbol.name.slice(1) + ':';
+
+                            const symbolMeaning = document.createElement('div');
+                            symbolMeaning.className = 'symbol-meaning';
+                            symbolMeaning.textContent = symbol.meaning;
+
+                            symbolItem.appendChild(symbolName);
+                            symbolItem.appendChild(symbolMeaning);
+                            symbolsSection.appendChild(symbolItem);
+                        });
+
+                        interpretationDiv.appendChild(titleDiv);
+                        interpretationDiv.appendChild(textDiv);
+                        interpretationDiv.appendChild(symbolsSection);
+
+                        // Add AI message and interpretation
+                        addMessage("I've analyzed your dream. Here's my interpretation:");
+                        chatArea.appendChild(interpretationDiv);
+                    } else {
+                        // Generic response if no symbols found
+                        addMessage("Your dream seems to reflect your current thoughts and emotions. For a more detailed analysis, try including more specific details like objects, people, or actions you remember.");
+
+                        setTimeout(() => {
+                            addMessage("Can you share more details about your dream? For example, was there any specific object, person, or place you remember? What emotions did you experience during the dream?");
+                        }, 1500);
+                    }
+
+                    // Scroll to see the latest messages
+                    setTimeout(() => {
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                    }, 100);
+                }, 1500);
+            }
+
+            // Function to handle category selection
+            function selectCategory(category) {
+                // Show chat area, hide welcome section
+                welcomeSection.style.display = 'none';
+                chatArea.style.display = 'flex';
+
+                // Display category information
+                const categoryInfo = categories[category];
+
+                if (categoryInfo) {
+                    addMessage(`You've selected: ${categoryInfo.title}`);
+
+                    setTimeout(() => {
+                        const infoDiv = document.createElement('div');
+                        infoDiv.className = 'interpretation';
+
+                        const titleDiv = document.createElement('div');
+                        titleDiv.className = 'interpretation-title';
+                        titleDiv.textContent = categoryInfo.title;
+
+                        const textDiv = document.createElement('div');
+                        textDiv.className = 'interpretation-text';
+                        textDiv.textContent = categoryInfo.content;
+
+                        infoDiv.appendChild(titleDiv);
+                        infoDiv.appendChild(textDiv);
+
+                        chatArea.appendChild(infoDiv);
+
+                        // Add follow-up message
+                        setTimeout(() => {
+                            if (category === 'lucid') {
+                                addMessage("Have you ever experienced a lucid dream? I'd love to hear about your experience.");
+                            } else if (category === 'symbols') {
+                                addMessage("Is there any recurring symbol in your dreams that you'd like to know more about?");
+                            } else if (category === 'analytics') {
+                                addMessage("Tell me more about your recent dreams to enrich your personal analysis.");
+                            }
+
+                            // Scroll to see the latest messages
+                            chatArea.scrollTop = chatArea.scrollHeight;
+                        }, 2000);
+                    }, 1000);
+                }
+            }
+
+        $(document).ready(function () {
+            document.getElementById('dream-form').addEventListener('submit', function() {
+                document.getElementById('loader-container').classList.add('active');
+                document.getElementById("dream-input").classList.add("no-interaction");
+                document.getElementById("send-button").classList.add("no-interaction");
+            });
+
+
+            dreamInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const dreamText = dreamInput.value.trim();
+                    if (dreamText) {
+                        analyzeDream(dreamText);
+                        dreamInput.value = '';
+                    }
+                }
+            });
+
+            // Set focus to input when page loads
+            window.onload = function() {
+                dreamInput.focus();
+            };
+        });
+    </script>
+}

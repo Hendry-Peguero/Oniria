@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Oniria.Core.Application.Features.Base;
 using Oniria.Core.Application.Features.Employee.Queries;
 using Oniria.Core.Application.Features.Organization.Queries;
 using Oniria.Core.Application.Features.Patient.Queries;
@@ -11,7 +12,7 @@ namespace Oniria.Services
     public class UserContextService : IUserContextService
     {
         // Utils
-        private readonly IMediator mediator;
+        private readonly IMediatorWrapper mediator;
 
         // Context
         public UserResponse? LoggedUser;
@@ -20,7 +21,7 @@ namespace Oniria.Services
         public OrganizationEntity? EmployeeOrganizationInfo;
 
 
-        public UserContextService(IMediator mediator)
+        public UserContextService(IMediatorWrapper mediator)
         {
             this.mediator = mediator;
         }
@@ -78,7 +79,9 @@ namespace Oniria.Services
                 return UserEmployeeInfo;
             }
 
-            var userEmployeeInfo = (await mediator.Send(new GetAllEmployeeAsyncQuery()))
+            var userEmployeeInfo = (await mediator.Send(new GetAllEmployeeAsyncQuery(), 
+                    emp => emp.OrganizationWhereWork!
+                ))
                 .Data!
                 .FirstOrDefault(x => x.UserId == userLogged.Id);
 
@@ -106,11 +109,7 @@ namespace Oniria.Services
                 return null;
             }
 
-            var employeeOrganizationInfo = (await mediator.Send(new GetAllOrganizationAsyncQuery()))
-                .Data!
-                .FirstOrDefault(x => x.EmployeeOwnerId == userEmployeeInfo.Id);
-
-            return EmployeeOrganizationInfo = employeeOrganizationInfo;
+            return EmployeeOrganizationInfo = userEmployeeInfo.OrganizationWhereWork;
         }
 
 

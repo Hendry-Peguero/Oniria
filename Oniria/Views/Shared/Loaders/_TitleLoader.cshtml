@@ -1,0 +1,68 @@
+﻿<style>
+   .spinner-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+
+    .letter-container {
+        display: flex;
+        gap: 15px;
+    }
+
+    .letter {
+        font-size: 2.5rem;
+        font-weight: 300; 
+        color: #6a6a6a;
+        transition: color 0.25s ease, transform 0.25s ease;
+        width: 36px;
+        text-align: center;
+    }
+
+    .active {
+        color: #000000;
+        transform: translateY(-10px);
+    }
+
+    .loading-text {
+        font-size: 1rem;
+        color: #000000;
+        margin-top: 20px;
+        letter-spacing: 2px;
+        font-weight: 300; 
+    }
+</style>
+
+<div class="spinner-container">
+    <div class="letter-container">
+        <div class="letter" id="letter-o">O</div>
+        <div class="letter" id="letter-n">N</div>
+        <div class="letter" id="letter-i">I</div>
+        <div class="letter" id="letter-r">R</div>
+        <div class="letter" id="letter-i2">I</div>
+        <div class="letter" id="letter-a">A</div>
+    </div>
+    <div class="loading-text">LOADING</div>
+</div>
+
+<script>
+    const letters = ['letter-o', 'letter-n', 'letter-i', 'letter-r', 'letter-i2', 'letter-a'];
+    let currentIndex = 0;
+
+    function animateLetters() {
+
+      letters.forEach(letterId => {
+        document.getElementById(letterId).classList.remove('active');
+      });
+
+
+      document.getElementById(letters[currentIndex]).classList.add('active');
+
+      currentIndex = (currentIndex + 1) % letters.length;
+    }
+
+    animateLetters();
+
+    setInterval(animateLetters, 450);
+</script>

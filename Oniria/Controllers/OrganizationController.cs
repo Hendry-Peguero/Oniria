@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
 using Oniria.Core.Application.Features.Organization.Commands;
 using Oniria.Core.Application.Features.Organization.Queries;
 using Oniria.Core.Domain.Entities;
+using Oniria.Core.Domain.Enums;
 using Oniria.Core.Dtos.Organization.Request;
 using Oniria.Extensions;
 using Oniria.Helpers;
@@ -10,6 +12,7 @@ using Oniria.ViewModels.Organization;
 
 namespace Oniria.Controllers
 {
+    [Authorize(Roles = nameof(ActorsRoles.DOCTOR))]
     public class OrganizationController : BaseController
     {
         public async Task<IActionResult> EmployeeRecords()

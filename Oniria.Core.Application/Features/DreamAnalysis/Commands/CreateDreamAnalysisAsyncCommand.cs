@@ -9,12 +9,12 @@ using Oniria.Core.Dtos.DreamAnalsys.Request;
 
 namespace Oniria.Core.Application.Features.DreamAnalysis.Commands
 {
-    public class CreateDreamAnalisysAsyncCommand : IRequest<OperationResult<DreamAnalysisEntity>>
+    public class CreateDreamAnalysisAsyncCommand : IRequest<OperationResult<DreamAnalysisEntity>>
     {
         public CreateDreamAnalysisRequest Request { get; set; }
     }
 
-    public class CreateDreamAnalysisAsyncCommandHandler : IRequestHandler<CreateDreamAnalisysAsyncCommand, OperationResult<DreamAnalysisEntity>>
+    public class CreateDreamAnalysisAsyncCommandHandler : IRequestHandler<CreateDreamAnalysisAsyncCommand, OperationResult<DreamAnalysisEntity>>
     {
         private readonly IDreamAnalysisRepository dreamAnalysisRepository;
         private readonly IMediator mediator;
@@ -33,7 +33,7 @@ namespace Oniria.Core.Application.Features.DreamAnalysis.Commands
         }
 
 
-        public async Task<OperationResult<DreamAnalysisEntity>> Handle(CreateDreamAnalisysAsyncCommand command, CancellationToken cancellationToken)
+        public async Task<OperationResult<DreamAnalysisEntity>> Handle(CreateDreamAnalysisAsyncCommand command, CancellationToken cancellationToken)
         {
             var result = OperationResult<DreamAnalysisEntity>.Create();
             var request = command.Request;
