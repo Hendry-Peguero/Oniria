@@ -17,16 +17,17 @@ namespace Oniria.Mappings
         public GeneralProfile()
         {
             Auth();
-            Employee();
             Organization();
             Dream();
             Patient();
+            Employee();
         }
 
         private void Employee()
         {
             CreateMap<EmployeeEntity, EmployeeProfileViewModel>();
             CreateMap<EmployeeProfileViewModel, UpdateEmployeeRequest>();
+            CreateMap<CreateEmployeeByOrganizationViewModel, CreateEmployeeByOrganizationRequest>();
         }
 
         private void Organization()

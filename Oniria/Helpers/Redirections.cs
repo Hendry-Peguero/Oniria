@@ -8,7 +8,7 @@ namespace Oniria.Helpers
         // Home
         public static RedirectToRouteResult HomeRedirection = new RedirectToRouteResult(new { controller = "Home", action = "HomeRedirection" });
         public static RedirectToRouteResult Home = new RedirectToRouteResult(new { controller = "Home", action = "Index" });
-        public static RedirectToRouteResult UserDoctorHome = new RedirectToRouteResult(new { controller = "Organization", action = "Dashboard" });
+        public static RedirectToRouteResult UserDoctorHome = new RedirectToRouteResult(new { controller = "Home", action = "Index" });
         public static RedirectToRouteResult UserAssistanceHome = new RedirectToRouteResult(new { controller = "Employee", action = "Profile" });
         public static RedirectToRouteResult UserPatientHome = new RedirectToRouteResult(new { controller = "Patient", action = "RegisterDream" });
 

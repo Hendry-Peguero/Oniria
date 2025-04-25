@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Oniria.Controllers.Commons;
 using Oniria.Core.Application.Features.Organization.Commands;
 using Oniria.Core.Application.Features.Organization.Queries;
+using Oniria.Core.Application.Features.Patient.Queries;
 using Oniria.Core.Domain.Entities;
 using Oniria.Core.Domain.Enums;
 using Oniria.Core.Dtos.Organization.Request;
@@ -35,6 +36,30 @@ namespace Oniria.Controllers
             }
 
             model = resultEmployees.Data!;
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> PatientRecords()
+        {
+            var organizationResult = await UserContext.GetEmployeeOrganizationInfo();
+            var model = new List<PatientEntity>();
+
+            if (organizationResult is null)
+            {
+                ToastNotification.AddErrorToastMessage("A problem occurred obtaining organizational information");
+                return View(model);
+            }
+
+            var resultPatients = await Mediator.Send(new GetAllPatientAsyncQuery());
+
+            if (!resultPatients.IsSuccess)
+            {
+                ToastNotification.AddErrorToastMessage("Employees could not be obtained");
+                return View(model);
+            }
+
+            model = resultPatients.Data!.Where(p => p.OrganizationId == organizationResult.Id).ToList();
 
             return View(model);
         }

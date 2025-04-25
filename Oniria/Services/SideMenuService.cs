@@ -167,7 +167,7 @@ namespace Oniria.Services
                     Text = "Create Employee",
                     BootstrapIcon = "bi-person-fill-gear",
                     Controller = "Employee",
-                    Action = "CreateByOrganization"
+                    Action = "CreateEmployeeByOrganization"
                 },
                 new Section {
                     Text = "Organization"
