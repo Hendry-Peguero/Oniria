@@ -44,6 +44,11 @@ namespace Oniria.Core.Application.Mappings
                 .ForMember(rp => rp.UserId, opt => opt.Ignore())
                 .ForMember(rp => rp.OrganizationId, opt => opt.MapFrom(cp => OrganizationIdsConstants.OrphanedOrganization));
 
+            CreateMap<CreatePatientByOrganizationRequest, CreateUserRequest>();
+
+            CreateMap<CreatePatientByOrganizationRequest, CreatePatientRequest>()
+                .ForMember(dest => dest.UserId, opt => opt.Ignore());
+
         }
 
         private void Organization()

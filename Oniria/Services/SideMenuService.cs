@@ -146,7 +146,7 @@ namespace Oniria.Services
                     Text = "Create Patient",
                     BootstrapIcon = "bi-person-plus-fill",
                     Controller = "Patient",
-                    Action = "CreateByOrganization"
+                    Action = "CreatePatientByOrganization"
                 },
                 new Option {
                     Text = "Patient Records",
