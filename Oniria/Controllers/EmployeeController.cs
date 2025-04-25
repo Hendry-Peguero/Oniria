@@ -10,9 +10,9 @@ using Oniria.ViewModels.Employee;
 
 namespace Oniria.Controllers
 {
-    [Authorize(Roles = $"{nameof(ActorsRoles.DOCTOR)},{nameof(ActorsRoles.ASSISTANT)}")]
     public class EmployeeController : BaseController
     {
+        [Authorize(Roles = $"{nameof(ActorsRoles.DOCTOR)},{nameof(ActorsRoles.ASSISTANT)}")]
         public async Task<IActionResult> Profile()
         {
             var employeeResult = await UserContext.GetUserEmployeeInfo();
@@ -27,6 +27,7 @@ namespace Oniria.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{nameof(ActorsRoles.DOCTOR)},{nameof(ActorsRoles.ASSISTANT)}")]
         public async Task<IActionResult> Profile(EmployeeProfileViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -43,6 +44,46 @@ namespace Oniria.Controllers
             }
 
             return Redirections.EmployeeProfile;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = nameof(ActorsRoles.DOCTOR))]
+        public IActionResult CreateEmployeeByOrganization() => View(new CreateEmployeeByOrganizationViewModel());
+
+        [HttpPost]
+        [Authorize(Roles = nameof(ActorsRoles.DOCTOR))]
+        public async Task<IActionResult> CreateEmployeeByOrganization(CreateEmployeeByOrganizationViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            // Obtener organización
+            var organization = await UserContext.GetEmployeeOrganizationInfo();
+
+            if (organization is null)
+            {
+                ToastNotification.AddErrorToastMessage("A problem occurred obtaining important information, contact the administrator");
+                return View(model);
+            }
+
+            // Mapear el ViewModel a Request y asignar organización
+            var request = Mapper.Map<CreateEmployeeByOrganizationRequest>(model);
+            request.OrganizationId = organization.Id;
+
+            // Ejecutar el comando principal
+            var result = await Mediator.Send(new CreateEmployeeByOrganizationAsyncCommand
+            {
+                Request = request
+            });
+
+            if (!result.IsSuccess)
+            {
+                ModelState.AddGeneralError(result);
+                return View(model);
+            }
+
+            ToastNotification.AddSuccessToastMessage("The employee was created");
+
+            return Redirections.HomeRedirection;
         }
     }
 }

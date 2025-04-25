@@ -95,6 +95,18 @@ namespace Oniria.Core.Application.Mappings
             CreateMap<EmployeeEntity, UpdateEmployeeRequest>()
                 .ReverseMap()
                 .IgnoreTimeStampsAuditMembers();
+
+            CreateMap<CreateEmployeeByOrganizationRequest, CreateUserRequest>();
+
+            CreateMap<CreateEmployeeByOrganizationRequest, CreateEmployeeRequest>()
+                .ForMember(dest => dest.Dni, opt => opt.MapFrom(src => src.Dni))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.BornDate, opt => opt.MapFrom(src => src.BornDate))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
+                .ForMember(dest => dest.OrganizationId, opt => opt.MapFrom(src => src.OrganizationId))
+                .ForMember(dest => dest.UserId, opt => opt.Ignore());
         }
 
         private void DreamAnalysis()

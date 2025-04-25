@@ -1,5 +1,4 @@
-﻿@model List<Oniria.Core.Domain.Entities.EmployeeEntity>
-
+﻿@model List<Oniria.Core.Domain.Entities.PatientEntity>
 <style>
     /* Variables */
     :root {
@@ -206,7 +205,7 @@
         .main-content {
             padding: 1rem;
         }
-        
+
         .dataTables_filter input {
             width: 150px;
         }
@@ -275,20 +274,18 @@
         clear: both;
     }
 </style>
-
 <div class="main-content">
     <div class="page-header">
-        <h1 class="page-title">Employees</h1>
-        <a class="btn-primary btn-add" asp-controller="Employee" asp-action="CreateEmployeeByOrganization">
+        <h1 class="page-title">Patients</h1>
+        <a class="btn-primary btn-add" asp-controller="Patient" asp-action="CreatePatientByOrganization">
             <span class="btn-icon">+</span>
-            <span class="btn-text">New Employee</span>
+            <span class="btn-text">New Patient</span>
         </a>
     </div>
     <div class="card">
-        <table id="employeesTable" class="minimal-table">
+        <table id="patientsTable" class="minimal-table">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Date of Birth</th>
@@ -297,15 +294,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var employee in Model)
+                @foreach (var patient in Model)
                 {
                     <tr>
-                        <td>@employee.Dni</td>
-                        <td>@employee.Name</td>
-                        <td>@employee.LastName</td>
-                        <td>@employee.BornDate.ToString("MM/dd/yyyy")</td>
-                        <td>@employee.PhoneNumber</td>
-                        <td>@employee.Address</td>
+                        <td>@patient.Name</td>
+                        <td>@patient.LastName</td>
+                        <td>@patient.BornDate.ToString("MM/dd/yyyy")</td>
+                        <td>@patient.PhoneNumber</td>
+                        <td>@patient.Address</td>
                     </tr>
                 }
             </tbody>
@@ -316,7 +312,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#employeesTable').DataTable({
+            $('#patientsTable').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
